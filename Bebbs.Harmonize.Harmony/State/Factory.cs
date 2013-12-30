@@ -33,6 +33,7 @@ namespace Bebbs.Harmonize.Harmony.State
                 case Name.Starting: return new Starting(_eventAggregator, _asyncHelper);
                 case Name.Stopped: return new Stopped(_eventAggregator, _asyncHelper);
                 case Name.Stopping: return new Stopping(_eventAggregator, _asyncHelper);
+                case Name.Faulted: return new Faulted(_eventAggregator, _asyncHelper);
                 default: throw new ArgumentException("Unknown state", "state");
             }
         }

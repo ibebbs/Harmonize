@@ -10,6 +10,7 @@ namespace Bebbs.Harmonize.Harmony.State
         Synchronizing,
         Started,
         Stopping,
-        Stopped
+        Stopped,
+        Faulted
     }
 }

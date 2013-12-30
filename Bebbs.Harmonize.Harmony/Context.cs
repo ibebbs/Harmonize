@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 namespace Bebbs.Harmonize.Harmony
 {
     public interface IContext 
@@ -24,16 +25,22 @@ namespace Bebbs.Harmonize.Harmony
         ISessionInfo SessionInfo { get; }
     }
 
+    public interface IFaultedContext : IContext
+    {
+        Exception Exception { get; }
+    }
+
     public static class ContextFactory
     {
-        private class PrivateContext : IContext, IAuthenticatedContext, ISessionContext, IActiveContext
+        private class PrivateContext : IContext, IAuthenticatedContext, ISessionContext, IActiveContext, IFaultedContext
         {
             private readonly string _email;
             private readonly string _password;
             private readonly string _accountId;
             private readonly string _authenticationToken;
             private readonly ISessionInfo _sessionInfo;
-            private ISession _session;
+            private readonly ISession _session;
+            private readonly Exception _exception;
 
             public PrivateContext(string email, string password)
             {
@@ -59,6 +66,11 @@ namespace Bebbs.Harmonize.Harmony
             public PrivateContext(ISessionContext context, ISessionInfo sessionInfo, ISession session) : this(context)
             {
                 _session = session;
+            }
+
+            public PrivateContext(IContext context, Exception exception) : this(context.EMail, context.Password)
+            {
+                _exception = exception;
             }
 
             string IContext.EMail
@@ -95,6 +107,11 @@ namespace Bebbs.Harmonize.Harmony
             {
                 get { return _sessionInfo; }
             }
+
+            Exception IFaultedContext.Exception
+            {
+                get { return _exception; }
+            }
         }
 
         public static IContext Create(string email, string password)
@@ -115,6 +132,11 @@ namespace Bebbs.Harmonize.Harmony
         public static IActiveContext Activate(this ISessionContext context, ISessionInfo sessionInfo, ISession session)
         {
             return new PrivateContext(context, sessionInfo, session);
+        }
+
+        public static IFaultedContext Faulted(this IContext context, Exception exception)
+        {
+            return new PrivateContext(context, exception);
         }
     }
 }

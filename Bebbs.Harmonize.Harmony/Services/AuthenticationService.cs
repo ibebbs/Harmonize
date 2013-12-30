@@ -28,7 +28,15 @@ namespace Bebbs.Harmonize.Harmony.Services
 
         private class AuthenticationResponse
         {
+            public string Id { get; set; }
+
             public AuthenticationResult GetUserAuthTokenResult { get; set; }
+
+            public int ErrorCode { get; set; }
+
+            public string Message { get; set; }
+
+            public string Source { get; set; }
         }
 
         private readonly IGlobalEventAggregator _eventAggregator;
@@ -62,9 +70,16 @@ namespace Bebbs.Harmonize.Harmony.Services
 
             string result = await response.Content.ReadAsStringAsync();
 
-            AuthenticationResponse authenicationResponse = JsonSerializer.DeserializeFromString<AuthenticationResponse>(result);
+            AuthenticationResponse authenticationResponse = JsonSerializer.DeserializeFromString<AuthenticationResponse>(result);
 
-            _eventAggregator.Publish(new AuthenticationResponseMessage(authenicationResponse.GetUserAuthTokenResult.AccountId, authenicationResponse.GetUserAuthTokenResult.UserAuthToken));
+            if (authenticationResponse.GetUserAuthTokenResult != null)
+            {
+                _eventAggregator.Publish(new AuthenticationResponseMessage(authenticationResponse.GetUserAuthTokenResult.AccountId, authenticationResponse.GetUserAuthTokenResult.UserAuthToken));
+            }
+            else
+            {
+                _eventAggregator.Publish(new AuthenticationResponseMessage(authenticationResponse.ErrorCode, authenticationResponse.Message, authenticationResponse.Source));
+            }
         }
 
         public void Initialize()

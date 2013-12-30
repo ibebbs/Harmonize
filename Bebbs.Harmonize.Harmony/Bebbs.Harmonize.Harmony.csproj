@@ -104,6 +104,7 @@
     <Compile Include="Services\XmppService.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SessionInfo.cs" />
+    <Compile Include="State\Faulted.cs" />
     <Compile Include="State\IState.cs" />
     <Compile Include="State\Machine.cs" />
     <Compile Include="State\Authenticating.cs" />

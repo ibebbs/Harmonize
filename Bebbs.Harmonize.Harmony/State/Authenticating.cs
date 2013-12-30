@@ -2,6 +2,7 @@
 using Bebbs.Harmonize.Harmony.Messages;
 using System;
 using System.Reactive.Linq;
+using System.Security.Authentication;
 
 namespace Bebbs.Harmonize.Harmony.State
 {
@@ -20,9 +21,18 @@ namespace Bebbs.Harmonize.Harmony.State
 
         private void ProcessResponse(IContext context, IAuthenticationResponseMessage message)
         {
-            IAuthenticatedContext authenticatedContext = context.WithAuthentication(message.AccountId, message.AuthenticationToken);
+            if (message.Success)
+            {
+                IAuthenticatedContext authenticatedContext = context.WithAuthentication(message.AccountId, message.AuthenticationToken);
 
-            _eventAggregator.Publish(new TransitionToStateMessage<IAuthenticatedContext>(Name.RetrievingSessionInfo, authenticatedContext));
+                _eventAggregator.Publish(new TransitionToStateMessage<IAuthenticatedContext>(Name.RetrievingSessionInfo, authenticatedContext));
+            }
+            else
+            {
+                IFaultedContext faultedContext = context.Faulted(new AuthenticationException(message.Message));
+
+                _eventAggregator.Publish(new TransitionToStateMessage<IFaultedContext>(Name.Faulted, faultedContext));
+            }
         }
 
         private void ProcessException(IContext context, Exception exception)
