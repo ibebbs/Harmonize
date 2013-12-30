@@ -108,7 +108,7 @@ namespace Bebbs.Harmonize.Harmony.Services
             _eventAggregator.Publish(response);
         }
 
-        private void PublishHarmonyConfiguration(IHarmonyConfiguration harmonyConfiguration)
+        private void PublishHarmonyConfiguration(Hub.Configuration.IValues harmonyConfiguration)
         {
             HarmonyConfigurationResponseMessage response = new HarmonyConfigurationResponseMessage(harmonyConfiguration);
 

@@ -6,7 +6,7 @@ using System.Reactive.Disposables;
 
 namespace Bebbs.Harmonize.Harmony.State
 {
-    public class Started : StoppableState, IState<IActiveContext>
+    public class Started : StoppableState, IState<IStartedContext>
     {
         private readonly IGlobalEventAggregator _eventAggregator;
         private readonly IAsyncHelper _asyncHelper;
@@ -33,7 +33,7 @@ namespace Bebbs.Harmonize.Harmony.State
             _eventAggregator.Publish(harmonyCommand);
         }
 
-        public void OnEnter(IActiveContext context)
+        public void OnEnter(IStartedContext context)
         {
             EventSource.Log.EnteringState(Name.Started);
 
@@ -43,12 +43,12 @@ namespace Bebbs.Harmonize.Harmony.State
                 _eventAggregator.GetEvent<ICommand>().Subscribe(command => ProcessCommand(context, command))
             );
 
-            _eventAggregator.Publish(new StartedMessage());
+            _eventAggregator.Publish(new StartedMessage(context.HarmonyConfiguration));
 
             EventSource.Log.EnteredState(Name.Started);
         }
 
-        public void OnExit(IActiveContext context)
+        public void OnExit(IStartedContext context)
         {
             EventSource.Log.ExitingState(Name.Started);
 

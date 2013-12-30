@@ -1,4 +1,5 @@
 ﻿using Bebbs.Harmonize.Harmony.Command;
+using Newtonsoft.Json;
 
 namespace Bebbs.Harmonize.Console
 {
@@ -10,7 +11,9 @@ namespace Bebbs.Harmonize.Console
         {
             _harmonizer = new Harmonize.Harmonizer();
 
-            await _harmonizer.Start(new Settings.Provider());
+            var result = await _harmonizer.Start(new Settings.Provider());
+
+            System.Console.WriteLine(JsonConvert.SerializeObject(result));
 
             _harmonizer.SendCommand(new PowerOnCommand("15666630"));
         }

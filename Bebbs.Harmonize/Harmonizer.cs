@@ -18,7 +18,7 @@ namespace Bebbs.Harmonize
         {
             _kernel = new StandardKernel();
             _kernel.Load(new HarmonizeModule());
-            _kernel.Load(new HarmonyModule());
+            _kernel.Load(new Module());
         }
 
         private void SetValues(Common.Settings.IProvider settingsProvider)
@@ -36,13 +36,13 @@ namespace Bebbs.Harmonize
             }
         }
 
-        private Task StartHarmonizing()
+        private Task<Harmony.Hub.Configuration.IValues> StartHarmonizing()
         {
             IGlobalEventAggregator eventAggregator = _kernel.Get<IGlobalEventAggregator>();
 
-            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
+            TaskCompletionSource<Harmony.Hub.Configuration.IValues> tcs = new TaskCompletionSource<Harmony.Hub.Configuration.IValues>();
 
-            eventAggregator.GetEvent<IStartedMessage>().Take(1).Subscribe(message => tcs.SetResult(null));
+            eventAggregator.GetEvent<IStartedMessage>().Take(1).Subscribe(message => tcs.SetResult(message.HarmonyConfiguration));
             eventAggregator.GetEvent<IErrorMessage>().Take(1).Subscribe(message => tcs.SetException(message.Exception));
 
             eventAggregator.Publish(new StartHarmonizingMessage());
@@ -73,7 +73,7 @@ namespace Bebbs.Harmonize
             }
         }
 
-        public Task Start(Common.Settings.IProvider settingsProvider)
+        public Task<Harmony.Hub.Configuration.IValues> Start(Common.Settings.IProvider settingsProvider)
         {
             SetValues(settingsProvider);
 

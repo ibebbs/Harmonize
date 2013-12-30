@@ -13,7 +13,7 @@ namespace Bebbs.Harmonize.Harmony.Services
 
         IQ ConstructConfigurationRequest();
 
-        IHarmonyConfiguration ExtractHarmonyConfiguration(IQ iQ);
+        Hub.Configuration.IValues ExtractHarmonyConfiguration(IQ iQ);
 
         IQ ConstructCommand(string deviceId, string command);
     }
@@ -34,6 +34,13 @@ namespace Bebbs.Harmonize.Harmony.Services
         private const string SessionName = "1vm7ATw/tN6HXGpQcCs/A5MkuvI";
         private const string SessionOs = "iOS6.0.1";
         private const string SessionDevice = "iPhone";
+
+        private readonly Hub.Configuration.IParser _configurationParser;
+
+        public XmppService(Hub.Configuration.IParser configurationParser)
+        {
+            _configurationParser = configurationParser;
+        }
 
         public IQ ConstructSessionInfoRequest(string authenticationToken)
         {
@@ -74,7 +81,7 @@ namespace Bebbs.Harmonize.Harmony.Services
             return message;
         }
 
-        public IHarmonyConfiguration ExtractHarmonyConfiguration(IQ iQ)
+        public Hub.Configuration.IValues ExtractHarmonyConfiguration(IQ iQ)
         {
             if (!string.IsNullOrWhiteSpace(iQ.InnerXml))
             {
@@ -86,7 +93,7 @@ namespace Bebbs.Harmonize.Harmony.Services
                     element.Attributes(XmppMimeAttribute).Where(attribute => string.Equals(attribute.Value, ConfigurationRequestPath)).Any()
                 ).Select(element => element.Value).FirstOrDefault();
 
-                return new HarmonyConfiguration();
+                return _configurationParser.FromJson(result);
             }
             else
             {

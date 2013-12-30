@@ -25,6 +25,11 @@ namespace Bebbs.Harmonize.Harmony
         ISessionInfo SessionInfo { get; }
     }
 
+    public interface IStartedContext : IActiveContext
+    {
+        Hub.Configuration.IValues HarmonyConfiguration { get; }
+    }
+
     public interface IFaultedContext : IContext
     {
         Exception Exception { get; }
@@ -32,7 +37,7 @@ namespace Bebbs.Harmonize.Harmony
 
     public static class ContextFactory
     {
-        private class PrivateContext : IContext, IAuthenticatedContext, ISessionContext, IActiveContext, IFaultedContext
+        private class PrivateContext : IContext, IAuthenticatedContext, ISessionContext, IActiveContext, IStartedContext, IFaultedContext
         {
             private readonly string _email;
             private readonly string _password;
@@ -41,6 +46,7 @@ namespace Bebbs.Harmonize.Harmony
             private readonly ISessionInfo _sessionInfo;
             private readonly ISession _session;
             private readonly Exception _exception;
+            private readonly Hub.Configuration.IValues _harmonyConfiguration;
 
             public PrivateContext(string email, string password)
             {
@@ -66,6 +72,11 @@ namespace Bebbs.Harmonize.Harmony
             public PrivateContext(ISessionContext context, ISessionInfo sessionInfo, ISession session) : this(context)
             {
                 _session = session;
+            }
+
+            public PrivateContext(IActiveContext context, ISessionInfo sessionInfo, ISession session, Hub.Configuration.IValues harmonyConfiguration) : this((ISessionContext)context, context.SessionInfo, context.Session)
+            {
+                _harmonyConfiguration = harmonyConfiguration;
             }
 
             public PrivateContext(IContext context, Exception exception) : this(context.EMail, context.Password)
@@ -108,6 +119,11 @@ namespace Bebbs.Harmonize.Harmony
                 get { return _sessionInfo; }
             }
 
+            Hub.Configuration.IValues IStartedContext.HarmonyConfiguration
+            {
+                get { return _harmonyConfiguration; }
+            }
+
             Exception IFaultedContext.Exception
             {
                 get { return _exception; }
@@ -132,6 +148,11 @@ namespace Bebbs.Harmonize.Harmony
         public static IActiveContext Activate(this ISessionContext context, ISessionInfo sessionInfo, ISession session)
         {
             return new PrivateContext(context, sessionInfo, session);
+        }
+
+        public static IStartedContext Start(this IActiveContext context, Hub.Configuration.IValues harmoneyConfiguration)
+        {
+            return new PrivateContext(context, context.SessionInfo, context.Session, harmoneyConfiguration);
         }
 
         public static IFaultedContext Faulted(this IContext context, Exception exception)

@@ -3,16 +3,16 @@ namespace Bebbs.Harmonize.Harmony.Messages
 {
     public interface IHarmonyConfigurationResponseMessage
     {
-        IHarmonyConfiguration HarmonyConfiguration { get; }
+        Hub.Configuration.IValues HarmonyConfiguration { get; }
     }
 
     internal class HarmonyConfigurationResponseMessage : IHarmonyConfigurationResponseMessage
     {
-        public HarmonyConfigurationResponseMessage(IHarmonyConfiguration harmonyConfiguration)
+        public HarmonyConfigurationResponseMessage(Hub.Configuration.IValues harmonyConfiguration)
         {
             HarmonyConfiguration = harmonyConfiguration;
         }
 
-        public IHarmonyConfiguration HarmonyConfiguration { get; private set; }
+        public Hub.Configuration.IValues HarmonyConfiguration { get; private set; }
     }
 }

@@ -76,11 +76,14 @@
     <Compile Include="Command\Command.cs" />
     <Compile Include="Command\PowerOffCommand.cs" />
     <Compile Include="Command\PowerOnCommand.cs" />
+    <Compile Include="Hub\Activity.cs" />
+    <Compile Include="Hub\Configuration\Parser.cs" />
+    <Compile Include="Hub\Device.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="EventSource.cs" />
     <Compile Include="Command\Factory.cs" />
-    <Compile Include="HarmonyConfiguration.cs" />
-    <Compile Include="HarmonyModule.cs" />
+    <Compile Include="Hub\Configuration\Values.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\AuthenticationResponseMessage.cs" />
     <Compile Include="Messages\ErrorMessage.cs" />

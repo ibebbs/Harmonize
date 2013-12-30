@@ -5,12 +5,15 @@ using Ninject.Modules;
 
 namespace Bebbs.Harmonize.Harmony
 {
-    public class HarmonyModule : NinjectModule
+    public class Module : NinjectModule
     {
         public override void Load()
         {
             Bind<State.IFactory>().To<State.Factory>().InSingletonScope();
             Bind<Command.IFactory>().To<Command.Factory>().InSingletonScope();
+
+            Bind<Hub.Configuration.Parser>().ToSelf();
+            Bind<Hub.Configuration.IParser>().ToMethod(ctx => EventSourceProxy.TracingProxy.Create<Hub.Configuration.IParser>(ctx.Kernel.Get<Hub.Configuration.Parser>())).InSingletonScope();
 
             Bind<XmppService>().ToSelf();
             Bind<IXmppService>().ToMethod(ctx => EventSourceProxy.TracingProxy.Create<IXmppService>(ctx.Kernel.Get<XmppService>())).InSingletonScope();
