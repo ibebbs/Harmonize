@@ -1,4 +1,4 @@
-﻿using Bebbs.Harmonize.Common;
+﻿using Bebbs.Harmonize.With;
 using Bebbs.Harmonize.Harmony.Messages;
 using ServiceStack;
 using ServiceStack.Text;
@@ -40,11 +40,11 @@ namespace Bebbs.Harmonize.Harmony.Services
         }
 
         private readonly IGlobalEventAggregator _eventAggregator;
-        private readonly Common.Settings.IProvider _settingsProvider;
+        private readonly With.Settings.IProvider _settingsProvider;
 
         private IDisposable _subscription;
 
-        public AuthenticationService(IGlobalEventAggregator eventAggregator, Common.Settings.IProvider settingsProvider)
+        public AuthenticationService(IGlobalEventAggregator eventAggregator, With.Settings.IProvider settingsProvider)
         {
             _eventAggregator = eventAggregator;
             _settingsProvider = settingsProvider;
@@ -52,7 +52,7 @@ namespace Bebbs.Harmonize.Harmony.Services
 
         private async void ProcessRequest(IRequestAuthenticationMessage request)
         {
-            Common.Settings.IValues values = _settingsProvider.GetValues();
+            With.Settings.IValues values = _settingsProvider.GetValues();
             
             AuthenticationRequest authenticationRequest = new AuthenticationRequest
             {

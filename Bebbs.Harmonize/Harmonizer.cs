@@ -1,5 +1,4 @@
-﻿using Bebbs.Harmonize.Common;
-using Bebbs.Harmonize.Harmony;
+﻿using Bebbs.Harmonize.Harmony;
 using Bebbs.Harmonize.Harmony.Command;
 using Bebbs.Harmonize.Harmony.Messages;
 using Ninject;
@@ -17,20 +16,20 @@ namespace Bebbs.Harmonize
         public Harmonizer()
         {
             _kernel = new StandardKernel();
-            _kernel.Load(new HarmonizeModule());
             _kernel.Load(new Module());
+            _kernel.Load(new Harmony.Module());
         }
 
-        private void SetValues(Common.Settings.IProvider settingsProvider)
+        private void SetValues(With.Settings.IProvider settingsProvider)
         {
-            _kernel.Bind<Common.Settings.IProvider>().ToConstant(settingsProvider);
+            _kernel.Bind<With.Settings.IProvider>().ToConstant(settingsProvider);
         }
 
         private void Initialize()
         {
-            IEnumerable<IInitializeAtStartup> initializables = _kernel.GetAll<IInitializeAtStartup>();
+            IEnumerable<With.IInitializeAtStartup> initializables = _kernel.GetAll<With.IInitializeAtStartup>();
 
-            foreach (IInitializeAtStartup initializable in initializables)
+            foreach (With.IInitializeAtStartup initializable in initializables)
             {
                 initializable.Initialize();
             }
@@ -38,7 +37,7 @@ namespace Bebbs.Harmonize
 
         private Task<Harmony.Hub.Configuration.IValues> StartHarmonizing()
         {
-            IGlobalEventAggregator eventAggregator = _kernel.Get<IGlobalEventAggregator>();
+            With.IGlobalEventAggregator eventAggregator = _kernel.Get<With.IGlobalEventAggregator>();
 
             TaskCompletionSource<Harmony.Hub.Configuration.IValues> tcs = new TaskCompletionSource<Harmony.Hub.Configuration.IValues>();
 
@@ -52,7 +51,7 @@ namespace Bebbs.Harmonize
 
         private Task StopHarmonizing()
         {
-            IGlobalEventAggregator eventAggregator = _kernel.Get<IGlobalEventAggregator>();
+            With.IGlobalEventAggregator eventAggregator = _kernel.Get<With.IGlobalEventAggregator>();
 
             TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
             eventAggregator.GetEvent<IStoppedMessage>().Take(1).Subscribe(message => tcs.SetResult(null));
@@ -65,15 +64,15 @@ namespace Bebbs.Harmonize
 
         private void Cleanup()
         {
-            IEnumerable<ICleanupAtShutdown> cleanupables = _kernel.GetAll<ICleanupAtShutdown>();
+            IEnumerable<With.ICleanupAtShutdown> cleanupables = _kernel.GetAll<With.ICleanupAtShutdown>();
 
-            foreach (ICleanupAtShutdown cleanupable in cleanupables)
+            foreach (With.ICleanupAtShutdown cleanupable in cleanupables)
             {
                 cleanupable.Cleanup();
             }
         }
 
-        public Task<Harmony.Hub.Configuration.IValues> Start(Common.Settings.IProvider settingsProvider)
+        public Task<Harmony.Hub.Configuration.IValues> Start(With.Settings.IProvider settingsProvider)
         {
             SetValues(settingsProvider);
 
@@ -89,9 +88,9 @@ namespace Bebbs.Harmonize
             Cleanup();
         }
 
-        public void SendCommand(ICommand command)
+        public void SendCommand(With.Command.ICommand command)
         {
-            IGlobalEventAggregator eventAggregator = _kernel.Get<IGlobalEventAggregator>();
+            With.IGlobalEventAggregator eventAggregator = _kernel.Get<With.IGlobalEventAggregator>();
 
             eventAggregator.Publish(command);
         }

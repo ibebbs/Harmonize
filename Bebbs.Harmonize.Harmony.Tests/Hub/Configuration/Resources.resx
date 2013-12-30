@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SimpleConfiguration" xml:space="preserve">
+    <value>{"activity":[{"suggestedDisplay":"Default","label":"PowerOff","id":"-1","activityTypeDisplayName":"Default","controlGroup":[],"fixit":{"15666630":{"id":"15666630","Power":"Off"}},"sequences":[],"icon":"Default","type":"PowerOff"}],"device":[{"type":"Amplifier","deviceTypeDisplayName":"Amplifier","label":"Yamaha Amp","id":"15666630","Transport":1,"controlGroup":[{"name":"Power","function":[{"action":"{\"command\":\"PowerOff\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"PowerOff","label":"Power Off"},{"action":"{\"command\":\"PowerOn\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"PowerOn","label":"Power On"}]},{"name":"Volume","function":[{"action":"{\"command\":\"Mute\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"Mute","label":"Mute"},{"action":"{\"command\":\"VolumeDown\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"VolumeDown","label":"Volume Down"},{"action":"{\"command\":\"VolumeUp\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"VolumeUp","label":"Volume Up"}]},{"name":"NavigationBasic","function":[{"action":"{\"command\":\"DirectionLeft\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"DirectionLeft","label":"Direction Left"},{"action":"{\"command\":\"DirectionRight\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"DirectionRight","label":"Direction Right"}]},{"name":"SoundModes","function":[{"action":"{\"command\":\"Effect\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"SoundMode","label":"Sound Mode"}]},{"name":"Setup","function":[{"action":"{\"command\":\"Sleep\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"Sleep","label":"Sleep"}]},{"name":"Miscellaneous","function":[{"action":"{\"command\":\"DirectionDown\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"DirectionDown","label":"DirectionDown"},{"action":"{\"command\":\"DirectionUp\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"DirectionUp","label":"DirectionUp"},{"action":"{\"command\":\"Disco\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"Disco","label":"Disco"},{"action":"{\"command\":\"Dolby\\\/DtsSurround\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"Dolby\/DtsSurround","label":"Dolby\/DtsSurround"},{"action":"{\"command\":\"Hall\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"Hall","label":"Hall"},{"action":"{\"command\":\"InputCbl\\\/Sat\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"InputCbl\/Sat","label":"InputCbl\/Sat"},{"action":"{\"command\":\"InputCd\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"InputCd","label":"InputCd"},{"action":"{\"command\":\"InputDtv\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"InputDtv","label":"InputDtv"},{"action":"{\"command\":\"InputDvd\\\/Ld\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"InputDvd\/Ld","label":"InputDvd\/Ld"},{"action":"{\"command\":\"InputExternalDecoder\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"InputExternalDecoder","label":"InputExternalDecoder"},{"action":"{\"command\":\"InputPhono\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"InputPhono","label":"InputPhono"},{"action":"{\"command\":\"InputTape\\\/Md\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"InputTape\/Md","label":"InputTape\/Md"},{"action":"{\"command\":\"InputTuner\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"InputTuner","label":"InputTuner"},{"action":"{\"command\":\"InputV-Aux\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"InputV-Aux","label":"InputV-Aux"},{"action":"{\"command\":\"InputVcr\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"InputVcr","label":"InputVcr"},{"action":"{\"command\":\"MonoMovie\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"MonoMovie","label":"MonoMovie"},{"action":"{\"command\":\"MovieThtr1\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"MovieThtr1","label":"MovieThtr1"},{"action":"{\"command\":\"MovieThtr2\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"MovieThtr2","label":"MovieThtr2"},{"action":"{\"command\":\"PresetDown\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"PresetDown","label":"PresetDown"},{"action":"{\"command\":\"PresetUp\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"PresetUp","label":"PresetUp"},{"action":"{\"command\":\"Rock\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"Rock","label":"Rock"},{"action":"{\"command\":\"SetMenu\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"SetMenu","label":"SetMenu"},{"action":"{\"command\":\"Test\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"Test","label":"Test"},{"action":"{\"command\":\"Time\\\/Level\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"Time\/Level","label":"Time\/Level"},{"action":"{\"command\":\"TvSports\",\"type\":\"IRCommand\",\"deviceId\":\"15666630\"}","name":"TvSports","label":"TvSports"}]}],"ControlPort":7,"suggestedDisplay":"DEFAULT","model":"DSP-A5","deviceProfileUri":"svcs.myharmony.com\/res\/device\/15666630-fnxGGN9iWgKt2fVf48TZcTk+xiWAnRSazuj5igdPFRc=","manufacturer":"Yamaha","icon":"19","isManualPower":"false"}],"sequence":[],"content":{"contentUserHost":"https:\/\/content.dhg.myharmony.com\/1.0\/User;{userProfileUri}","contentDeviceHost":"https:\/\/content.dhg.myharmony.com\/1.0\/Device;{deviceProfileUri}","contentServiceHost":"https:\/\/content.dhg.myharmony.com\/1.0\/Service\/{providerId}","contentImageHost":"https:\/\/d1tk8oqnnsddt5.cloudfront.net\/1.0\/station\/{stationId}\/image;maxX=40;maxY=40","householdUserProfileUri":"svcs.myharmony.com\/res\/\/household\/4020168-8HA0PKDgasHKh80jJI+OFMrPRqrFp67KeRaNKVP7NmM=\/user\/default"},"global":{"timeStampHash":"b657f848-debf-4966-82d5-9141ab3c0273893ca4f8-1d68-4966-b0f5-9b7ad8c8b240\/ed23a22f-2e35-4a44-8c8c-dca1703dbe16a041da1d-67bb-431d-bea4-e8badf44e1e1a2bb9a5b-4133-4e01-9034-731ea26d12cc4129687LivingRoomen-USUK0-1135960939"}}</value>
+  </data>
+</root>

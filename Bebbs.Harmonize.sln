@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.Common", "Bebbs.Harmonize.Common\Bebbs.Harmonize.Common.csproj", "{15B07F9F-2EA2-4EA4-89D5-E3E82870EFBB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.Harmony", "Bebbs.Harmonize.Harmony\Bebbs.Harmonize.Harmony.csproj", "{A158AB7B-7AD5-4A75-93DE-A7511DFB5A7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize", "Bebbs.Harmonize\Bebbs.Harmonize.csproj", "{2F82D034-5EDB-432E-924C-B45DA875FAD2}"
@@ -20,16 +18,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{678CE3
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.Harmony.Tests", "Bebbs.Harmonize.Harmony.Tests\Bebbs.Harmonize.Harmony.Tests.csproj", "{4B40EEA4-39DE-4E4A-B107-A6A0B6336650}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Alljoyn", "Bebbs.Harmonize.With.Alljoyn\Bebbs.Harmonize.With.Alljoyn.csproj", "{2287EE36-A63D-4DD9-AE04-8DDA2FE324ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With", "Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj", "{91848444-1506-4F50-BF6C-D0528CD6C74E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{15B07F9F-2EA2-4EA4-89D5-E3E82870EFBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15B07F9F-2EA2-4EA4-89D5-E3E82870EFBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15B07F9F-2EA2-4EA4-89D5-E3E82870EFBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15B07F9F-2EA2-4EA4-89D5-E3E82870EFBB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A158AB7B-7AD5-4A75-93DE-A7511DFB5A7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A158AB7B-7AD5-4A75-93DE-A7511DFB5A7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A158AB7B-7AD5-4A75-93DE-A7511DFB5A7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,6 +44,14 @@ Global
 		{4B40EEA4-39DE-4E4A-B107-A6A0B6336650}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B40EEA4-39DE-4E4A-B107-A6A0B6336650}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B40EEA4-39DE-4E4A-B107-A6A0B6336650}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2287EE36-A63D-4DD9-AE04-8DDA2FE324ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2287EE36-A63D-4DD9-AE04-8DDA2FE324ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2287EE36-A63D-4DD9-AE04-8DDA2FE324ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2287EE36-A63D-4DD9-AE04-8DDA2FE324ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91848444-1506-4F50-BF6C-D0528CD6C74E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91848444-1506-4F50-BF6C-D0528CD6C74E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91848444-1506-4F50-BF6C-D0528CD6C74E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91848444-1506-4F50-BF6C-D0528CD6C74E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

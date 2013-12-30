@@ -15,7 +15,7 @@ namespace Bebbs.Harmonize.Console
 
             System.Console.WriteLine(JsonConvert.SerializeObject(result));
 
-            _harmonizer.SendCommand(new PowerOnCommand("15666630"));
+            _harmonizer.SendCommand(new With.Command.PowerOn("15666630"));
         }
 
         public async void Stop()

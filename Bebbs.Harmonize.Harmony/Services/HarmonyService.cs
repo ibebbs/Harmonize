@@ -1,7 +1,7 @@
 ﻿using agsXMPP;
 using agsXMPP.protocol.client;
 using agsXMPP.protocol.sasl;
-using Bebbs.Harmonize.Common;
+using Bebbs.Harmonize.With;
 using Bebbs.Harmonize.Harmony.Messages;
 using System;
 using System.Linq;
@@ -38,12 +38,12 @@ namespace Bebbs.Harmonize.Harmony.Services
         private static readonly Regex SessionResponseRegex = new Regex(SessionResponseRegexPattern, RegexOptions.Compiled);
 
         private readonly IGlobalEventAggregator _eventAggregator;
-        private readonly Common.Settings.IProvider _settingsProvider;
+        private readonly With.Settings.IProvider _settingsProvider;
         private readonly IXmppService _xmppService;
 
         private IDisposable _subscription;
 
-        public HarmonyService(IGlobalEventAggregator eventAggregator, Common.Settings.IProvider settingsProvider, IXmppService xmppService)
+        public HarmonyService(IGlobalEventAggregator eventAggregator, With.Settings.IProvider settingsProvider, IXmppService xmppService)
         {
             _eventAggregator = eventAggregator;
             _settingsProvider = settingsProvider;
@@ -117,7 +117,7 @@ namespace Bebbs.Harmonize.Harmony.Services
 
         private void ProcessRequest(IRequestSessionInfoMessage request)
         {
-            Common.Settings.IValues values = _settingsProvider.GetValues();
+            With.Settings.IValues values = _settingsProvider.GetValues();
 
             XmppClientConnection connection = new XmppClientConnection();
 
@@ -147,7 +147,7 @@ namespace Bebbs.Harmonize.Harmony.Services
 
         private void ProcessRequest(IRequestSessionMessage request)
         {
-            Common.Settings.IValues values = _settingsProvider.GetValues();
+            With.Settings.IValues values = _settingsProvider.GetValues();
 
             Jid sessionJid = new Jid(string.Format(SessionJidPattern, request.SessionInfo.Identity));
             string sessionPassword = string.Format(SessionPasswordPattern, request.SessionInfo.Identity);

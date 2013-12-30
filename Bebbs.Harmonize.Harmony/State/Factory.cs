@@ -1,4 +1,4 @@
-﻿using Bebbs.Harmonize.Common;
+﻿using Bebbs.Harmonize.With;
 using System;
 
 namespace Bebbs.Harmonize.Harmony.State

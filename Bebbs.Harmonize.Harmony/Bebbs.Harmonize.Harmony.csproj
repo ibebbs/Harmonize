@@ -73,15 +73,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\Command.cs" />
-    <Compile Include="Command\PowerOffCommand.cs" />
-    <Compile Include="Command\PowerOnCommand.cs" />
+    <Compile Include="Command\Factory.cs" />
     <Compile Include="Hub\Activity.cs" />
     <Compile Include="Hub\Configuration\Parser.cs" />
     <Compile Include="Hub\Device.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="EventSource.cs" />
-    <Compile Include="Command\Factory.cs" />
     <Compile Include="Hub\Configuration\Values.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Messages\Message.cs" />
@@ -126,9 +123,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bebbs.Harmonize.Common\Bebbs.Harmonize.Common.csproj">
-      <Project>{15b07f9f-2ea2-4ea4-89d5-e3e82870efbb}</Project>
-      <Name>Bebbs.Harmonize.Common</Name>
+    <ProjectReference Include="..\Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj">
+      <Project>{91848444-1506-4f50-bf6c-d0528cd6c74e}</Project>
+      <Name>Bebbs.Harmonize.With</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

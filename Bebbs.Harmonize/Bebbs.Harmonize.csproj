@@ -64,7 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HarmonizeModule.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Harmonizer.cs" />
   </ItemGroup>
@@ -72,13 +72,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bebbs.Harmonize.Common\Bebbs.Harmonize.Common.csproj">
-      <Project>{15b07f9f-2ea2-4ea4-89d5-e3e82870efbb}</Project>
-      <Name>Bebbs.Harmonize.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Bebbs.Harmonize.Harmony\Bebbs.Harmonize.Harmony.csproj">
       <Project>{a158ab7b-7ad5-4a75-93de-a7511dfb5a7e}</Project>
       <Name>Bebbs.Harmonize.Harmony</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj">
+      <Project>{91848444-1506-4f50-bf6c-d0528cd6c74e}</Project>
+      <Name>Bebbs.Harmonize.With</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

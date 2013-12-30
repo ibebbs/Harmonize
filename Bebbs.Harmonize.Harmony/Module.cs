@@ -1,4 +1,4 @@
-﻿using Bebbs.Harmonize.Common;
+﻿using Bebbs.Harmonize.With;
 using Bebbs.Harmonize.Harmony.Services;
 using Ninject;
 using Ninject.Modules;

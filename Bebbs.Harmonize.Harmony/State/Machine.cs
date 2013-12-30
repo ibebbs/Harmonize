@@ -1,4 +1,4 @@
-﻿using Bebbs.Harmonize.Common;
+﻿using Bebbs.Harmonize.With;
 using Bebbs.Harmonize.Harmony.Messages;
 using System;
 using System.Reactive.Linq;
@@ -13,16 +13,16 @@ namespace Bebbs.Harmonize.Harmony.State
     public class Machine : IMachine
     {
         private readonly IFactory _stateFactory;
-        private readonly Common.Settings.IProvider _settingsProvider;
+        private readonly With.Settings.IProvider _settingsProvider;
         private readonly IGlobalEventAggregator _eventAggregator;
         private readonly IAsyncHelper _asyncHelper;
 
         private IDisposable _transitionSubscription;
         private IState _currentState;
         private IContext _currentContext;
-        private Common.Settings.IValues _settings;
+        private With.Settings.IValues _settings;
 
-        public Machine(IFactory stateFactory, Common.Settings.IProvider settingsProvider, IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper)
+        public Machine(IFactory stateFactory, With.Settings.IProvider settingsProvider, IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper)
         {
             _stateFactory = stateFactory;
             _settingsProvider = settingsProvider;

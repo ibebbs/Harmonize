@@ -1,4 +1,4 @@
-﻿using Bebbs.Harmonize.Common;
+﻿using Bebbs.Harmonize.With;
 using Bebbs.Harmonize.Harmony.Command;
 using Bebbs.Harmonize.Harmony.Messages;
 using System;
@@ -26,7 +26,7 @@ namespace Bebbs.Harmonize.Harmony.State
             _eventAggregator.Publish(new TransitionToStateMessage<IContext>(Name.Stopping, context));
         }
 
-        private void ProcessCommand(IActiveContext context, ICommand command)
+        private void ProcessCommand(IActiveContext context, With.Command.ICommand command)
         {
             IHarmonyCommandMessage harmonyCommand = _harmonyCommandFactory.ConstructHarmonyCommand(context.Session, command);
 
@@ -40,7 +40,7 @@ namespace Bebbs.Harmonize.Harmony.State
             base.EnterStoppable(context);
 
             _subscription = new CompositeDisposable(
-                _eventAggregator.GetEvent<ICommand>().Subscribe(command => ProcessCommand(context, command))
+                _eventAggregator.GetEvent<With.Command.ICommand>().Subscribe(command => ProcessCommand(context, command))
             );
 
             _eventAggregator.Publish(new StartedMessage(context.HarmonyConfiguration));
