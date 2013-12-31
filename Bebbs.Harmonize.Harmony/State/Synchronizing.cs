@@ -19,9 +19,9 @@ namespace Bebbs.Harmonize.Harmony.State
 
         private void ProcessResponse(IActiveContext context, IHarmonyConfigurationResponseMessage message)
         {
-            IStartedContext statedContext = context.Start(message.HarmonyConfiguration);
+            IRegistrationContext registrationContext = context.ForRegistration(message.HarmonyConfiguration);
 
-            _eventAggregator.Publish(new TransitionToStateMessage<IStartedContext>(Name.Started, statedContext));
+            _eventAggregator.Publish(new TransitionToStateMessage<IRegistrationContext>(Name.Registration, registrationContext));
         }
 
         private void ProcessException(IActiveContext context, Exception exception)

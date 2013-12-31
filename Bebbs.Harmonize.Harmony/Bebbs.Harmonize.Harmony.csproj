@@ -73,9 +73,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\Factory.cs" />
+    <Compile Include="Hub\Command.cs" />
+    <Compile Include="Messages\Factory.cs" />
+    <Compile Include="Hub\Action.cs" />
     <Compile Include="Hub\Activity.cs" />
     <Compile Include="Hub\Configuration\Parser.cs" />
+    <Compile Include="Hub\Control.cs" />
     <Compile Include="Hub\Device.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="EventSource.cs" />
@@ -104,12 +107,14 @@
     <Compile Include="Services\XmppService.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="SessionInfo.cs" />
+    <Compile Include="State\Deregistration.cs" />
     <Compile Include="State\Faulted.cs" />
     <Compile Include="State\IState.cs" />
     <Compile Include="State\Machine.cs" />
     <Compile Include="State\Authenticating.cs" />
     <Compile Include="State\EstablishingSession.cs" />
     <Compile Include="State\Name.cs" />
+    <Compile Include="State\Registration.cs" />
     <Compile Include="State\RetrievingSessionInfo.cs" />
     <Compile Include="State\Started.cs" />
     <Compile Include="State\Starting.cs" />

@@ -6,13 +6,9 @@ using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.Harmony.Hub
 {
-    public interface IDevice
+    public interface IDevice : With.Component.IDevice
     {
         int Id { get; }
-        string Type { get; }
-        string Manufacturer { get; }
-        string Model { get; }
-        string Label { get; }
         string Icon { get; }
         bool IsManualPower { get; }
         string DeviceProfileUri { get; }
@@ -24,27 +20,32 @@ namespace Bebbs.Harmonize.Harmony.Hub
 
     internal class Device : IDevice
     {
-        int IDevice.Id
+        With.Component.IIdentity With.Component.IDevice.Identity 
         {
-            get { return id; }
+            get { return null; }
         }
 
-        string IDevice.Type
+        IEnumerable<With.Component.IControl> With.Component.IDevice.Controls
+        {
+            get { return controlGroup; }
+        }
+
+        string With.Component.IDevice.Type
         {
             get { return type; }
         }
 
-        string IDevice.Manufacturer
+        string With.Component.IDevice.Manufacturer
         {
             get { return manufacturer; }
         }
 
-        string IDevice.Model
+        string With.Component.IDevice.Model
         {
             get { return model; }
         }
 
-        string IDevice.Label
+        string With.Component.IDevice.Name
         {
             get { return label; }
         }
@@ -52,6 +53,11 @@ namespace Bebbs.Harmonize.Harmony.Hub
         string IDevice.Icon
         {
             get { return icon; }
+        }
+
+        int IDevice.Id
+        {
+            get { return id; }
         }
 
         bool IDevice.IsManualPower
@@ -84,7 +90,6 @@ namespace Bebbs.Harmonize.Harmony.Hub
             get { return suggestedDisplay; }
         }
 
-
         public int id { get; set; }
         public string type { get; set; }
         public string manufacturer { get; set; }
@@ -97,5 +102,6 @@ namespace Bebbs.Harmonize.Harmony.Hub
         public int transport { get; set; }
         public int controlPort { get; set; }
         public string suggestedDisplay { get; set; }
+        public Control[] controlGroup { get; set; }
     }
 }

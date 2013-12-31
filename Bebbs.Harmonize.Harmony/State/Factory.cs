@@ -12,13 +12,13 @@ namespace Bebbs.Harmonize.Harmony.State
     {
         private readonly IGlobalEventAggregator _eventAggregator;
         private readonly IAsyncHelper _asyncHelper;
-        private readonly Command.IFactory _commandFactory;
+        private readonly Messages.IFactory _messageFactory;
 
-        public Factory(IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper, Command.IFactory harmonyCommandFactory)
+        public Factory(IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper, Messages.IFactory messageFactory)
         {
             _eventAggregator = eventAggregator;
             _asyncHelper = asyncHelper;
-            _commandFactory = harmonyCommandFactory;
+            _messageFactory = messageFactory;
         }
 
         public IState ConstructState(Name state)
@@ -29,7 +29,9 @@ namespace Bebbs.Harmonize.Harmony.State
                 case Name.RetrievingSessionInfo: return new RetrievingSessionInfo(_eventAggregator, _asyncHelper);
                 case Name.EstablishingSession: return new EstablishingSession(_eventAggregator, _asyncHelper);
                 case Name.Synchronizing: return new Synchronizing(_eventAggregator, _asyncHelper);
-                case Name.Started: return new Started(_eventAggregator, _asyncHelper, _commandFactory);
+                case Name.Registration: return new Registration(_eventAggregator, _asyncHelper);
+                case Name.Started: return new Started(_eventAggregator, _asyncHelper, _messageFactory);
+                case Name.Deregistration: return new Deregistration(_eventAggregator, _asyncHelper);
                 case Name.Starting: return new Starting(_eventAggregator, _asyncHelper);
                 case Name.Stopped: return new Stopped(_eventAggregator, _asyncHelper);
                 case Name.Stopping: return new Stopping(_eventAggregator, _asyncHelper);

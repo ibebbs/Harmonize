@@ -10,7 +10,7 @@ namespace Bebbs.Harmonize.Harmony
         public override void Load()
         {
             Bind<State.IFactory>().To<State.Factory>().InSingletonScope();
-            Bind<Command.IFactory>().To<Command.Factory>().InSingletonScope();
+            Bind<Messages.IFactory>().To<Messages.Factory>().InSingletonScope();
 
             Bind<Hub.Configuration.Parser>().ToSelf();
             Bind<Hub.Configuration.IParser>().ToMethod(ctx => EventSourceProxy.TracingProxy.Create<Hub.Configuration.IParser>(ctx.Kernel.Get<Hub.Configuration.Parser>())).InSingletonScope();

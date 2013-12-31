@@ -25,7 +25,7 @@ namespace Bebbs.Harmonize.Harmony
         ISessionInfo SessionInfo { get; }
     }
 
-    public interface IStartedContext : IActiveContext
+    public interface IRegistrationContext : IActiveContext
     {
         Hub.Configuration.IValues HarmonyConfiguration { get; }
     }
@@ -37,7 +37,7 @@ namespace Bebbs.Harmonize.Harmony
 
     public static class ContextFactory
     {
-        private class PrivateContext : IContext, IAuthenticatedContext, ISessionContext, IActiveContext, IStartedContext, IFaultedContext
+        private class PrivateContext : IContext, IAuthenticatedContext, ISessionContext, IActiveContext, IRegistrationContext, IFaultedContext
         {
             private readonly string _email;
             private readonly string _password;
@@ -119,7 +119,7 @@ namespace Bebbs.Harmonize.Harmony
                 get { return _sessionInfo; }
             }
 
-            Hub.Configuration.IValues IStartedContext.HarmonyConfiguration
+            Hub.Configuration.IValues IRegistrationContext.HarmonyConfiguration
             {
                 get { return _harmonyConfiguration; }
             }
@@ -150,7 +150,7 @@ namespace Bebbs.Harmonize.Harmony
             return new PrivateContext(context, sessionInfo, session);
         }
 
-        public static IStartedContext Start(this IActiveContext context, Hub.Configuration.IValues harmoneyConfiguration)
+        public static IRegistrationContext ForRegistration(this IActiveContext context, Hub.Configuration.IValues harmoneyConfiguration)
         {
             return new PrivateContext(context, context.SessionInfo, context.Session, harmoneyConfiguration);
         }

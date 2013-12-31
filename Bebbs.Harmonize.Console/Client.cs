@@ -1,5 +1,6 @@
-﻿using Bebbs.Harmonize.Harmony.Command;
-using Newtonsoft.Json;
+﻿using System.Linq;
+using System;
+using Bebbs.Harmonize.With;
 
 namespace Bebbs.Harmonize.Console
 {
@@ -13,9 +14,12 @@ namespace Bebbs.Harmonize.Console
 
             var result = await _harmonizer.Start(new Settings.Provider());
 
-            System.Console.WriteLine(JsonConvert.SerializeObject(result));
+            var device = result.Devices.Where(d => string.Equals(d.Type, "Amplifier", StringComparison.CurrentCultureIgnoreCase) && string.Equals(d.Model, "DSP-A5", StringComparison.CurrentCultureIgnoreCase)).First();
+            var control = device.Controls.Where(c => string.Equals(c.Name, "Power", StringComparison.CurrentCultureIgnoreCase)).First();
+            var action = control.Actions.Where(a => string.Equals(a.Name, "PowerOn", StringComparison.CurrentCultureIgnoreCase)).First();
+            var command = action.Command;
 
-            _harmonizer.SendCommand(new With.Command.PowerOn("15666630"));
+            _harmonizer.SendCommand(command);
         }
 
         public async void Stop()

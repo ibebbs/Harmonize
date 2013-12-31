@@ -8,9 +8,11 @@ namespace Bebbs.Harmonize.Harmony.State
         RetrievingSessionInfo,
         EstablishingSession,
         Synchronizing,
+        Registration,
         Started,
+        Deregistration,
         Stopping,
         Stopped,
-        Faulted
+        Faulted,
     }
 }

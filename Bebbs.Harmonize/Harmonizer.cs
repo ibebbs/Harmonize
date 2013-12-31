@@ -1,5 +1,4 @@
 ﻿using Bebbs.Harmonize.Harmony;
-using Bebbs.Harmonize.Harmony.Command;
 using Bebbs.Harmonize.Harmony.Messages;
 using Ninject;
 using System;
