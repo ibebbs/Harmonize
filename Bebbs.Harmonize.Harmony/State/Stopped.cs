@@ -28,7 +28,7 @@ namespace Bebbs.Harmonize.Harmony.State
 
             _subscription = _eventAggregator.GetEvent<IStartHarmonizingMessage>().Subscribe(message => ProcessMessage(context, message));
 
-            _eventAggregator.Publish(new StoppedMessage());
+            _eventAggregator.Publish(new With.Message.Stopped());
 
             EventSource.Log.EnteringState(Name.Stopped);
         }

@@ -74,6 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hub\Command.cs" />
+    <Compile Include="Hub\Description.cs" />
+    <Compile Include="Hub\Identity.cs" />
+    <Compile Include="Hub\Location.cs" />
     <Compile Include="Messages\Factory.cs" />
     <Compile Include="Hub\Action.cs" />
     <Compile Include="Hub\Activity.cs" />
@@ -95,10 +98,8 @@
     <Compile Include="Messages\RequestSessionMessage.cs" />
     <Compile Include="Messages\SessionInfoResponseMessage.cs" />
     <Compile Include="Messages\SessionResponseMessage.cs" />
-    <Compile Include="Messages\StartedMessage.cs" />
     <Compile Include="Messages\StartHarmonizingMessage.cs" />
     <Compile Include="Messages\StopHarmonizingMessage.cs" />
-    <Compile Include="Messages\StoppedMessage.cs" />
     <Compile Include="Messages\TransitionToStateMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthenticationService.cs" />

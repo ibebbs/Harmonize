@@ -15,7 +15,7 @@ namespace Bebbs.Harmonize.Harmony.Tests.Hub.Configuration
         {
             Harmony.Hub.Configuration.Parser subject = new Harmony.Hub.Configuration.Parser();
 
-            Harmony.Hub.Configuration.IValues values = subject.FromJson(Resources.SimpleConfiguration);
+            Harmony.Hub.Configuration.IValues values = subject.FromJson("Test", Resources.SimpleConfiguration);
 
             Assert.IsNotNull(values);
             Assert.AreEqual<int>(1, values.Activities.Count(), "Did not correctly deserialize Activities");
@@ -23,7 +23,8 @@ namespace Bebbs.Harmonize.Harmony.Tests.Hub.Configuration
 
             var device = values.Devices.First();
 
-            Assert.AreEqual<int>(6, device.Controls.Count());
+            Assert.AreEqual<string>("Test", device.HubName, "Did not correctly deserialize device hub name");
+            Assert.AreEqual<int>(6, device.Controls.Count(), "Did not correctly deserialize Controls");
         }
     }
 }

@@ -16,38 +16,41 @@ namespace Bebbs.Harmonize.Harmony.Hub
         int Transport { get; }
         int ControlPort { get; }
         string SuggestedDisplay { get; }
+        
+        string HubName { get; set; }
     }
 
     internal class Device : IDevice
     {
+        private readonly Lazy<With.Component.IIdentity> _identity;
+        private readonly Lazy<With.Component.ILocation> _location;
+        private readonly Lazy<With.Component.IDescription> _description;
+
+        public Device()
+        {
+            _identity = new Lazy<With.Component.IIdentity>(() => new Identity(id));
+            _location = new Lazy<With.Component.ILocation>(() => new Location(HubName));
+            _description = new Lazy<With.Component.IDescription>(() => new Description(label, type, manufacturer, model));
+        }
+
         With.Component.IIdentity With.Component.IDevice.Identity 
         {
-            get { return null; }
+            get { return _identity.Value; }
+        }
+
+        With.Component.ILocation With.Component.IDevice.Location
+        {
+            get { return _location.Value; }
+        }
+
+        With.Component.IDescription With.Component.IDevice.Description
+        {
+            get { return _description.Value; }
         }
 
         IEnumerable<With.Component.IControl> With.Component.IDevice.Controls
         {
             get { return controlGroup; }
-        }
-
-        string With.Component.IDevice.Type
-        {
-            get { return type; }
-        }
-
-        string With.Component.IDevice.Manufacturer
-        {
-            get { return manufacturer; }
-        }
-
-        string With.Component.IDevice.Model
-        {
-            get { return model; }
-        }
-
-        string With.Component.IDevice.Name
-        {
-            get { return label; }
         }
 
         string IDevice.Icon
@@ -103,5 +106,7 @@ namespace Bebbs.Harmonize.Harmony.Hub
         public int controlPort { get; set; }
         public string suggestedDisplay { get; set; }
         public Control[] controlGroup { get; set; }
+
+        public string HubName { get; set; }
     }
 }

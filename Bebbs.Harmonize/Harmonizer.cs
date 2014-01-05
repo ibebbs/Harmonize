@@ -34,13 +34,13 @@ namespace Bebbs.Harmonize
             }
         }
 
-        private Task<Harmony.Hub.Configuration.IValues> StartHarmonizing()
+        private Task StartHarmonizing()
         {
             With.IGlobalEventAggregator eventAggregator = _kernel.Get<With.IGlobalEventAggregator>();
 
-            TaskCompletionSource<Harmony.Hub.Configuration.IValues> tcs = new TaskCompletionSource<Harmony.Hub.Configuration.IValues>();
+            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
 
-            eventAggregator.GetEvent<IStartedMessage>().Take(1).Subscribe(message => tcs.SetResult(message.HarmonyConfiguration));
+            eventAggregator.GetEvent<With.Message.IStarted>().Take(1).Subscribe(message => tcs.SetResult(null));
             eventAggregator.GetEvent<IErrorMessage>().Take(1).Subscribe(message => tcs.SetException(message.Exception));
 
             eventAggregator.Publish(new StartHarmonizingMessage());
@@ -53,7 +53,7 @@ namespace Bebbs.Harmonize
             With.IGlobalEventAggregator eventAggregator = _kernel.Get<With.IGlobalEventAggregator>();
 
             TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
-            eventAggregator.GetEvent<IStoppedMessage>().Take(1).Subscribe(message => tcs.SetResult(null));
+            eventAggregator.GetEvent<With.Message.IStopped>().Take(1).Subscribe(message => tcs.SetResult(null));
             eventAggregator.GetEvent<IErrorMessage>().Take(1).Subscribe(message => tcs.SetException(message.Exception));
 
             eventAggregator.Publish(new StopHarmonizingMessage());
@@ -71,7 +71,7 @@ namespace Bebbs.Harmonize
             }
         }
 
-        public Task<Harmony.Hub.Configuration.IValues> Start(With.Settings.IProvider settingsProvider)
+        public Task Start(With.Settings.IProvider settingsProvider)
         {
             SetValues(settingsProvider);
 

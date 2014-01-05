@@ -13,7 +13,7 @@ namespace Bebbs.Harmonize.Harmony.Services
 
         IQ ConstructConfigurationRequest();
 
-        Hub.Configuration.IValues ExtractHarmonyConfiguration(IQ iQ);
+        Hub.Configuration.IValues ExtractHarmonyConfiguration(ISessionInfo sessionInfo, IQ iQ);
 
         IQ ConstructCommand(string deviceId, string command);
     }
@@ -81,7 +81,7 @@ namespace Bebbs.Harmonize.Harmony.Services
             return message;
         }
 
-        public Hub.Configuration.IValues ExtractHarmonyConfiguration(IQ iQ)
+        public Hub.Configuration.IValues ExtractHarmonyConfiguration(ISessionInfo sessionInfo, IQ iQ)
         {
             if (!string.IsNullOrWhiteSpace(iQ.InnerXml))
             {
@@ -93,7 +93,7 @@ namespace Bebbs.Harmonize.Harmony.Services
                     element.Attributes(XmppMimeAttribute).Where(attribute => string.Equals(attribute.Value, ConfigurationRequestPath)).Any()
                 ).Select(element => element.Value).FirstOrDefault();
 
-                return _configurationParser.FromJson(result);
+                return _configurationParser.FromJson(sessionInfo.FriendlyName, result);
             }
             else
             {

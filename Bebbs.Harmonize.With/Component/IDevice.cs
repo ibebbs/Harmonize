@@ -9,11 +9,8 @@ namespace Bebbs.Harmonize.With.Component
     public interface IDevice
     {
         IIdentity Identity { get; }
+        IDescription Description { get; }
+        ILocation Location { get; }
         IEnumerable<IControl> Controls { get; }
-
-        string Name { get; }
-        string Type { get; }
-        string Manufacturer { get; }
-        string Model { get; }
     }
 }

@@ -183,7 +183,7 @@ namespace Bebbs.Harmonize.Harmony.Services
             IQ message = _xmppService.ConstructConfigurationRequest();
 
             Observable.FromEvent<IqHandler, IQEventArgs>(handler => (s,e) => handler(e), handler => request.Session.Connection.OnIq += handler, handler => request.Session.Connection.OnIq -= handler)
-                      .Select(iqea => Tuple.Create(iqea, _xmppService.ExtractHarmonyConfiguration(iqea.IQ)))
+                      .Select(iqea => Tuple.Create(iqea, _xmppService.ExtractHarmonyConfiguration(request.SessionInfo, iqea.IQ)))
                       .Where(tuple => tuple.Item2 != null)
                       .Do(tuple => tuple.Item1.Handled = true)
                       .Take(1)

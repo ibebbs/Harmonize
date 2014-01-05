@@ -42,7 +42,7 @@ namespace Bebbs.Harmonize.Harmony.State
 
             _subscription = _eventAggregator.GetEvent<IHarmonyConfigurationResponseMessage>().Timeout(TimeSpan.FromSeconds(30)).Subscribe(response => ProcessResponse(context, response), exception => ProcessException(context, exception));
 
-            _eventAggregator.Publish(new RequestHarmonyConfigurationMessage(context.Session));
+            _eventAggregator.Publish(new RequestHarmonyConfigurationMessage(context.SessionInfo, context.Session));
 
             EventSource.Log.EnteredState(Name.Synchronizing);
         }
