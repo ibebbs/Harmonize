@@ -70,6 +70,7 @@
     <Compile Include="Component\IIdentity.cs" />
     <Compile Include="Component\ILocation.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="HarmonizedModule.cs" />
     <Compile Include="ICleanupAtShutdown.cs" />
     <Compile Include="IGlobalEventAggregator.cs" />
     <Compile Include="IInitializeAtStartup.cs" />

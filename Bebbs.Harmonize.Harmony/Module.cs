@@ -5,7 +5,7 @@ using Ninject.Modules;
 
 namespace Bebbs.Harmonize.Harmony
 {
-    public class Module : NinjectModule
+    public class Module : HarmonizedModule
     {
         public override void Load()
         {

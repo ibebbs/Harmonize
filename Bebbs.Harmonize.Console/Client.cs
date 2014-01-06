@@ -1,16 +1,33 @@
 ﻿using System.Linq;
 using System;
 using Bebbs.Harmonize.With;
+using System.Collections.Generic;
 
 namespace Bebbs.Harmonize.Console
 {
     public class Client
     {
+        private readonly Options _options;
         private Harmonizer _harmonizer;
+
+        public Client(Options options)
+        {
+            _options = options;
+        }
 
         public async void Start()
         {
-            _harmonizer = new Harmonize.Harmonizer();
+            List<HarmonizedModule> modules = new List<HarmonizedModule>();
+            modules.Add(new Harmony.Module());
+
+            if (_options.UseAllJoyn)
+            {
+                modules.Add(new Harmonize.With.Alljoyn.Module());
+            }
+
+            Harmonize.Options harmonizeOptions = new Harmonize.Options(modules);
+
+            _harmonizer = new Harmonize.Harmonizer(harmonizeOptions);
 
             await _harmonizer.Start(new Settings.Provider());
 

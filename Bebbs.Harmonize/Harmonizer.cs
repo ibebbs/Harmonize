@@ -1,4 +1,5 @@
 ﻿using Bebbs.Harmonize.Harmony;
+using Bebbs.Harmonize.With;
 using Bebbs.Harmonize.Harmony.Messages;
 using Ninject;
 using System;
@@ -12,11 +13,12 @@ namespace Bebbs.Harmonize
     {
         private readonly StandardKernel _kernel;
 
-        public Harmonizer()
+        public Harmonizer(IOptions options)
         {
             _kernel = new StandardKernel();
             _kernel.Load(new Module());
-            _kernel.Load(new Harmony.Module());
+
+            options.Modules.ForEach(module => _kernel.Load(module));
         }
 
         private void SetValues(With.Settings.IProvider settingsProvider)

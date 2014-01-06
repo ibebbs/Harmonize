@@ -8,6 +8,10 @@ namespace Bebbs.Harmonize.Console
     {
         static void Main(string[] args)
         {
+            Options options = new Options();
+
+            CommandLine.Parser.Default.ParseArguments(args, options);
+
             ObservableEventListener harmonyEventListener = new ObservableEventListener();
             harmonyEventListener.EnableEvents((EventSource) Harmony.EventSource.Log, EventLevel.LogAlways, Keywords.All);
 
@@ -16,7 +20,7 @@ namespace Bebbs.Harmonize.Console
 
             using (new CompositeDisposable(harmonyEventListener.LogToConsole(), xmppEventListener.LogToConsole()))
             {
-                Client client = new Client();
+                Client client = new Client(options);
 
                 client.Start();
 
