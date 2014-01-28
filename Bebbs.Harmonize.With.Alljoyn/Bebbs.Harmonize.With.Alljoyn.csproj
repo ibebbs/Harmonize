@@ -37,6 +37,9 @@
     <Reference Include="alljoyn_unity">
       <HintPath>..\lib\x64\alljoyn_unity.dll</HintPath>
     </Reference>
+    <Reference Include="EventSourceProxy">
+      <HintPath>..\packages\EventSourceProxy.2.0.2\lib\EventSourceProxy.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -71,11 +74,13 @@
     <Compile Include="Bus\Attachment\SessionListener.cs" />
     <Compile Include="Bus\Coordinator.cs" />
     <Compile Include="Bus\Object\Description.cs" />
+    <Compile Include="Bus\Object\DeviceDescriptionExtensions.cs" />
     <Compile Include="Bus\Object\Facet.cs" />
     <Compile Include="Bus\Object\Instance.cs" />
     <Compile Include="Bus\Object\Factory.cs" />
     <Compile Include="Bus\Object\MethodHandler.cs" />
     <Compile Include="Harmonizer.cs" />
+    <Compile Include="Instrumentation.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

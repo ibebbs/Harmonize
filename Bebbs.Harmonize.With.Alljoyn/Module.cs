@@ -1,4 +1,5 @@
-﻿using Ninject.Modules;
+﻿using Ninject;
+using Ninject.Modules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,8 @@ namespace Bebbs.Harmonize.With.Alljoyn
             Bind<Bus.Attachment.IFactory>().To<Bus.Attachment.Factory>().InSingletonScope();
             Bind<Bus.Object.IFactory>().To<Bus.Object.Factory>().InSingletonScope();
 
-            Bind<Bus.ICoordinator>().To<Bus.Coordinator>();
+            Bind<Bus.Coordinator>().ToSelf();
+            Bind<Bus.ICoordinator>().ToMethod(ctx => EventSourceProxy.TracingProxy.Create<Bus.ICoordinator>(ctx.Kernel.Get<Bus.Coordinator>())).InSingletonScope();
 
             Bind<IInitializeAtStartup, ICleanupAtShutdown>().To<Harmonizer>().InSingletonScope();
         }

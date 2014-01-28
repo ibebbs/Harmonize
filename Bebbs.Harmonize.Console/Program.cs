@@ -18,7 +18,10 @@ namespace Bebbs.Harmonize.Console
             ObservableEventListener xmppEventListener = new ObservableEventListener();
             xmppEventListener.EnableEvents((EventSource)Harmony.Services.XmppEventSource.Log, EventLevel.LogAlways, Keywords.All);
 
-            using (new CompositeDisposable(harmonyEventListener.LogToConsole(), xmppEventListener.LogToConsole()))
+            ObservableEventListener alljoynEventListener = new ObservableEventListener();
+            alljoynEventListener.EnableEvents(With.Alljoyn.Instrumentation.Coordinator, EventLevel.LogAlways, Keywords.All);
+
+            using (new CompositeDisposable(harmonyEventListener.LogToConsole(), xmppEventListener.LogToConsole(), alljoynEventListener.LogToConsole()))
             {
                 Client client = new Client(options);
 

@@ -24,7 +24,7 @@ namespace Bebbs.Harmonize.With.Alljoyn.Bus.Object
 
         public Description Describe(Component.IDevice device)
         {
-            string path = string.Format("{0}/{1}", device.Location.Name, device.Description.Name);
+            string path = string.Format("/{0}/{1}", device.Location.Name, device.Description.BusName());
 
             IEnumerable<Facet> facets = device.Controls.Select(
                 control =>
