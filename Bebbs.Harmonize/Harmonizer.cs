@@ -1,6 +1,5 @@
-﻿using Bebbs.Harmonize.Harmony;
+﻿using Bebbs.Harmonize.Harmony.Messages;
 using Bebbs.Harmonize.With;
-using Bebbs.Harmonize.Harmony.Messages;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -17,6 +16,7 @@ namespace Bebbs.Harmonize
         {
             _kernel = new StandardKernel();
             _kernel.Load(new Module());
+            _kernel.Load(new State.Module());
 
             options.Modules.ForEach(module => _kernel.Load(module));
         }

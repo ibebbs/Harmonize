@@ -64,6 +64,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Clock.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -76,6 +77,10 @@
     <ProjectReference Include="..\Bebbs.Harmonize.Harmony\Bebbs.Harmonize.Harmony.csproj">
       <Project>{a158ab7b-7ad5-4a75-93de-a7511dfb5a7e}</Project>
       <Name>Bebbs.Harmonize.Harmony</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bebbs.Harmonize.State\Bebbs.Harmonize.State.csproj">
+      <Project>{2f852f35-ecf5-4898-b193-4b315032a3d3}</Project>
+      <Name>Bebbs.Harmonize.State</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj">
       <Project>{91848444-1506-4f50-bf6c-d0528cd6c74e}</Project>

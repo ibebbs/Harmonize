@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{91848444-1506-4F50-BF6C-D0528CD6C74E}</ProjectGuid>
+    <ProjectGuid>{2F852F35-ECF5-4898-B193-4B315032A3D3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bebbs.Harmonize.With</RootNamespace>
-    <AssemblyName>Bebbs.Harmonize.With</AssemblyName>
+    <RootNamespace>Bebbs.Harmonize.State</RootNamespace>
+    <AssemblyName>Bebbs.Harmonize.State</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -32,11 +32,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+    </Reference>
+    <Reference Include="EventSourceProxy">
+      <HintPath>..\packages\EventSourceProxy.2.0.2\lib\EventSourceProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="EventStore.ClientAPI">
+      <HintPath>..\packages\EventStore.Client.2.0.2\lib\net40\EventStore.ClientAPI.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
     <Reference Include="Reactive.EventAggregator">
       <HintPath>..\packages\Reactive.EventAggregator.1.1.0\lib\Net45\Reactive.EventAggregator.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\packages\ServiceStack.Text.4.0.5\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -59,33 +74,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions.cs" />
-    <Compile Include="AsyncHelper.cs" />
-    <Compile Include="Base64.cs" />
-    <Compile Include="Command\Command.cs" />
-    <Compile Include="Component\IAction.cs" />
-    <Compile Include="Component\IControl.cs" />
-    <Compile Include="Component\IDescription.cs" />
-    <Compile Include="Component\IDevice.cs" />
-    <Compile Include="Component\IIdentity.cs" />
-    <Compile Include="Component\ILocation.cs" />
-    <Compile Include="EnumerableExtensions.cs" />
-    <Compile Include="HarmonizedModule.cs" />
-    <Compile Include="ICleanupAtShutdown.cs" />
-    <Compile Include="IClock.cs" />
-    <Compile Include="IGlobalEventAggregator.cs" />
-    <Compile Include="IInitializeAtStartup.cs" />
-    <Compile Include="Message\Observation.cs" />
-    <Compile Include="Message\RegisterDevice.cs" />
-    <Compile Include="Message\DeregisterDevice.cs" />
-    <Compile Include="Message\Started.cs" />
-    <Compile Include="Message\Stopped.cs" />
+    <Compile Include="Instrumentation.cs" />
+    <Compile Include="Event\Observed.cs" />
+    <Compile Include="Event\Registered.cs" />
+    <Compile Include="Event\Started.cs" />
+    <Compile Include="Event\Stopped.cs" />
+    <Compile Include="Event\Translator.cs" />
+    <Compile Include="Event\Deregistered.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\IProvider.cs" />
-    <Compile Include="Settings\IValues.cs" />
+    <Compile Include="Store.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj">
+      <Project>{91848444-1506-4f50-bf6c-d0528cd6c74e}</Project>
+      <Name>Bebbs.Harmonize.With</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\packages\AutoMapper.3.1.1\lib\net40\AutoMapper.Net4.dll">
+      <Link>AutoMapper.Net4.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

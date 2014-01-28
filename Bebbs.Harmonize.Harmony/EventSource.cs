@@ -2,7 +2,7 @@
 
 namespace Bebbs.Harmonize.Harmony
 {
-    [EventSourceImplementation(Name = "Cogenity-Harmonize-Harmony")]
+    [EventSourceImplementation(Name = "Bebbs-Harmonize-Harmony")]
     public interface IEventSource
     {
         void EnteringState(State.Name state);

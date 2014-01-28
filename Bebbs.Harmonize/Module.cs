@@ -7,6 +7,7 @@ namespace Bebbs.Harmonize
     {
         public override void Load()
         {
+            Bind<IClock>().To<Clock>().InSingletonScope();
             Bind<IGlobalEventAggregator>().To<GlobalEventAggregator>().InSingletonScope();
             Bind<IAsyncHelper>().To<AsyncHelper>().InSingletonScope();
         }

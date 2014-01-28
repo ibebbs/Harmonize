@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Alljoy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With", "Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj", "{91848444-1506-4F50-BF6C-D0528CD6C74E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.State", "Bebbs.Harmonize.State\Bebbs.Harmonize.State.csproj", "{2F852F35-ECF5-4898-B193-4B315032A3D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +54,10 @@ Global
 		{91848444-1506-4F50-BF6C-D0528CD6C74E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91848444-1506-4F50-BF6C-D0528CD6C74E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91848444-1506-4F50-BF6C-D0528CD6C74E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F852F35-ECF5-4898-B193-4B315032A3D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F852F35-ECF5-4898-B193-4B315032A3D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F852F35-ECF5-4898-B193-4B315032A3D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F852F35-ECF5-4898-B193-4B315032A3D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
