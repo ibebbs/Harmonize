@@ -16,7 +16,7 @@ namespace Bebbs.Harmonize.State
 
         // TODO: Should be moved to configuration
         private const string IpAddress = "127.0.0.1";
-        private const int Port = 2113;
+        private const int Port = 1113;
 
         private readonly IGlobalEventAggregator _eventAggregator;
         private readonly Event.ITranslator _eventTranslator;
