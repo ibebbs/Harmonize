@@ -1,4 +1,4 @@
-﻿using Bebbs.Harmonize.Common.Settings;
+﻿using Bebbs.Harmonize.With.Settings;
 using System;
 
 namespace Bebbs.Harmonize.Console.Settings
