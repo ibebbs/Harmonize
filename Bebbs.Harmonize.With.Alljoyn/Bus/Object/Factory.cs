@@ -8,7 +8,7 @@ namespace Bebbs.Harmonize.With.Alljoyn.Bus.Object
 {
     internal interface IFactory
     {
-        Description Describe(Component.IDevice device);
+        Description Describe(Component.IEntity device);
 
         Instance Build(Description description);
     }
@@ -22,22 +22,24 @@ namespace Bebbs.Harmonize.With.Alljoyn.Bus.Object
             _eventAggregator = eventAggregator;
         }
 
-        public Description Describe(Component.IDevice device)
+        public Description Describe(Component.IEntity device)
         {
-            string path = string.Format("/{0}/{1}", device.Location.Name, device.Description.BusName());
+            string path = string.Format("/{0}/{1}", device.Identity.ToString(), device.Description.BusName());
 
-            IEnumerable<Facet> facets = device.Controls.Select(
-                control =>
+            // TODO: Reimplement the following code
+            /*
+            IEnumerable<Facet> facets = device.Actionables.Select(
+                actionable =>
                 {
-                    string name = string.Format("{0}-{1}-{2}", device.Description.Manufacturer, device.Description.Model, control.Name);
+                    string name = string.Format("{0}-{1}-{2}", device.Description.Manufacturer, device.Description.Model, actionable.Identity.ToString());
 
-                    IEnumerable<MethodHandler> methodHandlers = control.Actions.Select(action => new MethodHandler(action.Name, (member, message) => _eventAggregator.Publish(action.Command))).ToArray();
+                    IEnumerable<MethodHandler> methodHandlers = actionable.Actions.Select(action => new MethodHandler(action.Name, (member, message) => _eventAggregator.Publish(action.Command))).ToArray();
 
                     return new Facet(name, methodHandlers);
                 }
             ).ToArray();
-
-            return new Description(path, facets);
+            */
+            return new Description(path, Enumerable.Empty<Facet>());
         }
 
         public Instance Build(Description description)

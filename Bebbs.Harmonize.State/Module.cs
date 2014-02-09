@@ -9,7 +9,7 @@ namespace Bebbs.Harmonize.State
         {
             Bind<Event.ITranslator>().To<Event.Translator>().InSingletonScope();
 
-            Bind<IStore, IInitializeAtStartup, ICleanupAtShutdown>().To<Store>().InSingletonScope();
+            Bind(new [] { typeof(IStore), typeof(IInitialize), typeof(IStart), typeof(IStop), typeof(ICleanup) }).To<Store>().InSingletonScope();
         }
     }
 }

@@ -15,9 +15,9 @@ namespace Bebbs.Harmonize.State
 
         void Storing(With.Message.IStopped message);
 
-        void Storing(With.Message.IRegisterDevice message);
+        void Storing(With.Message.IRegister message);
 
-        void Storing(With.Message.IDeregisterDevice message);
+        void Storing(With.Message.IDeregister message);
     }
 
     public static class Instrumentation

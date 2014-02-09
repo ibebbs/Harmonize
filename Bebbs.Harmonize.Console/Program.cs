@@ -12,8 +12,8 @@ namespace Bebbs.Harmonize.Console
 
             CommandLine.Parser.Default.ParseArguments(args, options);
 
-            ObservableEventListener storeEventListener = new ObservableEventListener();
-            storeEventListener.EnableEvents((EventSource)State.Instrumentation.Store, EventLevel.LogAlways, Keywords.All);
+            ObservableEventListener harmonizeEventListener = new ObservableEventListener();
+            harmonizeEventListener.EnableEvents((EventSource)Harmonize.Instrumentation.Error, EventLevel.LogAlways, Keywords.All);
 
             ObservableEventListener harmonyEventListener = new ObservableEventListener();
             harmonyEventListener.EnableEvents((EventSource)Harmony.EventSource.Log, EventLevel.LogAlways, Keywords.All);
@@ -24,7 +24,13 @@ namespace Bebbs.Harmonize.Console
             ObservableEventListener alljoynEventListener = new ObservableEventListener();
             alljoynEventListener.EnableEvents(With.Alljoyn.Instrumentation.Coordinator, EventLevel.LogAlways, Keywords.All);
 
-            using (new CompositeDisposable(storeEventListener.LogToConsole(), harmonyEventListener.LogToConsole(), xmppEventListener.LogToConsole(), alljoynEventListener.LogToConsole()))
+            ObservableEventListener storeEventListener = new ObservableEventListener();
+            storeEventListener.EnableEvents((EventSource)State.Instrumentation.Store, EventLevel.LogAlways, Keywords.All);
+
+            ObservableEventListener messagingEventListener = new ObservableEventListener();
+            messagingEventListener.EnableEvents((EventSource)With.Messaging.Instrumentation.Messages, EventLevel.LogAlways, Keywords.All);
+
+            using (new CompositeDisposable(harmonizeEventListener.LogToConsole(), harmonyEventListener.LogToConsole(), xmppEventListener.LogToConsole(), alljoynEventListener.LogToConsole(), storeEventListener.LogToConsole(), messagingEventListener.LogToConsole()))
             {
                 Client client = new Client(options);
 

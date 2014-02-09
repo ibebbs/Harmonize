@@ -1,7 +1,7 @@
 ﻿
 namespace Bebbs.Harmonize.With
 {
-    public interface IInitializeAtStartup
+    public interface IInitialize
     {
         void Initialize();
     }

@@ -1,9 +1,4 @@
 ﻿using CommandLine;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.Console
 {
@@ -11,5 +6,8 @@ namespace Bebbs.Harmonize.Console
     {
         [Option("Alljoyn", DefaultValue = true, HelpText = "Harmonize with Alljoyn", Required = false)]
         public bool UseAllJoyn { get; set; }
+
+        [Option("Messaging", DefaultValue = true, HelpText = "Harmonize with Messaging", Required = false)]
+        public bool UseMessaging { get; set; }
     }
 }

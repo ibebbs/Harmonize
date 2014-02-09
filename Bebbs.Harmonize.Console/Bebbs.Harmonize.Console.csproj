@@ -98,6 +98,10 @@
       <Project>{2287ee36-a63d-4dd9-ae04-8dda2fe324ed}</Project>
       <Name>Bebbs.Harmonize.With.Alljoyn</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bebbs.Harmonize.With.Messaging\Bebbs.Harmonize.With.Messaging.csproj">
+      <Project>{6d4f94c4-e199-493d-a386-e0c184bd0e56}</Project>
+      <Name>Bebbs.Harmonize.With.Messaging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj">
       <Project>{91848444-1506-4f50-bf6c-d0528cd6c74e}</Project>
       <Name>Bebbs.Harmonize.With</Name>

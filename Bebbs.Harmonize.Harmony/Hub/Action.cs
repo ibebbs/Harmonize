@@ -1,51 +1,53 @@
-﻿using ServiceStack.Text;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.Harmony.Hub
 {
-    internal class Action : With.Component.IAction
+    public interface IAction : With.Component.IActionable, With.Component.IDescription
     {
-        private Command _command;
+        string Label { get; }
+        string Action { get; }
+    }
 
-        private void CommandFromAction(string value)
+    internal class Action : IAction
+    {
+        string With.Component.IDescription.Name
         {
-            string json = value.Trim('"');
-
-            _command = JsonSerializer.DeserializeFromString<Command>(json);
+            get { return label; }
         }
 
-        private string CommandAsAction()
+        string With.Component.IDescription.Remarks
         {
-            if (_command != null)
-            {
-                return JsonSerializer.SerializeToString<Command>(_command);
-            }
-            else
-            {
-                return string.Empty;
-            }
+            get { return string.Empty; }
         }
 
-        With.Command.ICommand With.Component.IAction.Command 
+        With.Component.IIdentity With.Component.IActionable.Identity
         {
-            get { return _command; } 
+            get { return new Identity(name); }
         }
 
-        string With.Component.IAction.Name
+        With.Component.IDescription With.Component.IActionable.Description
         {
-            get { return name; }
+            get { return this; }
+        }
+
+        IEnumerable<With.Component.IParameter> With.Component.IActionable.Parameters
+        {
+            get { return Enumerable.Empty<With.Component.IParameter>(); }
+        }
+
+        string IAction.Label
+        {
+            get { return label; }
+        }
+
+        string IAction.Action
+        {
+            get { return action; }
         }
 
         public string name { get; set; }
         public string label { get; set; }
-        public string action 
-        {
-            get { return CommandAsAction(); }
-            set { CommandFromAction(value); }
-        }
+        public string action { get; set; }
     }
 }

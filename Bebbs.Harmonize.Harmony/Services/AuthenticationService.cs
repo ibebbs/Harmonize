@@ -7,7 +7,7 @@ using System.Net.Http;
 
 namespace Bebbs.Harmonize.Harmony.Services
 {
-    public interface IAuthenticationService : IInitializeAtStartup, ICleanupAtShutdown
+    public interface IAuthenticationService : IInitialize, ICleanup
     {
 
     }

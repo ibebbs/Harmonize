@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bebbs.Harmonize.Harmony.Hub
 {
-    internal class Description : With.Component.IDescription
+    internal class EntityDescription : With.Component.IEntityDescription
     {
-        public Description(string name, string type, string manufacturer, string model)
+        public EntityDescription(string name, string type, string manufacturer, string model, string remarks)
         {
             Name = name;
             Type = type;
             Manufacturer = manufacturer;
             Model = model;
+            Remarks = remarks;
         }
 
         public string Name { get; private set; }
@@ -23,5 +19,7 @@ namespace Bebbs.Harmonize.Harmony.Hub
         public string Manufacturer { get; private set; }
 
         public string Model { get; private set; }
+
+        public string Remarks { get; private set; }
     }
 }

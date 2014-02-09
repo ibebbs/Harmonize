@@ -14,9 +14,9 @@ namespace Bebbs.Harmonize.State.Event
 
         EventData Translate(With.Message.IStarted message);
 
-        EventData Translate(With.Message.IDeregisterDevice message);
+        EventData Translate(With.Message.IDeregister message);
 
-        EventData Translate(With.Message.IRegisterDevice message);
+        EventData Translate(With.Message.IRegister message);
     }
 
     internal class Translator : ITranslator
@@ -28,8 +28,8 @@ namespace Bebbs.Harmonize.State.Event
             Mapper.CreateMap<With.Message.IObservation, Observed>();
             Mapper.CreateMap<With.Message.IStopped, Stopped>();
             Mapper.CreateMap<With.Message.IStarted, Started>();
-            Mapper.CreateMap<With.Message.IDeregisterDevice, Deregistered>();
-            Mapper.CreateMap<With.Message.IRegisterDevice, Registered>();
+            Mapper.CreateMap<With.Message.IDeregister, Deregistered>();
+            Mapper.CreateMap<With.Message.IRegister, Registered>();
         }
 
         public EventData Translate(With.Message.IObservation message)
@@ -65,7 +65,7 @@ namespace Bebbs.Harmonize.State.Event
             return new EventData(Guid.NewGuid(), typeof(Started).FullName, true, data, new byte[0]);
         }
 
-        public EventData Translate(With.Message.IDeregisterDevice message)
+        public EventData Translate(With.Message.IDeregister message)
         {
             Deregistered value = Mapper.Map<Deregistered>(message);
 
@@ -76,7 +76,7 @@ namespace Bebbs.Harmonize.State.Event
             return new EventData(Guid.NewGuid(), typeof(Deregistered).FullName, true, data, new byte[0]);
         }
 
-        public EventData Translate(With.Message.IRegisterDevice message)
+        public EventData Translate(With.Message.IRegister message)
         {
             Registered value = Mapper.Map<Registered>(message);
 

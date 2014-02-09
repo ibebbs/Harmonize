@@ -25,6 +25,11 @@ namespace Bebbs.Harmonize.Console
                 modules.Add(new Harmonize.With.Alljoyn.Module());
             }
 
+            if (_options.UseMessaging)
+            {
+                modules.Add(new Harmonize.With.Messaging.Module());
+            }
+
             Harmonize.Options harmonizeOptions = new Harmonize.Options(modules);
 
             _harmonizer = new Harmonize.Harmonizer(harmonizeOptions);

@@ -42,7 +42,7 @@ namespace Bebbs.Harmonize.Harmony.State
                 _eventAggregator.GetEvent<With.Command.ICommand>().Subscribe(command => ProcessCommand(context, command))
             );
 
-            _eventAggregator.Publish(new With.Message.Started());
+            _eventAggregator.Publish(new Messages.StartedMessage());
 
             EventSource.Log.EnteredState(Name.Started);
         }

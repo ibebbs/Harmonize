@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.Harmony.Hub
 {
-    public interface IDevice : With.Component.IDevice
+    public interface IDevice : With.Component.IEntity
     {
         int Id { get; }
         string Icon { get; }
@@ -16,6 +16,7 @@ namespace Bebbs.Harmonize.Harmony.Hub
         int Transport { get; }
         int ControlPort { get; }
         string SuggestedDisplay { get; }
+        IEnumerable<IControl> Controls { get; }
         
         string HubName { get; set; }
     }
@@ -23,34 +24,32 @@ namespace Bebbs.Harmonize.Harmony.Hub
     internal class Device : IDevice
     {
         private readonly Lazy<With.Component.IIdentity> _identity;
-        private readonly Lazy<With.Component.ILocation> _location;
-        private readonly Lazy<With.Component.IDescription> _description;
+        private readonly Lazy<With.Component.IEntityDescription> _description;
 
         public Device()
         {
-            _identity = new Lazy<With.Component.IIdentity>(() => new Identity(id));
-            _location = new Lazy<With.Component.ILocation>(() => new Location(HubName));
-            _description = new Lazy<With.Component.IDescription>(() => new Description(label, type, manufacturer, model));
+            _identity = new Lazy<With.Component.IIdentity>(() => new Identity(id.ToString()));
+            _description = new Lazy<With.Component.IEntityDescription>(() => new EntityDescription(label, type, manufacturer, model, deviceProfileUri));
         }
 
-        With.Component.IIdentity With.Component.IDevice.Identity 
+        With.Component.IIdentity With.Component.IEntity.Identity 
         {
             get { return _identity.Value; }
         }
 
-        With.Component.ILocation With.Component.IDevice.Location
-        {
-            get { return _location.Value; }
-        }
-
-        With.Component.IDescription With.Component.IDevice.Description
+        With.Component.IEntityDescription With.Component.IEntity.Description
         {
             get { return _description.Value; }
         }
 
-        IEnumerable<With.Component.IControl> With.Component.IDevice.Controls
+        IEnumerable<With.Component.IObservable> With.Component.IEntity.Observables
         {
-            get { return controlGroup; }
+            get { return Enumerable.Empty<With.Component.IObservable>(); }
+        }
+
+        IEnumerable<With.Component.IActionable> With.Component.IEntity.Actionables
+        {
+            get { return controlGroup.SelectMany(group => group.function); }
         }
 
         string IDevice.Icon
@@ -91,6 +90,11 @@ namespace Bebbs.Harmonize.Harmony.Hub
         string IDevice.SuggestedDisplay
         {
             get { return suggestedDisplay; }
+        }
+
+        IEnumerable<IControl> IDevice.Controls 
+        {
+            get { return controlGroup; }
         }
 
         public int id { get; set; }

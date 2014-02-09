@@ -3,10 +3,12 @@ using EventStore.ClientAPI;
 using System;
 using System.Net;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.State
 {
-    public interface IStore : IInitializeAtStartup, ICleanupAtShutdown
+    public interface IStore : IInitialize, IStart, IStop, ICleanup
     {
     }
 
@@ -15,7 +17,7 @@ namespace Bebbs.Harmonize.State
         public static readonly string StreamName = "Bebbs-Harmonize-State";
 
         // TODO: Should be moved to configuration
-        private const string IpAddress = "127.0.0.1";
+        private const string IpAddress = "192.168.1.22";
         private const int Port = 1113;
 
         private readonly IGlobalEventAggregator _eventAggregator;
@@ -30,67 +32,57 @@ namespace Bebbs.Harmonize.State
             _eventTranslator = eventTranslator;
         }
 
-        private async void Process(With.Message.IObservation message)
+        private async void Append(EventData eventData)
         {
-            Instrumentation.Store.Storing(message);
-
-            EventData ed = _eventTranslator.Translate(message);
-
-            await _connection.AppendToStreamAsync(StreamName, ExpectedVersion.Any, ed);
-        }
-
-        private async void Process(With.Message.IStopped message)
-        {
-            Instrumentation.Store.Storing(message);
-
-            EventData ed = _eventTranslator.Translate(message);
-
-            await _connection.AppendToStreamAsync(StreamName, ExpectedVersion.Any, ed);
-        }
-
-        private async void Process(With.Message.IStarted message)
-        {
-            Instrumentation.Store.Storing(message);
-
-            EventData ed = _eventTranslator.Translate(message);
-
-            await _connection.AppendToStreamAsync(StreamName, ExpectedVersion.Any, ed);
-        }
-
-        private async void Process(With.Message.IDeregisterDevice message)
-        {
-            Instrumentation.Store.Storing(message);
-
-            EventData ed = _eventTranslator.Translate(message);
-
-            await _connection.AppendToStreamAsync(StreamName, ExpectedVersion.Any, ed);
-        }
-
-        private async void Process(With.Message.IRegisterDevice message)
-        {
-            Instrumentation.Store.Storing(message);
-
-            EventData ed = _eventTranslator.Translate(message);
-
-            await _connection.AppendToStreamAsync(StreamName, ExpectedVersion.Any, ed);
+            if (_connection != null)
+            {
+                await _connection.AppendToStreamAsync(StreamName, ExpectedVersion.Any, eventData);
+            }
         }
 
         public void Initialize()
         {
-            _connection = EventStoreConnection.Create(new IPEndPoint(IPAddress.Parse(IpAddress), Port));
+            _subscription = new CompositeDisposable(
+                _eventAggregator.GetEvent<With.Message.IRegister>().Do(Instrumentation.Store.Storing).Select(_eventTranslator.Translate).Subscribe(Append),
+                _eventAggregator.GetEvent<With.Message.IDeregister>().Do(Instrumentation.Store.Storing).Select(_eventTranslator.Translate).Subscribe(Append),
+                _eventAggregator.GetEvent<With.Message.IStarted>().Do(Instrumentation.Store.Storing).Select(_eventTranslator.Translate).Subscribe(Append),
+                _eventAggregator.GetEvent<With.Message.IStopped>().Do(Instrumentation.Store.Storing).Select(_eventTranslator.Translate).Subscribe(Append),
+                _eventAggregator.GetEvent<With.Message.IObservation>().Do(Instrumentation.Store.Storing).Select(_eventTranslator.Translate).Subscribe(Append)
+            );
+        }
+
+        public async Task Start()
+        {
+            if (_connection != null)
+            {
+                throw new InvalidOperationException("Cannot start the Store as it has already been started");
+            }
+
+            IEventStoreConnection connection = EventStoreConnection.Create(new IPEndPoint(IPAddress.Parse(IpAddress), Port));
 
             Instrumentation.Store.ConnectingToEventStore(IpAddress, Port);
 
-            _connection.Connect();
+            await connection.ConnectAsync();
 
-            _subscription = new CompositeDisposable(
-                _eventAggregator.GetEvent<With.Message.IRegisterDevice>().Subscribe(Process),
-                _eventAggregator.GetEvent<With.Message.IDeregisterDevice>().Subscribe(Process),
-                _eventAggregator.GetEvent<With.Message.IStarted>().Subscribe(Process),
-                _eventAggregator.GetEvent<With.Message.IStopped>().Subscribe(Process),
-                _eventAggregator.GetEvent<With.Message.IObservation>().Subscribe(Process),
-                Disposable.Create(() => Instrumentation.Store.DisconnectingFromEventStore(IpAddress, Port))
-            );
+            _connection = connection;
+        }
+
+        public Task Stop()
+        {
+            if (_connection == null)
+            {
+                throw new InvalidOperationException("Cannot stop the Store as it has already been stopped");
+            }
+
+            Instrumentation.Store.DisconnectingFromEventStore(IpAddress, Port);
+
+            IEventStoreConnection connection = _connection;
+            _connection = null;
+
+            connection.Close();
+            connection.Dispose();
+
+            return Task.FromResult<object>(null);
         }
 
         public void Cleanup()
@@ -99,13 +91,6 @@ namespace Bebbs.Harmonize.State
             {
                 _subscription.Dispose();
                 _subscription = null;
-            }
-
-            if (_connection != null)
-            {
-                _connection.Close();
-                _connection.Dispose();
-                _connection = null;
             }
         }
     }

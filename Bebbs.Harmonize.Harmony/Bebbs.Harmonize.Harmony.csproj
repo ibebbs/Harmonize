@@ -74,18 +74,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Hub\Command.cs" />
-    <Compile Include="Hub\Description.cs" />
+    <Compile Include="Hub\Control.cs" />
+    <Compile Include="Hub\EntityDescription.cs" />
     <Compile Include="Hub\Identity.cs" />
     <Compile Include="Hub\Location.cs" />
     <Compile Include="Messages\Factory.cs" />
     <Compile Include="Hub\Action.cs" />
     <Compile Include="Hub\Activity.cs" />
     <Compile Include="Hub\Configuration\Parser.cs" />
-    <Compile Include="Hub\Control.cs" />
     <Compile Include="Hub\Device.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="EventSource.cs" />
     <Compile Include="Hub\Configuration\Values.cs" />
+    <Compile Include="Messages\StartedMessage.cs" />
+    <Compile Include="Messages\StoppedMessage.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\AuthenticationResponseMessage.cs" />

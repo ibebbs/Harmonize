@@ -2,10 +2,13 @@
 using Bebbs.Harmonize.Harmony.Messages;
 using System;
 using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
+using System.Threading.Tasks;
+using System.Reactive;
 
 namespace Bebbs.Harmonize.Harmony.State
 {
-    public interface IMachine : IInitializeAtStartup, ICleanupAtShutdown
+    public interface IMachine : IInitialize, IStart, IStop, ICleanup
     {
 
     }
@@ -93,6 +96,64 @@ namespace Bebbs.Harmonize.Harmony.State
             _transitionSubscription = _eventAggregator.GetEvent<ITransitionToStateMessage>().ObserveOn(_asyncHelper.AsyncScheduler).Subscribe(ProcessTransition);
         }
 
+        public Task Start()
+        {
+            IObservable<Unit> observable = ObservableExtentions.Either(
+                _eventAggregator.GetEvent<Messages.IStartedMessage>().Timeout(TimeSpan.FromSeconds(30)),
+                _eventAggregator.GetEvent<Messages.IErrorMessage>(),
+                (started, error) =>
+                    {
+                        if (error != null)
+                        {
+                            throw new ApplicationException("Error starting Harmony", error.Exception);
+                        }
+                        else
+                        {
+                            return Unit.Default;
+                        }
+                    }
+            );
+
+            Task result = observable.ToTask();
+
+            _eventAggregator.Publish(new Messages.StartHarmonizingMessage());
+
+            return result;
+        }
+
+        public Task Stop()
+        {
+            if (_currentState is State.StoppableState)
+            {
+                IObservable<Unit> observable = ObservableExtentions.Either(
+                    _eventAggregator.GetEvent<Messages.IStoppedMessage>().Timeout(TimeSpan.FromSeconds(10)),
+                    _eventAggregator.GetEvent<Messages.IErrorMessage>(),
+                    (started, error) =>
+                    {
+                        if (error != null)
+                        {
+                            throw new ApplicationException("Error stopping Harmony", error.Exception);
+                        }
+                        else
+                        {
+                            return Unit.Default;
+                        }
+                    }
+                );
+
+
+                Task result = observable.ToTask();
+
+                _eventAggregator.Publish(new Messages.StopHarmonizingMessage());
+
+                return result;
+            }
+            else
+            {
+                return Task.FromResult<object>(null);
+            }
+        }
+
         public void Cleanup()
         {
             if (_transitionSubscription != null)
@@ -102,16 +163,6 @@ namespace Bebbs.Harmonize.Harmony.State
             }
 
             ExitState();
-        }
-
-        public void Start()
-        {
-            _eventAggregator.Publish(new StartHarmonizingMessage());
-        }
-
-        public void Stop()
-        {
-            _eventAggregator.Publish(new StopHarmonizingMessage());
         }
     }
 }

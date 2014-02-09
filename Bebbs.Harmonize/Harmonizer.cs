@@ -1,9 +1,8 @@
-﻿using Bebbs.Harmonize.Harmony.Messages;
-using Bebbs.Harmonize.With;
+﻿using Bebbs.Harmonize.With;
 using Ninject;
 using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize
@@ -28,46 +27,69 @@ namespace Bebbs.Harmonize
 
         private void Initialize()
         {
-            IEnumerable<With.IInitializeAtStartup> initializables = _kernel.GetAll<With.IInitializeAtStartup>();
+            IEnumerable<With.IInitialize> initializables = _kernel.GetAll<With.IInitialize>();
 
-            foreach (With.IInitializeAtStartup initializable in initializables)
+            foreach (With.IInitialize initializable in initializables)
             {
                 initializable.Initialize();
             }
         }
 
-        private Task StartHarmonizing()
+        private async Task StartSafely(With.IStart startable)
         {
-            With.IGlobalEventAggregator eventAggregator = _kernel.Get<With.IGlobalEventAggregator>();
-
-            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
-
-            eventAggregator.GetEvent<With.Message.IStarted>().Take(1).Subscribe(message => tcs.SetResult(null));
-            eventAggregator.GetEvent<IErrorMessage>().Take(1).Subscribe(message => tcs.SetException(message.Exception));
-
-            eventAggregator.Publish(new StartHarmonizingMessage());
-
-            return tcs.Task;
+            try
+            {
+                await startable.Start();
+            }
+            catch (Exception exception)
+            {
+                Instrumentation.Error.WhenStarting(startable, exception);
+            }
         }
 
-        private Task StopHarmonizing()
+        private async Task StopSafely(With.IStop stoppable)
+        {
+            try
+            {
+                await stoppable.Stop();
+            }
+            catch (Exception exception)
+            {
+                Instrumentation.Error.WhenStopping(stoppable, exception);
+            }
+        }
+
+        private async Task StartHarmonizing()
         {
             With.IGlobalEventAggregator eventAggregator = _kernel.Get<With.IGlobalEventAggregator>();
 
-            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
-            eventAggregator.GetEvent<With.Message.IStopped>().Take(1).Subscribe(message => tcs.SetResult(null));
-            eventAggregator.GetEvent<IErrorMessage>().Take(1).Subscribe(message => tcs.SetException(message.Exception));
+            eventAggregator.Publish(new With.Message.Starting());
 
-            eventAggregator.Publish(new StopHarmonizingMessage());
+            Task[] startables = _kernel.GetAll<With.IStart>().Select(StartSafely).ToArray();
 
-            return tcs.Task;
+            await Task.WhenAll(startables);
+
+            eventAggregator.Publish(new With.Message.Started());
+        }
+
+        private async Task StopHarmonizing()
+        {
+            With.IGlobalEventAggregator eventAggregator = _kernel.Get<With.IGlobalEventAggregator>();
+
+            eventAggregator.Publish(new With.Message.Stopping());
+
+            Task[] stoppables = _kernel.GetAll<With.IStop>().Select(StopSafely).ToArray();
+
+            await Task.WhenAll(stoppables);
+
+            eventAggregator.Publish(new With.Message.Stopped());
         }
 
         private void Cleanup()
         {
-            IEnumerable<With.ICleanupAtShutdown> cleanupables = _kernel.GetAll<With.ICleanupAtShutdown>();
+            IEnumerable<With.ICleanup> cleanupables = _kernel.GetAll<With.ICleanup>();
 
-            foreach (With.ICleanupAtShutdown cleanupable in cleanupables)
+            foreach (With.ICleanup cleanupable in cleanupables)
             {
                 cleanupable.Cleanup();
             }
@@ -87,13 +109,6 @@ namespace Bebbs.Harmonize
             await StopHarmonizing();
 
             Cleanup();
-        }
-
-        public void SendCommand(With.Command.ICommand command)
-        {
-            With.IGlobalEventAggregator eventAggregator = _kernel.Get<With.IGlobalEventAggregator>();
-
-            eventAggregator.Publish(command);
         }
     }
 }

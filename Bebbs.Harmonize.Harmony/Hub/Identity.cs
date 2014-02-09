@@ -1,18 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bebbs.Harmonize.Harmony.Hub
 {
-    public class Identity : With.Component.IIdentity
+    internal class Identity : With.Component.IIdentity
     {
-        public Identity(int id)
+        public Identity(string id)
         {
             Id = id;
         }
 
-        public int Id { get; private set; }
+        public string Id { get; private set; }
+
+        public override string ToString()
+        {
+            return Id;
+        }
     }
 }

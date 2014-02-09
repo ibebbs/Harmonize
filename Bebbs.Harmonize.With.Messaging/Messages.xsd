@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Messages"
+    targetNamespace="http://bebbs.co.uk/Harmonize/Messages"
+    elementFormDefault="qualified"
+    xmlns="http://bebbs.co.uk/Harmonize/Messages"
+    xmlns:types="http://bebbs.co.uk/Harmonize/Types"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:import id="types" namespace="http://bebbs.co.uk/Harmonize/Types"/>
+
+  <xs:simpleType name="Status" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Ok" value="Ok"/>
+      <xs:enumeration id="Warning" value="Warning"/>
+      <xs:enumeration id="Error" value="Error"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="Response">
+    <xs:sequence>
+      <xs:element name="Status" type="Status"/>
+      <xs:element name="Text" type="xs:string" minOccurs="0" maxOccurs="1" nillable="true"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Register">
+    <xs:sequence>
+      <xs:element name="Entity" type="types:Entity"/>
+    </xs:sequence>
+    <xs:attribute name="Registrar" type="types:UniqueIdentifier"/>
+  </xs:complexType>
+  
+  <xs:complexType name="Deregister">
+    <xs:attribute name="Registrar" type="types:UniqueIdentifier"/>
+    <xs:attribute name="Entity" type="types:UniqueIdentifier"/>
+  </xs:complexType>
+
+  <xs:complexType name="Observe">
+    <xs:attribute name="Entity" type="types:UniqueIdentifier"/>
+    <xs:attribute name="Observable" type="types:UniqueIdentifier"/>
+    <xs:attribute name="Observer" type="types:UniqueIdentifier"/>
+  </xs:complexType>
+
+  <xs:complexType name="Observation">
+    <xs:sequence>
+      <xs:element name="Date" type="types:Date"/>
+      <xs:element name="Measurement" type="types:Measurement"/>
+    </xs:sequence>
+    <xs:attribute name="Entity" type="types:UniqueIdentifier"/>
+    <xs:attribute name="Observer" type="types:UniqueIdentifier"/>
+  </xs:complexType>
+
+  <xs:complexType name="Subscribe">
+    <xs:attribute name="Entity" type="types:UniqueIdentifier"/>
+    <xs:attribute name="Observable" type="types:UniqueIdentifier"/>
+    <xs:attribute name="Subscriber" type="types:UniqueIdentifier"/>
+  </xs:complexType>
+
+  <xs:complexType name="Act">
+    <xs:sequence>
+      <xs:element name="ParameterValues" type="types:ParameterValues"/>
+    </xs:sequence>
+    <xs:attribute name="Entity" type="types:UniqueIdentifier"/>
+    <xs:attribute name="Actionable" type="types:UniqueIdentifier"/>
+    <xs:attribute name="Actor" type="types:UniqueIdentifier"/>
+  </xs:complexType>
+
+  <xs:element name="Message">
+    <xs:complexType>
+      <xs:choice minOccurs="1" maxOccurs="1">
+        <xs:element name="Register" type="Register"/>
+        <xs:element name="Deregister" type="Deregister"/>
+        <xs:element name="Observe" type="Observe"/>
+        <xs:element name="Observation" type="Observation"/>
+        <xs:element name="Subscribe" type="Subscribe"/>
+        <xs:element name="Act" type="Act"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

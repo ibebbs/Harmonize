@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Alljoyn
 {
-    internal class Harmonizer : IInitializeAtStartup, ICleanupAtShutdown
+    internal class Harmonizer : IInitialize, ICleanup
     {
         private readonly IGlobalEventAggregator _eventAggregator;
         private Bus.ICoordinator _busCoordinator;
@@ -20,9 +20,9 @@ namespace Bebbs.Harmonize.With.Alljoyn
             _busCoordinator = busCoordinator;
         }
 
-        private void RegisterDevice(Message.RegisterDevice message)
+        private void RegisterDevice(Message.Register message)
         {
-            _busCoordinator.Add(message.Device);
+            _busCoordinator.Add(message.Entity);
         }
 
         private void Started()
@@ -35,7 +35,7 @@ namespace Bebbs.Harmonize.With.Alljoyn
             // Do nothing
         }
 
-        private void DeregisterDevice(Message.DeregisterDevice message)
+        private void DeregisterDevice(Message.Deregister message)
         {
             _busCoordinator.Remove(message.Device);
         }
@@ -47,8 +47,8 @@ namespace Bebbs.Harmonize.With.Alljoyn
             _subscription = new CompositeDisposable(
                 _eventAggregator.GetEvent<With.Message.Started>().Subscribe(message => Started()),
                 _eventAggregator.GetEvent<With.Message.Stopped>().Subscribe(message => Stopped()),
-                _eventAggregator.GetEvent<With.Message.RegisterDevice>().Subscribe(RegisterDevice),
-                _eventAggregator.GetEvent<With.Message.DeregisterDevice>().Subscribe(DeregisterDevice)
+                _eventAggregator.GetEvent<With.Message.Register>().Subscribe(RegisterDevice),
+                _eventAggregator.GetEvent<With.Message.Deregister>().Subscribe(DeregisterDevice)
             );
         }
 

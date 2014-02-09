@@ -9,8 +9,6 @@ namespace Bebbs.Harmonize.With.Component
     public interface IDescription
     {
         string Name { get; }
-        string Type { get; }
-        string Manufacturer { get; }
-        string Model { get; }
+        string Remarks { get; }
     }
 }

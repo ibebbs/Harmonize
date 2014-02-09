@@ -1,7 +1,7 @@
 ﻿
 namespace Bebbs.Harmonize.With
 {
-    public interface ICleanupAtShutdown
+    public interface ICleanup
     {
         void Cleanup();
     }

@@ -10,9 +10,9 @@ namespace Bebbs.Harmonize.With.Alljoyn.Bus
     {
         void Start();
 
-        void Add(Component.IDevice device);
+        void Add(Component.IEntity device);
 
-        void Remove(Component.IDevice device);
+        void Remove(Component.IEntity device);
 
         void Stop();
     }
@@ -68,14 +68,14 @@ namespace Bebbs.Harmonize.With.Alljoyn.Bus
             _busAttachment.Start();
         }
 
-        public void Add(Component.IDevice device)
+        public void Add(Component.IEntity device)
         {
             Object.Description description = _objectFactory.Describe(device);
 
             Add(description);
         }
 
-        public void Remove(Component.IDevice device)
+        public void Remove(Component.IEntity device)
         {
             Object.Description description = _objectFactory.Describe(device);
 

@@ -1,19 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.Harmony.Hub
 {
-    internal class Control : With.Component.IControl
+    public interface IControl
     {
-        string With.Component.IControl.Name
+        string Name { get; }
+
+        IAction[] Actions { get; }
+    }
+
+    internal class Control : IControl
+    {
+        string IControl.Name
         {
             get { return name; }
         }
 
-        IEnumerable<With.Component.IAction> With.Component.IControl.Actions
+        IAction[] IControl.Actions
         {
             get { return function; }
         }

@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace Bebbs.Harmonize.Harmony.Services
 {
-    public interface IHarmonyService : IInitializeAtStartup, ICleanupAtShutdown
+    public interface IHarmonyService : IInitialize, ICleanup
     {
 
     }

@@ -20,7 +20,7 @@ namespace Bebbs.Harmonize.With.Alljoyn
             Bind<Bus.Coordinator>().ToSelf();
             Bind<Bus.ICoordinator>().ToMethod(ctx => EventSourceProxy.TracingProxy.Create<Bus.ICoordinator>(ctx.Kernel.Get<Bus.Coordinator>())).InSingletonScope();
 
-            Bind<IInitializeAtStartup, ICleanupAtShutdown>().To<Harmonizer>().InSingletonScope();
+            Bind<IInitialize, ICleanup>().To<Harmonizer>().InSingletonScope();
         }
     }
 }

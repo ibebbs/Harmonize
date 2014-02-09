@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Types"
+    targetNamespace="http://bebbs.co.uk/Harmonize/Types"
+    elementFormDefault="qualified"
+    xmlns="http://bebbs.co.uk/Harmonize/Types"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="UniqueIdentifier">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  
+  <xs:simpleType name="MeasurementType" final="restriction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration id="Length" value="meter"/>
+      <xs:enumeration id="Mass" value="kilogram"/>
+      <xs:enumeration id="Time" value="seconds"/>
+      <xs:enumeration id="Current" value="ampere"/>
+      <xs:enumeration id="Temperature" value="kelvin"/>
+      <xs:enumeration id="Intensity" value="candela"/>
+      <xs:enumeration id="Amount" value="mole"/>
+      <xs:enumeration id="Quantity" value="units"/>
+      <xs:enumeration id="Angle" value="radians"/>
+      <xs:enumeration id="Proportion" value="percent"/>
+      <xs:enumeration id="Logic" value="boolean"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Date" final="restriction">
+    <xs:restriction base="xs:long"/>
+  </xs:simpleType>
+
+  <xs:complexType name="Measurement">
+    <xs:attribute name="Type" type="MeasurementType"/>
+    <xs:attribute name="Value" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="SimpleDescription">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Remarks" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EntityDescription">
+    <xs:complexContent>
+      <xs:extension base="SimpleDescription">
+        <xs:sequence>
+          <xs:element name="Manufacturer" type="xs:string"/>
+          <xs:element name="Model" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ValueDescription">
+    <xs:complexContent>
+      <xs:extension base="SimpleDescription">
+        <xs:sequence>
+          <xs:element name="Measurement" type="MeasurementType"/>
+          <xs:element name="Minimum" type="Measurement"/>
+          <xs:element name="Maximum" type="Measurement"/>
+          <xs:element name="Default" type="Measurement"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  
+  <xs:complexType name="ParameterDescription">
+    <xs:complexContent>
+      <xs:extension base="SimpleDescription">
+        <xs:sequence>
+          <xs:element name="Measurement" type="MeasurementType"/>
+          <xs:element name="Minimum" type="Measurement"/>
+          <xs:element name="Maximum" type="Measurement"/>
+          <xs:element name="Default" type="Measurement"/>
+          <xs:element name="Required" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="Observable">
+    <xs:sequence>
+      <xs:element name="Description" type="ValueDescription"/>
+    </xs:sequence>
+    <xs:attribute name="UniqueIdentifier" type="UniqueIdentifier"/>
+  </xs:complexType>
+
+  <xs:complexType name="Observables">
+    <xs:sequence>
+      <xs:element name="Observable" type="Observable" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Parameter">
+    <xs:sequence>
+      <xs:element name="Description" type="ParameterDescription"/>
+    </xs:sequence>
+    <xs:attribute name="UniqueIdentifier" type="UniqueIdentifier"/>
+  </xs:complexType>
+
+  <xs:complexType name="Parameters">
+    <xs:sequence>
+      <xs:element name="Parameter" type="Parameter" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ParameterValue">
+    <xs:sequence>
+      <xs:element name="Measurement" type="Measurement"/>
+    </xs:sequence>
+    <xs:attribute name="UniqueIdentifier" type="UniqueIdentifier"/>
+  </xs:complexType>
+
+  <xs:complexType name="ParameterValues">
+    <xs:sequence>
+      <xs:element name="ParameterValue" type="ParameterValue" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Actionable">
+    <xs:sequence>
+      <xs:element name="Description" type="SimpleDescription"/>
+      <xs:element name="Parameters" type="Parameters"/>
+    </xs:sequence>
+    <xs:attribute name="UniqueIdentifier" type="UniqueIdentifier"/>
+  </xs:complexType>
+  
+  <xs:complexType name="Actionables">
+    <xs:sequence>
+      <xs:element name="Actionable" type="Actionable" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Entity">
+    <xs:sequence>
+      <xs:element name="Description" type="EntityDescription"/>
+      <xs:element name="Observables" type="Observables"/>
+      <xs:element name="Actionables" type="Actionables"/>
+    </xs:sequence>
+    <xs:attribute name="UniqueIdentifier" type="UniqueIdentifier"/>
+  </xs:complexType>
+</xs:schema>
