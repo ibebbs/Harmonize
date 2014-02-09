@@ -31,7 +31,7 @@ namespace Bebbs.Harmonize.Console
 
             await _harmonizer.Start(new Settings.Provider());
 
-            /*
+            /* This code powers on the amp once harmonize has started, kept here for reference now but will be moved shortly
             var device = result.Devices.Where(d => string.Equals(d.Type, "Amplifier", StringComparison.CurrentCultureIgnoreCase) && string.Equals(d.Model, "DSP-A5", StringComparison.CurrentCultureIgnoreCase)).First();
             var control = device.Controls.Where(c => string.Equals(c.Name, "Power", StringComparison.CurrentCultureIgnoreCase)).First();
             var action = control.Actions.Where(a => string.Equals(a.Name, "PowerOn", StringComparison.CurrentCultureIgnoreCase)).First();
