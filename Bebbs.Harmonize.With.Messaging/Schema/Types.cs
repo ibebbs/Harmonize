@@ -51,13 +51,43 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Messages")]
     public partial class Act {
         
+        private UniqueIdentifier entityField;
+        
+        private UniqueIdentifier actionableField;
+        
+        private UniqueIdentifier actorField;
+        
         private ParameterValue[] parameterValuesField;
         
-        private string entityField;
+        /// <remarks/>
+        public UniqueIdentifier Entity {
+            get {
+                return this.entityField;
+            }
+            set {
+                this.entityField = value;
+            }
+        }
         
-        private string actionableField;
+        /// <remarks/>
+        public UniqueIdentifier Actionable {
+            get {
+                return this.actionableField;
+            }
+            set {
+                this.actionableField = value;
+            }
+        }
         
-        private string actorField;
+        /// <remarks/>
+        public UniqueIdentifier Actor {
+            get {
+                return this.actorField;
+            }
+            set {
+                this.actorField = value;
+            }
+        }
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute(Namespace="http://bebbs.co.uk/Harmonize/Types", IsNullable=false)]
@@ -69,37 +99,26 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
                 this.parameterValuesField = value;
             }
         }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("xsd", "4.0.30319.33440")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Types")]
+    public partial class UniqueIdentifier {
+        
+        private string valueField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Entity {
+        public string Value {
             get {
-                return this.entityField;
+                return this.valueField;
             }
             set {
-                this.entityField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Actionable {
-            get {
-                return this.actionableField;
-            }
-            set {
-                this.actionableField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Actor {
-            get {
-                return this.actorField;
-            }
-            set {
-                this.actorField = value;
+                this.valueField = value;
             }
         }
     }
@@ -112,9 +131,19 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Types")]
     public partial class ParameterValue {
         
+        private UniqueIdentifier uniqueIdentifierField;
+        
         private Measurement measurementField;
         
-        private string uniqueIdentifierField;
+        /// <remarks/>
+        public UniqueIdentifier UniqueIdentifier {
+            get {
+                return this.uniqueIdentifierField;
+            }
+            set {
+                this.uniqueIdentifierField = value;
+            }
+        }
         
         /// <remarks/>
         public Measurement Measurement {
@@ -123,17 +152,6 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
             }
             set {
                 this.measurementField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string UniqueIdentifier {
-            get {
-                return this.uniqueIdentifierField;
-            }
-            set {
-                this.uniqueIdentifierField = value;
             }
         }
     }
@@ -234,15 +252,14 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Messages")]
     public partial class Subscribe {
         
-        private string entityField;
+        private UniqueIdentifier entityField;
         
-        private string observableField;
+        private UniqueIdentifier observableField;
         
-        private string subscriberField;
+        private UniqueIdentifier subscriberField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Entity {
+        public UniqueIdentifier Entity {
             get {
                 return this.entityField;
             }
@@ -252,8 +269,7 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Observable {
+        public UniqueIdentifier Observable {
             get {
                 return this.observableField;
             }
@@ -263,8 +279,7 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Subscriber {
+        public UniqueIdentifier Subscriber {
             get {
                 return this.subscriberField;
             }
@@ -282,13 +297,33 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Messages")]
     public partial class Observation {
         
+        private UniqueIdentifier entityField;
+        
+        private UniqueIdentifier observableField;
+        
         private long dateField;
         
         private Measurement measurementField;
         
-        private string entityField;
+        /// <remarks/>
+        public UniqueIdentifier Entity {
+            get {
+                return this.entityField;
+            }
+            set {
+                this.entityField = value;
+            }
+        }
         
-        private string observerField;
+        /// <remarks/>
+        public UniqueIdentifier Observable {
+            get {
+                return this.observableField;
+            }
+            set {
+                this.observableField = value;
+            }
+        }
         
         /// <remarks/>
         public long Date {
@@ -309,28 +344,6 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
                 this.measurementField = value;
             }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Entity {
-            get {
-                return this.entityField;
-            }
-            set {
-                this.entityField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Observer {
-            get {
-                return this.observerField;
-            }
-            set {
-                this.observerField = value;
-            }
-        }
     }
     
     /// <remarks/>
@@ -341,15 +354,14 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Messages")]
     public partial class Observe {
         
-        private string entityField;
+        private UniqueIdentifier entityField;
         
-        private string observableField;
+        private UniqueIdentifier observableField;
         
-        private string observerField;
+        private UniqueIdentifier observerField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Entity {
+        public UniqueIdentifier Entity {
             get {
                 return this.entityField;
             }
@@ -359,8 +371,7 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Observable {
+        public UniqueIdentifier Observable {
             get {
                 return this.observableField;
             }
@@ -370,8 +381,7 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Observer {
+        public UniqueIdentifier Observer {
             get {
                 return this.observerField;
             }
@@ -389,13 +399,12 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Messages")]
     public partial class Deregister {
         
-        private string registrarField;
+        private UniqueIdentifier registrarField;
         
-        private string entityField;
+        private UniqueIdentifier entityField;
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Registrar {
+        public UniqueIdentifier Registrar {
             get {
                 return this.registrarField;
             }
@@ -405,8 +414,7 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Entity {
+        public UniqueIdentifier Entity {
             get {
                 return this.entityField;
             }
@@ -424,9 +432,19 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Types")]
     public partial class Parameter {
         
+        private UniqueIdentifier uniqueIdentifierField;
+        
         private ParameterDescription descriptionField;
         
-        private string uniqueIdentifierField;
+        /// <remarks/>
+        public UniqueIdentifier UniqueIdentifier {
+            get {
+                return this.uniqueIdentifierField;
+            }
+            set {
+                this.uniqueIdentifierField = value;
+            }
+        }
         
         /// <remarks/>
         public ParameterDescription Description {
@@ -435,17 +453,6 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
             }
             set {
                 this.descriptionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string UniqueIdentifier {
-            get {
-                return this.uniqueIdentifierField;
-            }
-            set {
-                this.uniqueIdentifierField = value;
             }
         }
     }
@@ -653,11 +660,21 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Types")]
     public partial class Actionable {
         
+        private UniqueIdentifier uniqueIdentifierField;
+        
         private SimpleDescription descriptionField;
         
         private Parameter[] parametersField;
         
-        private string uniqueIdentifierField;
+        /// <remarks/>
+        public UniqueIdentifier UniqueIdentifier {
+            get {
+                return this.uniqueIdentifierField;
+            }
+            set {
+                this.uniqueIdentifierField = value;
+            }
+        }
         
         /// <remarks/>
         public SimpleDescription Description {
@@ -679,17 +696,6 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
                 this.parametersField = value;
             }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string UniqueIdentifier {
-            get {
-                return this.uniqueIdentifierField;
-            }
-            set {
-                this.uniqueIdentifierField = value;
-            }
-        }
     }
     
     /// <remarks/>
@@ -700,9 +706,19 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Types")]
     public partial class Observable {
         
+        private UniqueIdentifier uniqueIdentifierField;
+        
         private ValueDescription descriptionField;
         
-        private string uniqueIdentifierField;
+        /// <remarks/>
+        public UniqueIdentifier UniqueIdentifier {
+            get {
+                return this.uniqueIdentifierField;
+            }
+            set {
+                this.uniqueIdentifierField = value;
+            }
+        }
         
         /// <remarks/>
         public ValueDescription Description {
@@ -711,17 +727,6 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
             }
             set {
                 this.descriptionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string UniqueIdentifier {
-            get {
-                return this.uniqueIdentifierField;
-            }
-            set {
-                this.uniqueIdentifierField = value;
             }
         }
     }
@@ -734,13 +739,23 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Types")]
     public partial class Entity {
         
+        private UniqueIdentifier uniqueIdentifierField;
+        
         private EntityDescription descriptionField;
         
         private Observable[] observablesField;
         
         private Actionable[] actionablesField;
         
-        private string uniqueIdentifierField;
+        /// <remarks/>
+        public UniqueIdentifier UniqueIdentifier {
+            get {
+                return this.uniqueIdentifierField;
+            }
+            set {
+                this.uniqueIdentifierField = value;
+            }
+        }
         
         /// <remarks/>
         public EntityDescription Description {
@@ -773,17 +788,6 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
                 this.actionablesField = value;
             }
         }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string UniqueIdentifier {
-            get {
-                return this.uniqueIdentifierField;
-            }
-            set {
-                this.uniqueIdentifierField = value;
-            }
-        }
     }
     
     /// <remarks/>
@@ -794,9 +798,19 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://bebbs.co.uk/Harmonize/Messages")]
     public partial class Register {
         
+        private UniqueIdentifier registrarField;
+        
         private Entity entityField;
         
-        private string registrarField;
+        /// <remarks/>
+        public UniqueIdentifier Registrar {
+            get {
+                return this.registrarField;
+            }
+            set {
+                this.registrarField = value;
+            }
+        }
         
         /// <remarks/>
         public Entity Entity {
@@ -805,17 +819,6 @@ namespace Bebbs.Harmonize.With.Messaging.Schema {
             }
             set {
                 this.entityField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlAttributeAttribute()]
-        public string Registrar {
-            get {
-                return this.registrarField;
-            }
-            set {
-                this.registrarField = value;
             }
         }
     }

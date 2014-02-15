@@ -5,9 +5,9 @@
     xmlns="http://bebbs.co.uk/Harmonize/Types"
     xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <xs:simpleType name="UniqueIdentifier">
-    <xs:restriction base="xs:string"/>
-  </xs:simpleType>
+  <xs:complexType name="UniqueIdentifier">
+    <xs:attribute name="Value" type="xs:string"/>
+  </xs:complexType>
   
   <xs:simpleType name="MeasurementType" final="restriction">
     <xs:restriction base="xs:string">
@@ -81,9 +81,9 @@
 
   <xs:complexType name="Observable">
     <xs:sequence>
+      <xs:element name="UniqueIdentifier" type="UniqueIdentifier"/>
       <xs:element name="Description" type="ValueDescription"/>
     </xs:sequence>
-    <xs:attribute name="UniqueIdentifier" type="UniqueIdentifier"/>
   </xs:complexType>
 
   <xs:complexType name="Observables">
@@ -94,9 +94,9 @@
 
   <xs:complexType name="Parameter">
     <xs:sequence>
+      <xs:element name="UniqueIdentifier" type="UniqueIdentifier"/>
       <xs:element name="Description" type="ParameterDescription"/>
     </xs:sequence>
-    <xs:attribute name="UniqueIdentifier" type="UniqueIdentifier"/>
   </xs:complexType>
 
   <xs:complexType name="Parameters">
@@ -107,9 +107,9 @@
 
   <xs:complexType name="ParameterValue">
     <xs:sequence>
+      <xs:element name="UniqueIdentifier" type="UniqueIdentifier"/>
       <xs:element name="Measurement" type="Measurement"/>
     </xs:sequence>
-    <xs:attribute name="UniqueIdentifier" type="UniqueIdentifier"/>
   </xs:complexType>
 
   <xs:complexType name="ParameterValues">
@@ -120,10 +120,10 @@
 
   <xs:complexType name="Actionable">
     <xs:sequence>
+      <xs:element name="UniqueIdentifier" type="UniqueIdentifier"/>
       <xs:element name="Description" type="SimpleDescription"/>
       <xs:element name="Parameters" type="Parameters"/>
     </xs:sequence>
-    <xs:attribute name="UniqueIdentifier" type="UniqueIdentifier"/>
   </xs:complexType>
   
   <xs:complexType name="Actionables">
@@ -134,10 +134,10 @@
 
   <xs:complexType name="Entity">
     <xs:sequence>
+      <xs:element name="UniqueIdentifier" type="UniqueIdentifier"/>
       <xs:element name="Description" type="EntityDescription"/>
       <xs:element name="Observables" type="Observables"/>
       <xs:element name="Actionables" type="Actionables"/>
     </xs:sequence>
-    <xs:attribute name="UniqueIdentifier" type="UniqueIdentifier"/>
   </xs:complexType>
 </xs:schema>

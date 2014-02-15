@@ -14,14 +14,14 @@ namespace Bebbs.Harmonize.With.Messaging
     internal class Bridge : IBridge
     {
         private readonly IGlobalEventAggregator _eventAggregator;
-        private readonly IMapping _mapper;
+        private readonly Mapping.IHelper _mapper;
         private readonly IWrapper _wrapper;
         private readonly IEnumerable<IEndpoint> _endpoints;
 
         private IDisposable _inboundSubscription;
         private IDisposable _outboundSubscription;
 
-        public Bridge(IGlobalEventAggregator eventAggregator, IMapping mapper, IWrapper wrapper, IEnumerable<IEndpoint> endpoints)
+        public Bridge(IGlobalEventAggregator eventAggregator, Mapping.IHelper mapper, IWrapper wrapper, IEnumerable<IEndpoint> endpoints)
         {
             _eventAggregator = eventAggregator;
             _mapper = mapper;
@@ -47,10 +47,10 @@ namespace Bebbs.Harmonize.With.Messaging
             );
 
             _outboundSubscription = new CompositeDisposable(
-                _eventAggregator.GetEvent<With.Message.IRegister>().Select(_mapper.ToMessage).Do(Instrumentation.Messages.Sent).Select(_wrapper.Wrap).Subscribe(Publish),
-                _eventAggregator.GetEvent<With.Message.IDeregister>().Select(_mapper.ToMessage).Do(Instrumentation.Messages.Sent).Select(_wrapper.Wrap).Subscribe(Publish),
-                _eventAggregator.GetEvent<With.Message.IObservation>().Select(_mapper.ToMessage).Do(Instrumentation.Messages.Sent).Select(_wrapper.Wrap).Subscribe(Publish),
-                _eventAggregator.GetEvent<With.Message.IAct>().Select(_mapper.ToMessage).Do(Instrumentation.Messages.Sent).Select(_wrapper.Wrap).Subscribe(Publish)
+                _eventAggregator.GetEvent<With.Message.IRegister>().Select(_mapper.ToSchema).Do(Instrumentation.Messages.Sent).Select(_wrapper.Wrap).Subscribe(Publish),
+                _eventAggregator.GetEvent<With.Message.IDeregister>().Select(_mapper.ToSchema).Do(Instrumentation.Messages.Sent).Select(_wrapper.Wrap).Subscribe(Publish),
+                _eventAggregator.GetEvent<With.Message.IObservation>().Select(_mapper.ToSchema).Do(Instrumentation.Messages.Sent).Select(_wrapper.Wrap).Subscribe(Publish),
+                _eventAggregator.GetEvent<With.Message.IAct>().Select(_mapper.ToSchema).Do(Instrumentation.Messages.Sent).Select(_wrapper.Wrap).Subscribe(Publish)
             );
         }
 

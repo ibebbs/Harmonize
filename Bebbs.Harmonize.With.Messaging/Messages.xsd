@@ -25,44 +25,50 @@
 
   <xs:complexType name="Register">
     <xs:sequence>
+      <xs:element name="Registrar" type="types:UniqueIdentifier"/>
       <xs:element name="Entity" type="types:Entity"/>
     </xs:sequence>
-    <xs:attribute name="Registrar" type="types:UniqueIdentifier"/>
   </xs:complexType>
-  
+
   <xs:complexType name="Deregister">
-    <xs:attribute name="Registrar" type="types:UniqueIdentifier"/>
-    <xs:attribute name="Entity" type="types:UniqueIdentifier"/>
+    <xs:sequence>
+      <xs:element name="Registrar" type="types:UniqueIdentifier"/>
+      <xs:element name="Entity" type="types:UniqueIdentifier"/>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="Observe">
-    <xs:attribute name="Entity" type="types:UniqueIdentifier"/>
-    <xs:attribute name="Observable" type="types:UniqueIdentifier"/>
-    <xs:attribute name="Observer" type="types:UniqueIdentifier"/>
+    <xs:sequence>
+      <xs:element name="Entity" type="types:UniqueIdentifier"/>
+      <xs:element name="Observable" type="types:UniqueIdentifier"/>
+      <xs:element name="Observer" type="types:UniqueIdentifier"/>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="Observation">
     <xs:sequence>
+      <xs:element name="Entity" type="types:UniqueIdentifier"/>
+      <xs:element name="Observable" type="types:UniqueIdentifier"/>
       <xs:element name="Date" type="types:Date"/>
       <xs:element name="Measurement" type="types:Measurement"/>
     </xs:sequence>
-    <xs:attribute name="Entity" type="types:UniqueIdentifier"/>
-    <xs:attribute name="Observer" type="types:UniqueIdentifier"/>
   </xs:complexType>
 
   <xs:complexType name="Subscribe">
-    <xs:attribute name="Entity" type="types:UniqueIdentifier"/>
-    <xs:attribute name="Observable" type="types:UniqueIdentifier"/>
-    <xs:attribute name="Subscriber" type="types:UniqueIdentifier"/>
+    <xs:sequence>
+      <xs:element name="Entity" type="types:UniqueIdentifier"/>
+      <xs:element name="Observable" type="types:UniqueIdentifier"/>
+      <xs:element name="Subscriber" type="types:UniqueIdentifier"/>
+    </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="Act">
     <xs:sequence>
+      <xs:element name="Entity" type="types:UniqueIdentifier"/>
+      <xs:element name="Actionable" type="types:UniqueIdentifier"/>
+      <xs:element name="Actor" type="types:UniqueIdentifier"/>
       <xs:element name="ParameterValues" type="types:ParameterValues"/>
     </xs:sequence>
-    <xs:attribute name="Entity" type="types:UniqueIdentifier"/>
-    <xs:attribute name="Actionable" type="types:UniqueIdentifier"/>
-    <xs:attribute name="Actor" type="types:UniqueIdentifier"/>
   </xs:complexType>
 
   <xs:element name="Message">

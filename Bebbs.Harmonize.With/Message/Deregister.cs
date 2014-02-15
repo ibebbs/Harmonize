@@ -3,16 +3,19 @@ namespace Bebbs.Harmonize.With.Message
 {
     public interface IDeregister
     {
-        Component.IEntity Entity { get; }
+        Component.IIdentity Registrar { get; }
+        Component.IIdentity Entity { get; }
     }
 
     public class Deregister
     {
-        public Deregister(Component.IEntity entity)
+        public Deregister(Component.IIdentity registrar, Component.IIdentity entity)
         {
+            Registrar = registrar;
             Device = entity;
         }
 
-        public Component.IEntity Device { get; private set; }
+        public Component.IIdentity Registrar { get; private set; }
+        public Component.IIdentity Device { get; private set; }
     }
 }

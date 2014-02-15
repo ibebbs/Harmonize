@@ -72,7 +72,23 @@
     <Compile Include="Bridge.cs" />
     <Compile Include="IEndpoint.cs" />
     <Compile Include="Instrumentation.cs" />
-    <Compile Include="Mapper.cs" />
+    <Compile Include="Mapping\Act.cs" />
+    <Compile Include="Mapping\Actionable.cs" />
+    <Compile Include="Mapping\Description.cs" />
+    <Compile Include="Mapping\Entity.cs" />
+    <Compile Include="Mapping\EntityDescription.cs" />
+    <Compile Include="Mapping\Helper.cs" />
+    <Compile Include="Mapping\Deregister.cs" />
+    <Compile Include="Mapping\Identity.cs" />
+    <Compile Include="Mapping\Measurement.cs" />
+    <Compile Include="Mapping\Observable.cs" />
+    <Compile Include="Mapping\Observe.cs" />
+    <Compile Include="Mapping\Parameter.cs" />
+    <Compile Include="Mapping\ParameterDescription.cs" />
+    <Compile Include="Mapping\ParameterValue.cs" />
+    <Compile Include="Mapping\Register.cs" />
+    <Compile Include="Mapping\Subscribe.cs" />
+    <Compile Include="Mapping\ValueDescription.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schema\Types.cs" />
@@ -99,6 +115,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

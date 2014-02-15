@@ -26,7 +26,7 @@ namespace Bebbs.Harmonize.Harmony.State
 
         private void RegisterDevices(IEnumerable<Hub.IDevice> devices)
         {
-            (devices ?? Enumerable.Empty<Hub.IDevice>()).Cast<With.Component.IEntity>().Select(entity => new With.Message.Register(entity)).ForEach(_eventAggregator.Publish);
+            (devices ?? Enumerable.Empty<Hub.IDevice>()).Cast<With.Component.IEntity>().Select(entity => new With.Message.Register(new With.Component.StringIdentity("Bebbs.Harmonize.Harmony"), entity)).ForEach(_eventAggregator.Publish);
         }
 
         public void OnEnter(IRegistrationContext context)
