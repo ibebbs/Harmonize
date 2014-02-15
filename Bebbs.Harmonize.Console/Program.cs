@@ -12,35 +12,38 @@ namespace Bebbs.Harmonize.Console
 
             CommandLine.Parser.Default.ParseArguments(args, options);
 
-            ObservableEventListener harmonizeEventListener = new ObservableEventListener();
-            harmonizeEventListener.EnableEvents((EventSource)Harmonize.Instrumentation.Error, EventLevel.LogAlways, Keywords.All);
-
-            ObservableEventListener harmonyEventListener = new ObservableEventListener();
-            harmonyEventListener.EnableEvents((EventSource)Harmony.EventSource.Log, EventLevel.LogAlways, Keywords.All);
-
-            ObservableEventListener xmppEventListener = new ObservableEventListener();
-            xmppEventListener.EnableEvents((EventSource)Harmony.Services.XmppEventSource.Log, EventLevel.LogAlways, Keywords.All);
-
-            ObservableEventListener alljoynEventListener = new ObservableEventListener();
-            alljoynEventListener.EnableEvents(With.Alljoyn.Instrumentation.Coordinator, EventLevel.LogAlways, Keywords.All);
-
-            ObservableEventListener storeEventListener = new ObservableEventListener();
-            storeEventListener.EnableEvents((EventSource)State.Instrumentation.Store, EventLevel.LogAlways, Keywords.All);
-
-            ObservableEventListener messagingEventListener = new ObservableEventListener();
-            messagingEventListener.EnableEvents((EventSource)With.Messaging.Instrumentation.Messages, EventLevel.LogAlways, Keywords.All);
-
-            using (new CompositeDisposable(harmonizeEventListener.LogToConsole(), harmonyEventListener.LogToConsole(), xmppEventListener.LogToConsole(), alljoynEventListener.LogToConsole(), storeEventListener.LogToConsole(), messagingEventListener.LogToConsole()))
+            if (!options.ShowingHelp)
             {
-                Client client = new Client(options);
+                ObservableEventListener harmonizeEventListener = new ObservableEventListener();
+                harmonizeEventListener.EnableEvents((EventSource)Harmonize.Instrumentation.Error, EventLevel.LogAlways, Keywords.All);
 
-                client.Start();
+                ObservableEventListener harmonyEventListener = new ObservableEventListener();
+                harmonyEventListener.EnableEvents((EventSource)Harmony.EventSource.Log, EventLevel.LogAlways, Keywords.All);
 
-                System.Console.WriteLine("Started");
-                System.Console.WriteLine("Hit Return to stop");
-                System.Console.ReadLine();
+                ObservableEventListener xmppEventListener = new ObservableEventListener();
+                xmppEventListener.EnableEvents((EventSource)Harmony.Services.XmppEventSource.Log, EventLevel.LogAlways, Keywords.All);
 
-                client.Stop();
+                ObservableEventListener alljoynEventListener = new ObservableEventListener();
+                alljoynEventListener.EnableEvents(With.Alljoyn.Instrumentation.Coordinator, EventLevel.LogAlways, Keywords.All);
+
+                ObservableEventListener storeEventListener = new ObservableEventListener();
+                storeEventListener.EnableEvents((EventSource)State.Instrumentation.Store, EventLevel.LogAlways, Keywords.All);
+
+                ObservableEventListener messagingEventListener = new ObservableEventListener();
+                messagingEventListener.EnableEvents((EventSource)With.Messaging.Instrumentation.Messages, EventLevel.LogAlways, Keywords.All);
+
+                using (new CompositeDisposable(harmonizeEventListener.LogToConsole(), harmonyEventListener.LogToConsole(), xmppEventListener.LogToConsole(), alljoynEventListener.LogToConsole(), storeEventListener.LogToConsole(), messagingEventListener.LogToConsole()))
+                {
+                    Client client = new Client(options);
+
+                    client.Start();
+
+                    System.Console.WriteLine("Started");
+                    System.Console.WriteLine("Hit Return to stop");
+                    System.Console.ReadLine();
+
+                    client.Stop();
+                }
             }
         }
     }

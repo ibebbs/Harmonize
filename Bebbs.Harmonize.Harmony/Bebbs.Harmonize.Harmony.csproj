@@ -82,7 +82,7 @@
     <Compile Include="Hub\Action.cs" />
     <Compile Include="Hub\Activity.cs" />
     <Compile Include="Hub\Configuration\Parser.cs" />
-    <Compile Include="Hub\Device.cs" />
+    <Compile Include="Hub\Entity.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="EventSource.cs" />
     <Compile Include="Hub\Configuration\Values.cs" />

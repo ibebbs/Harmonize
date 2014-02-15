@@ -19,9 +19,9 @@ namespace Bebbs.Harmonize.Harmony.State
             _asyncHelper = asyncHelper;
         }
 
-        private void DeregisterDevices(IEnumerable<Hub.IDevice> devices)
+        private void DeregisterDevices(IEnumerable<Hub.IEntity> devices)
         {
-            (devices ?? Enumerable.Empty<Hub.IDevice>()).Cast<With.Component.IEntity>().Select(entity => new With.Message.Deregister(new With.Component.StringIdentity("Bebbs.Harmonize.Harmony"), entity.Identity)).ForEach(_eventAggregator.Publish);
+            (devices ?? Enumerable.Empty<Hub.IEntity>()).Cast<With.Component.IEntity>().Select(entity => new With.Message.Deregister(new With.Component.StringIdentity("Bebbs.Harmonize.Harmony"), entity.Identity)).ForEach(_eventAggregator.Publish);
         }
 
         public void OnEnter(IRegistrationContext context)
