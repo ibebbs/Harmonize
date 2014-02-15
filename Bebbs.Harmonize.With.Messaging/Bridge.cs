@@ -15,28 +15,40 @@ namespace Bebbs.Harmonize.With.Messaging
     {
         private readonly IGlobalEventAggregator _eventAggregator;
         private readonly Mapping.IHelper _mapper;
+        private readonly ISerializer _serializer;
         private readonly IWrapper _wrapper;
         private readonly IEnumerable<IEndpoint> _endpoints;
 
         private IDisposable _inboundSubscription;
         private IDisposable _outboundSubscription;
 
-        public Bridge(IGlobalEventAggregator eventAggregator, Mapping.IHelper mapper, IWrapper wrapper, IEnumerable<IEndpoint> endpoints)
+        public Bridge(IGlobalEventAggregator eventAggregator, Mapping.IHelper mapper, ISerializer serializer, IWrapper wrapper, IEnumerable<IEndpoint> endpoints)
         {
             _eventAggregator = eventAggregator;
             _mapper = mapper;
+            _serializer = serializer;
             _wrapper = wrapper;
             _endpoints = (endpoints ?? Enumerable.Empty<IEndpoint>()).ToArray();
         }
 
         private void Publish(Schema.Message message)
         {
-            _endpoints.ForEach(endpoint => endpoint.Publish(message));
+            _endpoints.OfType<IMessageEndpoint>().ForEach(endpoint => endpoint.Publish(message));
+
+            if (_endpoints.OfType<ISerializedEndpoint>().Any())
+            {
+                string serialized = _serializer.Serialize(message);
+
+                _endpoints.OfType<ISerializedEndpoint>().ForEach(endpoint => endpoint.Publish(serialized));
+            }
         }
 
         public void Initialize()
         {
-            var source = Observable.Merge(_endpoints.Select(endpoint => endpoint.Messages)).Select(message => message.Item);
+            IEnumerable<IObservable<Schema.Message>> serializedEndpoints = _endpoints.OfType<ISerializedEndpoint>().Do(endpoint => endpoint.Initialize()).Select(endpoint => endpoint.Messages.Select(_serializer.Deserialize));
+            IEnumerable<IObservable<Schema.Message>> messagingEndpoints = _endpoints.OfType<IMessageEndpoint>().Do(endpoint => endpoint.Initialize()).Select(endpoint => endpoint.Messages);
+
+            var source = Observable.Merge(serializedEndpoints.Concat(messagingEndpoints).ToArray()).Select(message => message.Item);
 
             _inboundSubscription = new CompositeDisposable(
                 source.OfType<Schema.Register>().Do(Instrumentation.Messages.Received).Select(_mapper.ToComponent).Subscribe(_eventAggregator.Publish),
@@ -67,6 +79,8 @@ namespace Bebbs.Harmonize.With.Messaging
                 _outboundSubscription.Dispose();
                 _outboundSubscription = null;
             }
+
+            _endpoints.ForEach(endpoint => endpoint.Cleanup());
         }
     }
 }

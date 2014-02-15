@@ -1,4 +1,6 @@
 ﻿using EventSourceProxy;
+using System;
+using System.Net;
 
 namespace Bebbs.Harmonize.State
 {
@@ -6,6 +8,16 @@ namespace Bebbs.Harmonize.State
     public interface IStoreInstrumentation
     {
         void ConnectingToEventStore(string ipAddress, int port);
+
+        void ConnectedToEventStore(IPAddress iPAddress, int port);
+
+        void DisconnectedFromEventStore(IPAddress iPAddress, int port);
+
+        void EventStoreErrorOccured(Exception e);
+
+        void ReconnectingToEventStore();
+
+        void EventStoreAuthenticationFailed(string message);
 
         void DisconnectingFromEventStore(string ipAddress, int port);
 

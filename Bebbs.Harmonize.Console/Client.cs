@@ -18,16 +18,25 @@ namespace Bebbs.Harmonize.Console
         public async void Start()
         {
             List<HarmonizedModule> modules = new List<HarmonizedModule>();
-            modules.Add(new Harmony.Module());
+
+            if (_options.WithHarmony)
+            {
+                modules.Add(new Harmonize.Harmony.Module());
+            }
 
             if (_options.UseAllJoyn)
             {
                 modules.Add(new Harmonize.With.Alljoyn.Module());
             }
 
-            if (_options.UseMessaging)
+            if (_options.UseMessaging || _options.UseRabbitMq)
             {
                 modules.Add(new Harmonize.With.Messaging.Module());
+            }
+
+            if (_options.UseRabbitMq)
+            {
+                modules.Add(new Harmonize.With.Messaging.Over.RabbitMq.Module());
             }
 
             Harmonize.Options harmonizeOptions = new Harmonize.Options(modules);

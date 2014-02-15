@@ -98,6 +98,10 @@
       <Project>{2287ee36-a63d-4dd9-ae04-8dda2fe324ed}</Project>
       <Name>Bebbs.Harmonize.With.Alljoyn</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bebbs.Harmonize.With.Messaging.Over.RabbitMq\Bebbs.Harmonize.With.Messaging.Over.RabbitMq.csproj">
+      <Project>{f6a5907c-4ebb-459a-b76d-8926d714a3b0}</Project>
+      <Name>Bebbs.Harmonize.With.Messaging.Over.RabbitMq</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bebbs.Harmonize.With.Messaging\Bebbs.Harmonize.With.Messaging.csproj">
       <Project>{6d4f94c4-e199-493d-a386-e0c184bd0e56}</Project>
       <Name>Bebbs.Harmonize.With.Messaging</Name>
