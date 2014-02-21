@@ -1,11 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using Bebbs.Harmonize.With.Harmony.Hub.Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bebbs.Harmonize.Harmony.Tests.Hub.Configuration
+namespace Bebbs.Harmonize.With.Harmony.Tests.Hub.Configuration
 {
     [TestClass]
     public class Parser
@@ -13,9 +10,9 @@ namespace Bebbs.Harmonize.Harmony.Tests.Hub.Configuration
         [TestMethod]
         public void ShouldCorrectlyDeserializeJsonConfigurationValues()
         {
-            Harmony.Hub.Configuration.Parser subject = new Harmony.Hub.Configuration.Parser();
+            With.Harmony.Hub.Configuration.Parser subject = new With.Harmony.Hub.Configuration.Parser();
 
-            Harmony.Hub.Configuration.IValues values = subject.FromJson("Test", Resources.SimpleConfiguration);
+            IValues values = subject.FromJson("Test", Resources.SimpleConfiguration);
 
             Assert.IsNotNull(values);
             Assert.AreEqual<int>(1, values.Activities.Count(), "Did not correctly deserialize Activities");

@@ -1,7 +1,6 @@
-﻿using Bebbs.Harmonize.With;
-using Bebbs.Harmonize.Harmony.Messages;
+﻿using Bebbs.Harmonize.With.Harmony.Messages;
 
-namespace Bebbs.Harmonize.Harmony.State
+namespace Bebbs.Harmonize.With.Harmony.State
 {
     internal class Starting : IState<IContext>
     {

@@ -1,9 +1,9 @@
-﻿using agsXMPP;
+﻿using System;
+using agsXMPP;
 using agsXMPP.protocol.client;
 using EventSourceProxy;
-using System;
 
-namespace Bebbs.Harmonize.Harmony.Services
+namespace Bebbs.Harmonize.With.Harmony.Services
 {
     [EventSourceImplementation(Name = "Cogenity-Harmonize-Harmony-Xmpp")]
     public interface IXmppEventSource

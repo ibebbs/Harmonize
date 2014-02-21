@@ -1,5 +1,5 @@
 ﻿
-namespace Bebbs.Harmonize.Harmony.Hub
+namespace Bebbs.Harmonize.With.Harmony.Hub
 {
     internal class Identity : With.Component.IIdentity
     {

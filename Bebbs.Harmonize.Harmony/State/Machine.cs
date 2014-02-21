@@ -1,12 +1,11 @@
-﻿using Bebbs.Harmonize.With;
-using Bebbs.Harmonize.Harmony.Messages;
-using System;
+﻿using System;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
-using System.Reactive;
+using Bebbs.Harmonize.With.Harmony.Messages;
 
-namespace Bebbs.Harmonize.Harmony.State
+namespace Bebbs.Harmonize.With.Harmony.State
 {
     public interface IMachine : IInitialize, IStart, IStop, ICleanup
     {

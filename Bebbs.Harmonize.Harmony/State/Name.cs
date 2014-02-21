@@ -1,5 +1,5 @@
 ﻿
-namespace Bebbs.Harmonize.Harmony.State
+namespace Bebbs.Harmonize.With.Harmony.State
 {
     public enum Name
     {

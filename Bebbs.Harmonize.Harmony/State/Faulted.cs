@@ -1,11 +1,4 @@
-﻿using Bebbs.Harmonize.With;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bebbs.Harmonize.Harmony.State
+﻿namespace Bebbs.Harmonize.With.Harmony.State
 {
     public class Faulted : IState<IFaultedContext>
     {

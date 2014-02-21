@@ -1,10 +1,9 @@
-﻿using Bebbs.Harmonize.With;
-using Bebbs.Harmonize.Harmony.Messages;
-using System;
+﻿using System;
 using System.Reactive.Linq;
 using System.Security.Authentication;
+using Bebbs.Harmonize.With.Harmony.Messages;
 
-namespace Bebbs.Harmonize.Harmony.State
+namespace Bebbs.Harmonize.With.Harmony.State
 {
     internal class Authenticating : StoppableState, IState<IContext>
     {

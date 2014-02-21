@@ -1,9 +1,7 @@
-﻿using Bebbs.Harmonize.With;
-using Bebbs.Harmonize.Harmony.Services;
+﻿using Bebbs.Harmonize.With.Harmony.Services;
 using Ninject;
-using Ninject.Modules;
 
-namespace Bebbs.Harmonize.Harmony
+namespace Bebbs.Harmonize.With.Harmony
 {
     public class Module : HarmonizedModule
     {

@@ -21,7 +21,7 @@ namespace Bebbs.Harmonize.Console
 
             if (_options.WithHarmony)
             {
-                modules.Add(new Harmonize.Harmony.Module());
+                modules.Add(new With.Harmony.Module());
             }
 
             if (_options.UseAllJoyn)
