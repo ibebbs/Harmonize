@@ -49,7 +49,7 @@ namespace Bebbs.Harmonize.Harmony.Hub
 
         IEnumerable<With.Component.IActionable> With.Component.IEntity.Actionables
         {
-            get { return controlGroup.SelectMany(group => group.function); }
+            get { return controlGroup.SelectMany(group => group.function).ToArray(); }
         }
 
         string IEntity.Icon
