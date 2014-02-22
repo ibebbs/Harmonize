@@ -34,5 +34,28 @@ namespace Bebbs.Harmonize.With
                 }
             );
         }
+
+        public static IObservable<T> ThrowWhen<T>(this IObservable<T> source, Func<T,bool> predicate, Func<T,Exception> projection)
+        {
+            return Observable.Create<T>(
+                observer =>
+                {
+                    Action<T> handler = 
+                        value =>
+                        {
+                            if (predicate(value))
+                            {
+                                observer.OnError(projection(value));
+                            }
+                            else
+                            {
+                                observer.OnNext(value);
+                            }
+                        };
+
+                    return source.Subscribe(handler, observer.OnError, observer.OnCompleted);
+                }
+            );
+        }
     }
 }

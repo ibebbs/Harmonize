@@ -97,8 +97,11 @@
     <Compile Include="Message\Subscribe.cs" />
     <Compile Include="ObservableExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serialization\XmlSerializer.cs" />
     <Compile Include="Settings\IProvider.cs" />
     <Compile Include="Settings\IValues.cs" />
+    <Compile Include="Text\MultiRegexBuilder.cs" />
+    <Compile Include="Text\RegexExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

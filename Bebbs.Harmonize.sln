@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Harmony", "Bebbs.Harmonize.Harmony\Bebbs.Harmonize.With.Harmony.csproj", "{A158AB7B-7AD5-4A75-93DE-A7511DFB5A7E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize", "Bebbs.Harmonize\Bebbs.Harmonize.csproj", "{2F82D034-5EDB-432E-924C-B45DA875FAD2}"
@@ -27,6 +29,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Messaging.Over.RabbitMq", "Bebbs.Harmonize.With.Messaging.Over.RabbitMq\Bebbs.Harmonize.With.Messaging.Over.RabbitMq.csproj", "{F6A5907C-4EBB-459A-B76D-8926D714A3B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Messaging.Tests", "Bebbs.Harmonize.With.Messaging.Tests\Bebbs.Harmonize.With.Messaging.Tests.csproj", "{412C7E83-ECF4-443F-9BAF-369E1265865B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Owl.Intuition", "Bebbs.Harmonize.With.Owl.Intuition\Bebbs.Harmonize.With.Owl.Intuition.csproj", "{65767969-5717-4EA9-8F8E-5E8F34BD3605}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Owl.Intuition.Tests", "Bebbs.Harmonize.With.Owl.Intuition.Tests\Bebbs.Harmonize.With.Owl.Intuition.Tests.csproj", "{D0777346-1007-44DC-A8D5-BED9D264CC88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -74,6 +80,14 @@ Global
 		{412C7E83-ECF4-443F-9BAF-369E1265865B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{412C7E83-ECF4-443F-9BAF-369E1265865B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{412C7E83-ECF4-443F-9BAF-369E1265865B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65767969-5717-4EA9-8F8E-5E8F34BD3605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65767969-5717-4EA9-8F8E-5E8F34BD3605}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65767969-5717-4EA9-8F8E-5E8F34BD3605}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65767969-5717-4EA9-8F8E-5E8F34BD3605}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0777346-1007-44DC-A8D5-BED9D264CC88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0777346-1007-44DC-A8D5-BED9D264CC88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0777346-1007-44DC-A8D5-BED9D264CC88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0777346-1007-44DC-A8D5-BED9D264CC88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

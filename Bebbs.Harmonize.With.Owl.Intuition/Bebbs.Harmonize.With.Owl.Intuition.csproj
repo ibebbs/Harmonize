@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{65767969-5717-4EA9-8F8E-5E8F34BD3605}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bebbs.Harmonize.With.Owl.Intuition</RootNamespace>
+    <AssemblyName>Bebbs.Harmonize.With.Owl.Intuition</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EventSourceProxy">
+      <HintPath>..\packages\EventSourceProxy.2.0.2\lib\EventSourceProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Reactive.EventAggregator">
+      <HintPath>..\packages\Reactive.EventAggregator.1.1.0\lib\Net45\Reactive.EventAggregator.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Rx-Core.2.2.2\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Rx-Interfaces.2.2.2\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Rx-Linq.2.2.2\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.3\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Command\Endpoint\Factory.cs" />
+    <Compile Include="Command\Endpoint\Instance.cs" />
+    <Compile Include="Command\Request\GetDevice.cs" />
+    <Compile Include="Command\Request\GetUpdPushPort.cs" />
+    <Compile Include="Command\Request\Save.cs" />
+    <Compile Include="Command\Response\Builder\SaveResponse.cs" />
+    <Compile Include="Command\Response\Device.cs" />
+    <Compile Include="Command\Request\GetRosta.cs" />
+    <Compile Include="Command\Response\Rosta.cs" />
+    <Compile Include="Command\Request\GetVersion.cs" />
+    <Compile Include="Command\Response\Save.cs" />
+    <Compile Include="Command\Response\Version.cs" />
+    <Compile Include="Command\Response\Builder\DeviceResponse.cs" />
+    <Compile Include="Command\Response\Builder\RostaResponse.cs" />
+    <Compile Include="Command\Response\Builder\UdpResponse.cs" />
+    <Compile Include="Command\Response\Builder\VersionResponse.cs" />
+    <Compile Include="Command\Response\IBuilder.cs" />
+    <Compile Include="Command\IRequest.cs" />
+    <Compile Include="Command\IResponse.cs" />
+    <Compile Include="Command\Response\Parser.cs" />
+    <Compile Include="Command\Request\SetUdpPushPort.cs" />
+    <Compile Include="Command\Response\Udp.cs" />
+    <Compile Include="Command\Status.cs" />
+    <Compile Include="Command\Subject.cs" />
+    <Compile Include="Command\Verb.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="Packet\Battery.cs" />
+    <Compile Include="Packet\Channel.cs" />
+    <Compile Include="Packet\Endpoint\Factory.cs" />
+    <Compile Include="Packet\Endpoint\Instance.cs" />
+    <Compile Include="Packet\IPacket.cs" />
+    <Compile Include="Packet\Measurement.cs" />
+    <Compile Include="Packet\Electricity.cs" />
+    <Compile Include="Packet\Parser.cs" />
+    <Compile Include="Packet\Serializer.cs" />
+    <Compile Include="Packet\Signal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\Provider.cs" />
+    <Compile Include="Settings\Values.cs" />
+    <Compile Include="State\Configuring.cs" />
+    <Compile Include="State\Connecting.cs" />
+    <Compile Include="State\Context\Listen.cs" />
+    <Compile Include="State\Context\Registration.cs" />
+    <Compile Include="State\Context\Configuration.cs" />
+    <Compile Include="State\Context\Connection.cs" />
+    <Compile Include="State\Context\Disconnected.cs" />
+    <Compile Include="State\Context\Factory.cs" />
+    <Compile Include="State\Context\Fault.cs" />
+    <Compile Include="State\Context\IContext.cs" />
+    <Compile Include="State\Disconnected.cs" />
+    <Compile Include="State\Event\Connect.cs" />
+    <Compile Include="State\Event\Factory.cs" />
+    <Compile Include="State\Event\Mediator.cs" />
+    <Compile Include="State\Event\TransitionState.cs" />
+    <Compile Include="State\Factory.cs" />
+    <Compile Include="State\Faulted.cs" />
+    <Compile Include="State\IState.cs" />
+    <Compile Include="State\Listening.cs" />
+    <Compile Include="State\Machine.cs" />
+    <Compile Include="State\Name.cs" />
+    <Compile Include="State\Registering.cs" />
+    <Compile Include="State\Transition.cs" />
+    <Compile Include="Values\BatteryState.cs" />
+    <Compile Include="Values\LinkQuality.cs" />
+    <Compile Include="Values\SignalStrength.cs" />
+    <Compile Include="Values\Version.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj">
+      <Project>{91848444-1506-4f50-bf6c-d0528cd6c74e}</Project>
+      <Name>Bebbs.Harmonize.With</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
