@@ -1,11 +1,10 @@
-﻿using Bebbs.Harmonize.With;
-using Bebbs.Harmonize.Harmony.Messages;
+﻿using System;
+using System.Net.Http;
+using Bebbs.Harmonize.With.Harmony.Messages;
 using ServiceStack;
 using ServiceStack.Text;
-using System;
-using System.Net.Http;
 
-namespace Bebbs.Harmonize.Harmony.Services
+namespace Bebbs.Harmonize.With.Harmony.Services
 {
     public interface IAuthenticationService : IInitialize, ICleanup
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Bebbs.Harmonize.Harmony.Hub
+namespace Bebbs.Harmonize.With.Harmony.Hub
 {
     public interface IAction : With.Component.IActionable, With.Component.IDescription
     {

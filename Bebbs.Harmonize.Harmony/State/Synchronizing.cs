@@ -1,9 +1,8 @@
-﻿using Bebbs.Harmonize.With;
-using Bebbs.Harmonize.Harmony.Messages;
-using System;
+﻿using System;
 using System.Reactive.Linq;
+using Bebbs.Harmonize.With.Harmony.Messages;
 
-namespace Bebbs.Harmonize.Harmony.State
+namespace Bebbs.Harmonize.With.Harmony.State
 {
     internal class Synchronizing : StoppableState, IState<IActiveContext>
     {

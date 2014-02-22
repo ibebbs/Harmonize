@@ -1,6 +1,6 @@
 ﻿using EventSourceProxy;
 
-namespace Bebbs.Harmonize.Harmony
+namespace Bebbs.Harmonize.With.Harmony
 {
     [EventSourceImplementation(Name = "Bebbs-Harmonize-Harmony")]
     public interface IEventSource

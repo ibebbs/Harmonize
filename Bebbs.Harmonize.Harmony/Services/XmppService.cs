@@ -1,9 +1,9 @@
-﻿using agsXMPP.protocol.client;
-using agsXMPP.Xml.Dom;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml.Linq;
+using agsXMPP.protocol.client;
+using agsXMPP.Xml.Dom;
 
-namespace Bebbs.Harmonize.Harmony.Services
+namespace Bebbs.Harmonize.With.Harmony.Services
 {
     public interface IXmppService
     {

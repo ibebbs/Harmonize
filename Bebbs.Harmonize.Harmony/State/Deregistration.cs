@@ -1,12 +1,8 @@
-﻿using Bebbs.Harmonize.Harmony.Messages;
-using Bebbs.Harmonize.With;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Bebbs.Harmonize.With.Harmony.Messages;
 
-namespace Bebbs.Harmonize.Harmony.State
+namespace Bebbs.Harmonize.With.Harmony.State
 {
     public class Deregistration : IState<IRegistrationContext>
     {

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Bebbs.Harmonize.Harmony.Hub.Configuration
+namespace Bebbs.Harmonize.With.Harmony.Hub.Configuration
 {
     public interface IValues
     {

@@ -79,9 +79,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bebbs.Harmonize.Harmony\Bebbs.Harmonize.Harmony.csproj">
+    <ProjectReference Include="..\Bebbs.Harmonize.Harmony\Bebbs.Harmonize.With.Harmony.csproj">
       <Project>{a158ab7b-7ad5-4a75-93de-a7511dfb5a7e}</Project>
-      <Name>Bebbs.Harmonize.Harmony</Name>
+      <Name>Bebbs.Harmonize.With.Harmony</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bebbs.Harmonize.State\Bebbs.Harmonize.State.csproj">
       <Project>{2f852f35-ecf5-4898-b193-4b315032a3d3}</Project>

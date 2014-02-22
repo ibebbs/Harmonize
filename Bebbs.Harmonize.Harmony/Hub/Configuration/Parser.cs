@@ -1,12 +1,6 @@
-﻿using Bebbs.Harmonize.With;
-using ServiceStack.Text;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ServiceStack.Text;
 
-namespace Bebbs.Harmonize.Harmony.Hub.Configuration
+namespace Bebbs.Harmonize.With.Harmony.Hub.Configuration
 {
     public interface IParser
     {

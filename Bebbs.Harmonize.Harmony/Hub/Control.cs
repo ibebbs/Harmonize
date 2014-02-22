@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Bebbs.Harmonize.Harmony.Hub
+﻿namespace Bebbs.Harmonize.With.Harmony.Hub
 {
     public interface IControl
     {

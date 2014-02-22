@@ -1,15 +1,14 @@
-﻿using agsXMPP;
-using agsXMPP.protocol.client;
-using agsXMPP.protocol.sasl;
-using Bebbs.Harmonize.With;
-using Bebbs.Harmonize.Harmony.Messages;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
+using agsXMPP;
+using agsXMPP.protocol.client;
+using agsXMPP.protocol.sasl;
+using Bebbs.Harmonize.With.Harmony.Messages;
 
-namespace Bebbs.Harmonize.Harmony.Services
+namespace Bebbs.Harmonize.With.Harmony.Services
 {
     public interface IHarmonyService : IInitialize, ICleanup
     {

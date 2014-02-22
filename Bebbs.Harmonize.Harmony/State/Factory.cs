@@ -1,7 +1,6 @@
-﻿using Bebbs.Harmonize.With;
-using System;
+﻿using System;
 
-namespace Bebbs.Harmonize.Harmony.State
+namespace Bebbs.Harmonize.With.Harmony.State
 {
     public interface IFactory
     {

@@ -6,8 +6,8 @@
     <ProjectGuid>{4B40EEA4-39DE-4E4A-B107-A6A0B6336650}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bebbs.Harmonize.Harmony.Tests</RootNamespace>
-    <AssemblyName>Bebbs.Harmonize.Harmony.Tests</AssemblyName>
+    <RootNamespace>Bebbs.Harmonize.With.Harmony.Tests</RootNamespace>
+    <AssemblyName>Bebbs.Harmonize.With.Harmony.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -65,9 +65,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bebbs.Harmonize.Harmony\Bebbs.Harmonize.Harmony.csproj">
+    <ProjectReference Include="..\Bebbs.Harmonize.Harmony\Bebbs.Harmonize.With.Harmony.csproj">
       <Project>{a158ab7b-7ad5-4a75-93de-a7511dfb5a7e}</Project>
-      <Name>Bebbs.Harmonize.Harmony</Name>
+      <Name>Bebbs.Harmonize.With.Harmony</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj">
       <Project>{91848444-1506-4f50-bf6c-d0528cd6c74e}</Project>

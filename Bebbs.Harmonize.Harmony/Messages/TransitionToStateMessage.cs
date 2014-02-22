@@ -1,4 +1,4 @@
-﻿namespace Bebbs.Harmonize.Harmony.Messages
+﻿namespace Bebbs.Harmonize.With.Harmony.Messages
 {
     public interface ITransitionToStateMessage : IMessage
     {

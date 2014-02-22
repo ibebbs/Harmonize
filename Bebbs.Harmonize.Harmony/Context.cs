@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bebbs.Harmonize.Harmony
+namespace Bebbs.Harmonize.With.Harmony
 {
     public interface IContext 
     {
