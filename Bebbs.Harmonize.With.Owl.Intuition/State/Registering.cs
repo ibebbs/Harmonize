@@ -20,8 +20,20 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.State
             _context = context;
         }
 
-        private async void Register(Command.Response.Rosta rosta)
+        private void ToListenting()
         {
+            _transition.ToListening(_context.CommandEndpoint, _context.Version);
+        }
+
+        private void ToFault(Exception exception)
+        {
+            _transition.ToFaulted(_context.CommandEndpoint, exception);
+        }
+
+        public async void OnEnter()
+        {
+            Command.Response.Rosta rosta = await _context.CommandEndpoint.Send(new Command.Request.GetRosta());
+
             List<Command.Response.Device> devices = new List<Command.Response.Device>();
 
             try
@@ -39,24 +51,9 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.State
             }
         }
 
-        private void ToListenting()
-        {
-            _transition.ToListening(_context.CommandEndpoint, _context.Version);
-        }
-
-        private void ToFault(Exception exception)
-        {
-            _transition.ToFaulted(_context.CommandEndpoint, exception);
-        }
-
-        public void OnEnter()
-        {
-            Observable.FromAsync(() => _context.CommandEndpoint.Send(new Command.Request.GetRosta())).Take(1).Subscribe(Register, ToFault);
-        }
-
         public void OnExit()
         {
-            throw new NotImplementedException();
+            // Do nothing
         }
 
         public Name Name

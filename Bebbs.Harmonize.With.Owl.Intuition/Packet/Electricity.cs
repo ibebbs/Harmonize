@@ -11,7 +11,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Packet
     public class Electricity : IPacket
     {
         [XmlAttribute("id")]
-        public long Id { get; set; }
+        public string Id { get; set; }
 
         [XmlElement("signal", typeof(Signal))]
         public Signal Signal { get; set; }

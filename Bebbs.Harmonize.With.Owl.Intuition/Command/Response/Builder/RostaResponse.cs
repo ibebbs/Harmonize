@@ -12,7 +12,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Command.Response.Builder
         private const string DeviceGroup = "Device";
         private const string NoDevice = "NONE";
         private const string RostaResponseGroup = "RostaResponse";
-        private const string RostaResponsePattern = @"(?<Status>OK|ERROR),DEVICE(?:,(?<Device>\w+))*";
+        private const string RostaResponsePattern = @"(?<Status>OK|ERROR),DEVICE(?!,0)(?:,(?<Device>\w+))*";
 
         public IResponse Build(Match match)
         {

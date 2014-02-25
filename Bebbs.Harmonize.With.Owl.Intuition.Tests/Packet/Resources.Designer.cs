@@ -61,17 +61,20 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests.Packet {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;electricity id=&apos;443719999999&apos;&gt;	
-        ///	&lt;signal	rssi=&apos;-71&apos; lqi=&apos;127&apos;/&gt;	
-        ///	&lt;battery level=&apos;100%&apos;/&gt;	
-        ///	&lt;chan id=&apos;0&apos;&gt;&lt;curr units=&apos;w&apos;&gt;483.00&lt;/curr&gt;&lt;day units=&apos;wh&apos;&gt;10244.99&lt;/day&gt;&lt;/chan&gt;	
-        ///	&lt;chan id=&apos;1&apos;&gt;&lt;curr units=&apos;w&apos;&gt;0.00&lt;/curr&gt;&lt;day units=&apos;wh&apos;&gt;0.00&lt;/day&gt;&lt;/chan&gt;
-        ///	&lt;chan id=&apos;2&apos;&gt;&lt;curr units=&apos;w&apos;&gt;0.00&lt;/curr&gt;&lt;day units=&apos;wh&apos;&gt;0.00&lt;/day&gt;&lt;/chan&gt;	
-        ///&lt;/electricity&gt;.
+        ///   Looks up a localized string similar to &lt;electricity id=&apos;4437190032EC&apos;&gt;&lt;signal rssi=&apos;-53&apos; lqi=&apos;19&apos;/&gt;&lt;battery level=&apos;100%&apos;/&gt;&lt;chan id=&apos;0&apos;&gt;&lt;curr units=&apos;w&apos;&gt;1352.00&lt;/curr&gt;&lt;day units=&apos;wh&apos;&gt;3308.63&lt;/day&gt;&lt;/chan&gt;&lt;chan id=&apos;1&apos;&gt;&lt;curr units=&apos;w&apos;&gt;0.00&lt;/curr&gt;&lt;day units=&apos;wh&apos;&gt;0.00&lt;/day&gt;&lt;/chan&gt;&lt;chan id=&apos;2&apos;&gt;&lt;curr units=&apos;w&apos;&gt;0.00&lt;/curr&gt;&lt;day units=&apos;wh&apos;&gt;0.00&lt;/day&gt;&lt;/chan&gt;&lt;/electricity&gt;.
         /// </summary>
         internal static string ElectricityPacket {
             get {
                 return ResourceManager.GetString("ElectricityPacket", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;wrapper&gt;&lt;electricity id=&apos;4437190032EC&apos;&gt;&lt;signal rssi=&apos;-53&apos; lqi=&apos;19&apos;/&gt;&lt;battery level=&apos;100%&apos;/&gt;&lt;chan id=&apos;0&apos;&gt;&lt;curr units=&apos;w&apos;&gt;1352.00&lt;/curr&gt;&lt;day units=&apos;wh&apos;&gt;3308.63&lt;/day&gt;&lt;/chan&gt;&lt;chan id=&apos;1&apos;&gt;&lt;curr units=&apos;w&apos;&gt;0.00&lt;/curr&gt;&lt;day units=&apos;wh&apos;&gt;0.00&lt;/day&gt;&lt;/chan&gt;&lt;chan id=&apos;2&apos;&gt;&lt;curr units=&apos;w&apos;&gt;0.00&lt;/curr&gt;&lt;day units=&apos;wh&apos;&gt;0.00&lt;/day&gt;&lt;/chan&gt;&lt;/electricity&gt;&lt;/wrapper&gt;.
+        /// </summary>
+        internal static string WrappedElectricity {
+            get {
+                return ResourceManager.GetString("WrappedElectricity", resourceCulture);
             }
         }
     }

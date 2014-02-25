@@ -28,36 +28,58 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Command.Endpoint
         private readonly IPEndPoint _localEndpoint;
         private readonly IPEndPoint _remoteEndpoint;
         private readonly TimeSpan _requestTimeout;
+        private readonly string _udpKey;
 
-        private UdpClient _udpClient;
+        private UdpClient _udpReceive;
+        private UdpClient _udpSend;
         private IConnectableObservable<IResponse> _responses;
 
         private IDisposable _responseSubscription;
 
-        public Instance(Response.IParser responseParser, IPEndPoint localEndpoint, IPEndPoint remoteEndpoint, TimeSpan requestTimeout)
+        public Instance(Response.IParser responseParser, IPEndPoint localEndpoint, IPEndPoint remoteEndpoint, TimeSpan requestTimeout, string udpKey)
         {
             _localEndpoint = localEndpoint;
             _remoteEndpoint = remoteEndpoint;
             _requestTimeout = requestTimeout;
+            _udpKey = udpKey;
 
-            _udpClient = new UdpClient(_localEndpoint);
-            _responses = Observable.FromAsync(_udpClient.ReceiveAsync).Repeat()
+            _udpReceive = BuildSocket(localEndpoint);
+            _udpSend = BuildSocket(localEndpoint);
+
+            _responses = Observable.FromAsync(_udpReceive.ReceiveAsync).Repeat()
                                    .Select(result => result.Buffer)
                                    .Select(Encoding.ASCII.GetString)
+                                   .Do(Instrumentation.Command.Endpoint.Receive)
                                    .SelectMany(responseParser.GetResponses)
+                                   .Do(Instrumentation.Command.Endpoint.Response)
                                    .Publish();
+        }
+
+        private UdpClient BuildSocket(IPEndPoint localEndpoint)
+        {
+            UdpClient udpClient = new UdpClient();
+            udpClient.Client.ExclusiveAddressUse = false;
+            udpClient.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
+            udpClient.Client.Bind(localEndpoint);
+            return udpClient;
         }
 
         public void Dispose()
         {
             Close();
 
-            if (_udpClient != null)
+            if (_udpSend != null)
+            {
+                _udpSend.Close();
+                _udpSend = null;
+            }
+
+            if (_udpReceive != null)
             {
                 _responses = null;
 
-                _udpClient.Close();
-                _udpClient = null;
+                _udpReceive.Close();
+                _udpReceive = null;
             }
         }
 
@@ -68,16 +90,35 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Command.Endpoint
 
         private Exception RequestException(IRequest request, IResponse response)
         {
-            return new InvalidOperationException(string.Format("Received error in response to the following request: '{0}'", request.AsString()));
+            Exception exception = new InvalidOperationException(string.Format("Received error in response to the following request: '{0}'", request.AsString()));
+
+            Instrumentation.Command.Endpoint.Error(exception);
+
+            return exception;
+        }
+
+        private string AddKey(string command)
+        {
+            return string.Format("{0},{1}", command, _udpKey);
         }
 
         private Task<T> Send<T>(IRequest request) where T : IResponse
         {
-            byte[] datagram = Encoding.ASCII.GetBytes(request.AsString());
+            Instrumentation.Command.Endpoint.Request(request);
 
-            Task<T> result = _responses.OfType<T>().ThrowWhen<T>(RequestFailed, response => RequestException(request, response)).Timeout(_requestTimeout).ToTask();
+            string requestString = AddKey(request.AsString());
 
-            _udpClient.SendAsync(datagram, datagram.Length, _remoteEndpoint);
+            Instrumentation.Command.Endpoint.Send(requestString);
+
+            byte[] datagram = Encoding.ASCII.GetBytes(requestString);
+
+            Task<T> result = _responses.OfType<T>()
+                                       .ThrowWhen<T>(RequestFailed, response => RequestException(request, response))
+                                       .Timeout(_requestTimeout)
+                                       .Take(1)
+                                       .ToTask();
+
+            _udpSend.Send(datagram, datagram.Length, _remoteEndpoint);
 
             return result;
         }

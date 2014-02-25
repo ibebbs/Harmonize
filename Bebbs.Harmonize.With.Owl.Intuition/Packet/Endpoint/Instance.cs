@@ -29,12 +29,15 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Packet.Endpoint
             _packetParser = packetParser;
             _localPacketEndpoint = localPacketEndpoint;
 
-            _udpClient = new UdpClient(_localPacketEndpoint);
+            _udpClient = new UdpClient();
+            _udpClient.Client.Bind(_localPacketEndpoint);
 
             _packets = Observable.FromAsync(_udpClient.ReceiveAsync).Repeat()
                                  .Select(result => result.Buffer)
                                  .Select(Encoding.ASCII.GetString)
+                                 .Do(Instrumentation.Packet.Endpoint.Receive)
                                  .SelectMany(_packetParser.GetPackets)
+                                 .Do(Instrumentation.Packet.Endpoint.Packet)
                                  .Publish();
         }
 

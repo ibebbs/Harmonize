@@ -1,32 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Bebbs.Harmonize.With.Owl.Intuition.State
 {
     internal class Faulted : IState
     {
         private Event.IMediator _eventMediator;
         private ITransition _transition;
-        private Context.IFault context;
+        private Context.IFault _context;
 
-        public Faulted(Event.IMediator _eventMediator, ITransition _transition, Context.IFault context)
+        public Faulted(Event.IMediator eventMediator, ITransition transition, Context.IFault context)
         {
-            // TODO: Complete member initialization
-            this._eventMediator = _eventMediator;
-            this._transition = _transition;
-            this.context = context;
+            _eventMediator = eventMediator;
+            _transition = transition;
+            _context = context;
         }
+
         public void OnEnter()
         {
-            throw new NotImplementedException();
+            _eventMediator.Publish(new Event.Errored(_context.Exception));
         }
 
         public void OnExit()
         {
-            throw new NotImplementedException();
+            // Do nothing
         }
 
         public Name Name

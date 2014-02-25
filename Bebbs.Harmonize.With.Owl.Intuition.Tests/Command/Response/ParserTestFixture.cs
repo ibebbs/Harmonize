@@ -64,17 +64,16 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests.Command.Response
 
             Assert.IsNotNull(response);
             Assert.AreEqual(Intuition.Command.Status.Ok, response.Status);
-            Assert.AreEqual(1, response.Index);
-            Assert.AreEqual("ADDRESS", response.DeviceAddress);
-            Assert.AreEqual("TYPE", response.DeviceType);
-            Assert.AreEqual("STATE", response.DeviceState);
-            Assert.AreEqual("ADDRESS", response.DeviceAddress);
-            Assert.AreEqual(Values.SignalStrength.Parse("-75"), response.SignalStrength);
-            Assert.AreEqual(Values.LinkQuality.Parse("48"), response.LinkQuality);
-            Assert.AreEqual(Values.BatteryState.Parse("BatteryState"), response.BatteryState);
-            Assert.AreEqual(TimeSpan.FromSeconds(1234), response.TimeSinceLastPacketReceived);
-            Assert.AreEqual(314, response.ReceivedPackets);
-            Assert.AreEqual(159, response.SentPackets);
+            Assert.AreEqual(0, response.Index);
+            Assert.AreEqual("F2", response.DeviceAddress);
+            Assert.AreEqual("CMR180", response.DeviceType);
+            Assert.AreEqual("0", response.DeviceState);
+            Assert.AreEqual(Values.SignalStrength.Parse("-53"), response.SignalStrength);
+            Assert.AreEqual(Values.LinkQuality.Parse("20"), response.LinkQuality);
+            Assert.AreEqual(Values.BatteryState.Parse("1"), response.BatteryState);
+            Assert.AreEqual(TimeSpan.FromSeconds(1), response.TimeSinceLastPacketReceived);
+            Assert.AreEqual(178, response.ReceivedPackets);
+            Assert.AreEqual(0, response.SentPackets);
         }
 
         [TestMethod]

@@ -24,6 +24,11 @@ namespace Bebbs.Harmonize.Console
                 modules.Add(new With.Harmony.Module());
             }
 
+            if (_options.WithOwl)
+            {
+                modules.Add(new With.Owl.Intuition.Module());
+            }
+
             if (_options.UseAllJoyn)
             {
                 modules.Add(new Harmonize.With.Alljoyn.Module());

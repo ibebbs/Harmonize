@@ -22,7 +22,6 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.State
 
         private void Publish(Packet.IPacket packet)
         {
-
         }
 
         public void OnEnter()
@@ -31,6 +30,8 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.State
             _subscription = _packetEndpoint.Packets.Subscribe(Publish);
 
             _packetEndpoint.Open();
+
+            _eventMediator.Publish(new Event.Started());
         }
 
         public void OnExit()

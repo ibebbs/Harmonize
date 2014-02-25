@@ -21,6 +21,15 @@ namespace Bebbs.Harmonize.Console
                 ObservableEventListener harmonyEventListener = new ObservableEventListener();
                 harmonyEventListener.EnableEvents((EventSource)With.Harmony.EventSource.Log, EventLevel.LogAlways, Keywords.All);
 
+                ObservableEventListener owlCommandEventListener = new ObservableEventListener();
+                owlCommandEventListener.EnableEvents((EventSource)With.Owl.Intuition.Instrumentation.Command.Endpoint, EventLevel.LogAlways, Keywords.All);
+
+                ObservableEventListener owlPacketEventListener = new ObservableEventListener();
+                owlPacketEventListener.EnableEvents((EventSource)With.Owl.Intuition.Instrumentation.Packet.Endpoint, EventLevel.LogAlways, Keywords.All);
+
+                ObservableEventListener owlStateEventListener = new ObservableEventListener();
+                owlStateEventListener.EnableEvents((EventSource)With.Owl.Intuition.Instrumentation.State.Machine, EventLevel.LogAlways, Keywords.All);
+
                 ObservableEventListener xmppEventListener = new ObservableEventListener();
                 xmppEventListener.EnableEvents((EventSource)XmppEventSource.Log, EventLevel.LogAlways, Keywords.All);
 
@@ -33,7 +42,7 @@ namespace Bebbs.Harmonize.Console
                 ObservableEventListener messagingEventListener = new ObservableEventListener();
                 messagingEventListener.EnableEvents((EventSource)With.Messaging.Instrumentation.Messages, EventLevel.LogAlways, Keywords.All);
 
-                using (new CompositeDisposable(harmonizeEventListener.LogToConsole(), harmonyEventListener.LogToConsole(), xmppEventListener.LogToConsole(), alljoynEventListener.LogToConsole(), storeEventListener.LogToConsole(), messagingEventListener.LogToConsole()))
+                using (new CompositeDisposable(harmonizeEventListener.LogToConsole(), harmonyEventListener.LogToConsole(), owlCommandEventListener.LogToConsole(), owlPacketEventListener.LogToConsole(), owlStateEventListener.LogToConsole(), xmppEventListener.LogToConsole(), alljoynEventListener.LogToConsole(), storeEventListener.LogToConsole(), messagingEventListener.LogToConsole()))
                 {
                     Client client = new Client(options);
 

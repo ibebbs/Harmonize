@@ -118,12 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ElectricityPacket" xml:space="preserve">
-    <value>&lt;electricity id='443719999999'&gt;	
-	&lt;signal	rssi='-71' lqi='127'/&gt;	
-	&lt;battery level='100%'/&gt;	
-	&lt;chan id='0'&gt;&lt;curr units='w'&gt;483.00&lt;/curr&gt;&lt;day units='wh'&gt;10244.99&lt;/day&gt;&lt;/chan&gt;	
-	&lt;chan id='1'&gt;&lt;curr units='w'&gt;0.00&lt;/curr&gt;&lt;day units='wh'&gt;0.00&lt;/day&gt;&lt;/chan&gt;
-	&lt;chan id='2'&gt;&lt;curr units='w'&gt;0.00&lt;/curr&gt;&lt;day units='wh'&gt;0.00&lt;/day&gt;&lt;/chan&gt;	
-&lt;/electricity&gt;</value>
+    <value>&lt;electricity id='4437190032EC'&gt;&lt;signal rssi='-53' lqi='19'/&gt;&lt;battery level='100%'/&gt;&lt;chan id='0'&gt;&lt;curr units='w'&gt;1352.00&lt;/curr&gt;&lt;day units='wh'&gt;3308.63&lt;/day&gt;&lt;/chan&gt;&lt;chan id='1'&gt;&lt;curr units='w'&gt;0.00&lt;/curr&gt;&lt;day units='wh'&gt;0.00&lt;/day&gt;&lt;/chan&gt;&lt;chan id='2'&gt;&lt;curr units='w'&gt;0.00&lt;/curr&gt;&lt;day units='wh'&gt;0.00&lt;/day&gt;&lt;/chan&gt;&lt;/electricity&gt;</value>
+  </data>
+  <data name="WrappedElectricity" xml:space="preserve">
+    <value>&lt;wrapper&gt;&lt;electricity id='4437190032EC'&gt;&lt;signal rssi='-53' lqi='19'/&gt;&lt;battery level='100%'/&gt;&lt;chan id='0'&gt;&lt;curr units='w'&gt;1352.00&lt;/curr&gt;&lt;day units='wh'&gt;3308.63&lt;/day&gt;&lt;/chan&gt;&lt;chan id='1'&gt;&lt;curr units='w'&gt;0.00&lt;/curr&gt;&lt;day units='wh'&gt;0.00&lt;/day&gt;&lt;/chan&gt;&lt;chan id='2'&gt;&lt;curr units='w'&gt;0.00&lt;/curr&gt;&lt;day units='wh'&gt;0.00&lt;/day&gt;&lt;/chan&gt;&lt;/electricity&gt;&lt;/wrapper&gt;</value>
   </data>
 </root>

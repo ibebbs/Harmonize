@@ -87,6 +87,7 @@
     <Compile Include="Command\Status.cs" />
     <Compile Include="Command\Subject.cs" />
     <Compile Include="Command\Verb.cs" />
+    <Compile Include="Instrumentation.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Packet\Battery.cs" />
     <Compile Include="Packet\Channel.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Packet\Parser.cs" />
     <Compile Include="Packet\Serializer.cs" />
     <Compile Include="Packet\Signal.cs" />
+    <Compile Include="Packet\Wrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\Provider.cs" />
     <Compile Include="Settings\Values.cs" />
@@ -113,8 +115,10 @@
     <Compile Include="State\Context\IContext.cs" />
     <Compile Include="State\Disconnected.cs" />
     <Compile Include="State\Event\Connect.cs" />
+    <Compile Include="State\Event\Errored.cs" />
     <Compile Include="State\Event\Factory.cs" />
     <Compile Include="State\Event\Mediator.cs" />
+    <Compile Include="State\Event\Started.cs" />
     <Compile Include="State\Event\TransitionState.cs" />
     <Compile Include="State\Factory.cs" />
     <Compile Include="State\Faulted.cs" />

@@ -101,16 +101,16 @@ namespace Bebbs.Harmonize.With.Harmony.State
                 _eventAggregator.GetEvent<Messages.IStartedMessage>().Timeout(TimeSpan.FromSeconds(30)),
                 _eventAggregator.GetEvent<Messages.IErrorMessage>(),
                 (started, error) =>
+                {
+                    if (error != null)
                     {
-                        if (error != null)
-                        {
-                            throw new ApplicationException("Error starting Harmony", error.Exception);
-                        }
-                        else
-                        {
-                            return Unit.Default;
-                        }
+                        throw new ApplicationException("Error starting Harmony", error.Exception);
                     }
+                    else
+                    {
+                        return Unit.Default;
+                    }
+                }
             );
 
             Task result = observable.ToTask();

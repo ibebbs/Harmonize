@@ -7,7 +7,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Command.Response.Builder
     {
         private const string StatusGroup = "Status";
         private const string SaveResponseName = "SaveResponse";
-        private const string SaveResponsePattern = @"(?<Status>OK|ERROR),SAVE";
+        private const string SaveResponsePattern = @"(?<Status>OK|ERROR),SAVE(?:,)?";
 
         public IResponse Build(System.Text.RegularExpressions.Match match)
         {

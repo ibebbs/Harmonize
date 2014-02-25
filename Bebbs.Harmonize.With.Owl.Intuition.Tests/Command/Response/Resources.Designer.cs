@@ -61,7 +61,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests.Command.Response {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OK,DEVICE,1,ADDRESS,TYPE,1234,STATE,-75,48,BatteryState,314,159.
+        ///   Looks up a localized string similar to OK,DEVICE,0,F2,CMR180,1,0,-53,20,1,178,0,0.0:0,0.00,0,0,0,0.00.
         /// </summary>
         internal static string DeviceResponse {
             get {

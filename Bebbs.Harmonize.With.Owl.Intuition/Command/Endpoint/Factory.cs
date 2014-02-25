@@ -21,7 +21,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Command.Endpoint
         {
             Settings.IValues settings = _settingsProvider.GetValues();
 
-            return new Instance(_responseParser, settings.LocalCommandEndpoint, settings.OwlCommandEndpoint, settings.OwlCommandResponseTimeout);
+            return new Instance(_responseParser, settings.LocalCommandEndpoint, settings.OwlCommandEndpoint, settings.OwlCommandResponseTimeout, settings.OwlCommandKey);
         }
     }
 }

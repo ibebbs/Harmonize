@@ -17,6 +17,9 @@ namespace Bebbs.Harmonize.Console
         [Option("harmony", DefaultValue = false, HelpText = "Harmonize with Harmony Remote", Required = false)]
         public bool WithHarmony { get; set; }
 
+        [Option("owl", DefaultValue = false, HelpText = "Harmonize with Own Intuition", Required = false)]
+        public bool WithOwl { get; set; }
+
         [Option('a', "alljoyn", DefaultValue = true, HelpText = "Harmonize with Alljoyn", Required = false)]
         public bool UseAllJoyn { get; set; }
 

@@ -23,30 +23,6 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.State
             _context = context;
         }
 
-        private void SaveOrFault(Command.Response.Udp response)
-        {
-            if (response.Endpoint == _context.LocalPacketEndpoint)
-            {
-                Observable.FromAsync(() => _context.CommandEndpoint.Send(new Command.Request.Save())).Take(1).Subscribe(_ => ToRegistration(), ToFault);
-            }
-            else
-            {
-                ToFault(new ArgumentException(string.Format("Unable to set UdpPushPort to specified endpoint. Trying to change port from '{0}' to '{1}'", response.Endpoint.ToString(), _context.LocalPacketEndpoint.ToString())));
-            }
-        }
-
-        private void ChangeOrTransition(Command.Response.Udp response)
-        {
-            if (response.Endpoint != _context.LocalPacketEndpoint)
-            {
-                Observable.FromAsync(() => _context.CommandEndpoint.Send(new Command.Request.SetUdpPushPort(_context.LocalPacketEndpoint))).Take(1).Subscribe(SaveOrFault, ToFault);
-            }
-            else
-            {
-                ToRegistration();
-            }
-        }
-
         private void ToFault(Exception exception)
         {
             _transition.ToFaulted(_context.CommandEndpoint, exception);
@@ -57,21 +33,40 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.State
             _transition.ToRegistration(_context.CommandEndpoint, _context.Version);
         }
 
-        public void OnEnter()
+        public async void OnEnter()
         {
-            if (_context.AutoConfigurePacketEndpoint)
+            try
             {
-                Observable.FromAsync(() => _context.CommandEndpoint.Send(new Command.Request.GetUpdPushPort())).Take(1).Subscribe(ChangeOrTransition, ToFault);
-            }
-            else
-            {
+                if (_context.AutoConfigurePacketEndpoint)
+                {
+                    Command.Response.Udp udp = await _context.CommandEndpoint.Send(new Command.Request.GetUpdPushPort());
+
+                    if (!udp.Endpoint.Equals(_context.LocalPacketEndpoint))
+                    {
+                        udp = await _context.CommandEndpoint.Send(new Command.Request.SetUdpPushPort(_context.LocalPacketEndpoint));
+
+                        if (udp.Endpoint.Equals(_context.LocalPacketEndpoint))
+                        {
+                            await _context.CommandEndpoint.Send(new Command.Request.Save());
+                        }
+                        else
+                        {
+                            ToFault(new ArgumentException(string.Format("Unable to set UdpPushPort to specified endpoint. Trying to change port from '{0}' to '{1}'", udp.Endpoint.ToString(), _context.LocalPacketEndpoint.ToString())));
+                        }
+                    }
+                }
+
                 ToRegistration();
+            }
+            catch (Exception e)
+            {
+                ToFault(e);
             }
         }
 
         public void OnExit()
         {
-            throw new NotImplementedException();
+            // Do nothing
         }
 
         public Name Name
