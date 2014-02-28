@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{84F14256-C5BD-4EB3-9688-530B31644706}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bebbs.Harmonize.Service</RootNamespace>
+    <AssemblyName>Bebbs.Harmonize.Service</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ninject">
+      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Host.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Installer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Settings\Provider.cs" />
+    <Compile Include="Settings\Values.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bebbs.Harmonize.With.Messaging.Over.RabbitMq\Bebbs.Harmonize.With.Messaging.Over.RabbitMq.csproj">
+      <Project>{f6a5907c-4ebb-459a-b76d-8926d714a3b0}</Project>
+      <Name>Bebbs.Harmonize.With.Messaging.Over.RabbitMq</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bebbs.Harmonize.With.Messaging\Bebbs.Harmonize.With.Messaging.csproj">
+      <Project>{6d4f94c4-e199-493d-a386-e0c184bd0e56}</Project>
+      <Name>Bebbs.Harmonize.With.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bebbs.Harmonize.With.Owl.Intuition\Bebbs.Harmonize.With.Owl.Intuition.csproj">
+      <Project>{65767969-5717-4ea9-8f8e-5e8f34bd3605}</Project>
+      <Name>Bebbs.Harmonize.With.Owl.Intuition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj">
+      <Project>{91848444-1506-4f50-bf6c-d0528cd6c74e}</Project>
+      <Name>Bebbs.Harmonize.With</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bebbs.Harmonize\Bebbs.Harmonize.csproj">
+      <Project>{2f82d034-5edb-432e-924c-b45da875fad2}</Project>
+      <Name>Bebbs.Harmonize</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
