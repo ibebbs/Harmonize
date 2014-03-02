@@ -38,20 +38,20 @@ namespace Bebbs.Harmonize.With.Harmony.Services
             public string Source { get; set; }
         }
 
-        private readonly IGlobalEventAggregator _eventAggregator;
-        private readonly With.Settings.IProvider _settingsProvider;
+        private readonly Messages.IMediator _messageMediator;
+        private readonly Settings.IProvider _settingsProvider;
 
         private IDisposable _subscription;
 
-        public AuthenticationService(IGlobalEventAggregator eventAggregator, With.Settings.IProvider settingsProvider)
+        public AuthenticationService(Messages.IMediator messageMediator, Settings.IProvider settingsProvider)
         {
-            _eventAggregator = eventAggregator;
+            _messageMediator = messageMediator;
             _settingsProvider = settingsProvider;
         }
 
         private async void ProcessRequest(IRequestAuthenticationMessage request)
         {
-            With.Settings.IValues values = _settingsProvider.GetValues();
+            Settings.IValues values = _settingsProvider.GetValues();
             
             AuthenticationRequest authenticationRequest = new AuthenticationRequest
             {
@@ -73,17 +73,17 @@ namespace Bebbs.Harmonize.With.Harmony.Services
 
             if (authenticationResponse.GetUserAuthTokenResult != null)
             {
-                _eventAggregator.Publish(new AuthenticationResponseMessage(authenticationResponse.GetUserAuthTokenResult.AccountId, authenticationResponse.GetUserAuthTokenResult.UserAuthToken));
+                _messageMediator.Publish(new AuthenticationResponseMessage(authenticationResponse.GetUserAuthTokenResult.AccountId, authenticationResponse.GetUserAuthTokenResult.UserAuthToken));
             }
             else
             {
-                _eventAggregator.Publish(new AuthenticationResponseMessage(authenticationResponse.ErrorCode, authenticationResponse.Message, authenticationResponse.Source));
+                _messageMediator.Publish(new AuthenticationResponseMessage(authenticationResponse.ErrorCode, authenticationResponse.Message, authenticationResponse.Source));
             }
         }
 
         public void Initialize()
         {
-            _subscription = _eventAggregator.GetEvent<IRequestAuthenticationMessage>().Subscribe(ProcessRequest);
+            _subscription = _messageMediator.GetEvent<IRequestAuthenticationMessage>().Subscribe(ProcessRequest);
         }
 
         public void Cleanup()

@@ -10,9 +10,7 @@ namespace Bebbs.Harmonize.With.Harmony.Tests.Hub.Configuration
         [TestMethod]
         public void ShouldCorrectlyDeserializeJsonConfigurationValues()
         {
-            With.Harmony.Hub.Configuration.Parser subject = new With.Harmony.Hub.Configuration.Parser();
-
-            IValues values = subject.FromJson("Test", Resources.SimpleConfiguration);
+            IValues values = With.Harmony.Hub.Configuration.Parser.FromJson("Test", Resources.SimpleConfiguration);
 
             Assert.IsNotNull(values);
             Assert.AreEqual<int>(1, values.Activities.Count(), "Did not correctly deserialize Activities");

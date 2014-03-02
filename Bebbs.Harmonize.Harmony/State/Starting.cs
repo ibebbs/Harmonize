@@ -4,31 +4,31 @@ namespace Bebbs.Harmonize.With.Harmony.State
 {
     internal class Starting : IState<IContext>
     {
-        private readonly IGlobalEventAggregator _eventAggregator;
+        private readonly Messages.IMediator _messageMediator;
         private readonly IAsyncHelper _asyncHelper;
 
-        public Starting(IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper)
+        public Starting(Messages.IMediator messageMediator, IAsyncHelper asyncHelper)
         {
-            _eventAggregator = eventAggregator;
+            _messageMediator = messageMediator;
             _asyncHelper = asyncHelper;
         }
 
         public void OnEnter(IContext context)
         {
-            EventSource.Log.EnteringState(Name.Starting);
+            Instrumentation.State.EnteringState(Name.Starting);
 
-            _eventAggregator.Publish(new TransitionToStateMessage<IContext>(Name.Authenticating, context));
+            _messageMediator.Publish(new TransitionToStateMessage<IContext>(Name.Authenticating, context));
 
-            EventSource.Log.EnteredState(Name.Starting);
+            Instrumentation.State.EnteredState(Name.Starting);
         }
 
         public void OnExit(IContext context)
         {
-            EventSource.Log.ExitingState(Name.Starting);
+            Instrumentation.State.ExitingState(Name.Starting);
 
             // Do nothing
 
-            EventSource.Log.ExitedState(Name.Starting);
+            Instrumentation.State.ExitedState(Name.Starting);
         }
     }
 }

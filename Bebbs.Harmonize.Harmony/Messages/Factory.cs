@@ -2,12 +2,12 @@
 {
     public interface IFactory
     {
-        IHarmonyCommandMessage ConstructHarmonyCommand(ISession session, Harmonize.With.Command.ICommand command);
+        IHarmonyCommandMessage ConstructHarmonyCommand(Hub.Session.IInstance session, Harmonize.With.Command.ICommand command);
     }
 
     internal class Factory : IFactory
     {
-        public IHarmonyCommandMessage ConstructHarmonyCommand(ISession session, Harmonize.With.Command.ICommand command)
+        public IHarmonyCommandMessage ConstructHarmonyCommand(Hub.Session.IInstance session, Harmonize.With.Command.ICommand command)
         {
             Hub.Command hubCommand = (command as Hub.Command);
 

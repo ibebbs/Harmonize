@@ -3,7 +3,7 @@ namespace Bebbs.Harmonize.With.Harmony.Messages
 {
     public interface IHarmonyCommandMessage : IMessage
     {
-        ISession Session { get; }
+        Hub.Session.IInstance Session { get; }
 
         string DeviceId { get; }
 
@@ -12,14 +12,14 @@ namespace Bebbs.Harmonize.With.Harmony.Messages
 
     internal class HarmonyCommandMessage : IHarmonyCommandMessage
     {
-        public HarmonyCommandMessage(ISession session, string deviceId, string command)
+        public HarmonyCommandMessage(Hub.Session.IInstance session, string deviceId, string command)
         {
             Session = session;
             DeviceId = deviceId;
             Command = command;
         }
 
-        public ISession Session { get; private set; }
+        public Hub.Session.IInstance Session { get; private set; }
 
         public string DeviceId { get; private set; }
 

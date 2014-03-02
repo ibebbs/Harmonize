@@ -4,31 +4,31 @@ namespace Bebbs.Harmonize.With.Harmony.State
 {
     public class Stopping : IState<IContext>
     {
-        private readonly IGlobalEventAggregator _eventAggregator;
+        private readonly Messages.IMediator _messageMediator;
         private readonly IAsyncHelper _asyncHelper;
 
-        public Stopping(IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper)
+        public Stopping(Messages.IMediator messageMediator, IAsyncHelper asyncHelper)
         {
-            _eventAggregator = eventAggregator;
+            _messageMediator = messageMediator;
             _asyncHelper = asyncHelper;
         }
 
         public void OnEnter(IContext context)
         {
-            EventSource.Log.EnteringState(Name.Stopping);
+            Instrumentation.State.EnteringState(Name.Stopping);
 
-            _eventAggregator.Publish(new TransitionToStateMessage<IContext>(Name.Stopped, context));
+            _messageMediator.Publish(new TransitionToStateMessage<IContext>(Name.Stopped, context));
 
-            EventSource.Log.EnteredState(Name.Stopping);
+            Instrumentation.State.EnteredState(Name.Stopping);
         }
 
         public void OnExit(IContext context)
         {
-            EventSource.Log.ExitingState(Name.Stopping);
+            Instrumentation.State.ExitingState(Name.Stopping);
 
             // Do nothing
 
-            EventSource.Log.ExitedState(Name.Stopping);
+            Instrumentation.State.ExitedState(Name.Stopping);
         }
     }
 }

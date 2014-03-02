@@ -2,25 +2,20 @@
 
 namespace Bebbs.Harmonize.With.Harmony.Hub.Configuration
 {
-    public interface IParser
+    internal static class Parser
     {
-        IValues FromJson(string location, string json);
-    }
+        private static void SetDeviceLocation(string hubName, IValues values)
+        {
+            values.Devices.ForEach(device => device.HubName = hubName);
+        }
 
-    internal class Parser : IParser
-    {
-        public IValues FromJson(string hubName, string json)
+        public static IValues FromJson(string hubName, string json)
         {
             IValues values = JsonSerializer.DeserializeFromString<Values>(json);
 
             SetDeviceLocation(hubName, values);
 
             return values;
-        }
-
-        private void SetDeviceLocation(string hubName, IValues values)
-        {
-            values.Devices.ForEach(device => device.HubName = hubName);
         }
     }
 }

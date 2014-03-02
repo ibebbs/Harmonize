@@ -5,14 +5,14 @@ namespace Bebbs.Harmonize.With.Harmony.State
 {
     public abstract class StoppableState
     {
-        private readonly IGlobalEventAggregator _eventAggregator;
+        private readonly Messages.IMediator _messageMediator;
         private readonly IAsyncHelper _asyncHelper;
 
         private IDisposable _subscription;
 
-        public StoppableState(IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper)
+        public StoppableState(Messages.IMediator messageMediator, IAsyncHelper asyncHelper)
         {
-            _eventAggregator = eventAggregator;
+            _messageMediator = messageMediator;
             _asyncHelper = asyncHelper;
         }
 
@@ -20,7 +20,7 @@ namespace Bebbs.Harmonize.With.Harmony.State
 
         protected void EnterStoppable(IContext context)
         {
-            _subscription = _eventAggregator.GetEvent<IStopHarmonizingMessage>().Subscribe(message => Stop(context, message));
+            _subscription = _messageMediator.GetEvent<IStopHarmonizingMessage>().Subscribe(message => Stop(context, message));
         }
 
         protected void ExitStoppable(IContext context)

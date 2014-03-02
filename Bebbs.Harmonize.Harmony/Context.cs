@@ -16,13 +16,13 @@ namespace Bebbs.Harmonize.With.Harmony
 
     public interface ISessionContext : IContext
     {
-        ISessionInfo SessionInfo { get; }
+        Hub.Session.IInfo SessionInfo { get; }
     }
 
     public interface IActiveContext : IContext
     {
-        ISession Session { get; }
-        ISessionInfo SessionInfo { get; }
+        Hub.Session.IInstance Session { get; }
+        Hub.Session.IInfo SessionInfo { get; }
     }
 
     public interface IRegistrationContext : IActiveContext
@@ -43,8 +43,8 @@ namespace Bebbs.Harmonize.With.Harmony
             private readonly string _password;
             private readonly string _accountId;
             private readonly string _authenticationToken;
-            private readonly ISessionInfo _sessionInfo;
-            private readonly ISession _session;
+            private readonly Hub.Session.IInfo _sessionInfo;
+            private readonly Hub.Session.IInstance _session;
             private readonly Exception _exception;
             private readonly Hub.Configuration.IValues _harmonyConfiguration;
 
@@ -60,7 +60,7 @@ namespace Bebbs.Harmonize.With.Harmony
                 _authenticationToken = authenticationToken;
             }
 
-            public PrivateContext(IAuthenticatedContext context, ISessionInfo sessionInfo) : this(context, context.AccountId, context.AuthenticationToken)
+            public PrivateContext(IAuthenticatedContext context, Hub.Session.IInfo sessionInfo) : this(context, context.AccountId, context.AuthenticationToken)
             {
                 _sessionInfo = sessionInfo;
             }
@@ -69,12 +69,12 @@ namespace Bebbs.Harmonize.With.Harmony
             {
             }
 
-            public PrivateContext(ISessionContext context, ISessionInfo sessionInfo, ISession session) : this(context)
+            public PrivateContext(ISessionContext context, Hub.Session.IInfo sessionInfo, Hub.Session.IInstance session) : this(context)
             {
                 _session = session;
             }
 
-            public PrivateContext(IActiveContext context, ISessionInfo sessionInfo, ISession session, Hub.Configuration.IValues harmonyConfiguration) : this((ISessionContext)context, context.SessionInfo, context.Session)
+            public PrivateContext(IActiveContext context, Hub.Session.IInfo sessionInfo, Hub.Session.IInstance session, Hub.Configuration.IValues harmonyConfiguration) : this((ISessionContext)context, context.SessionInfo, context.Session)
             {
                 _harmonyConfiguration = harmonyConfiguration;
             }
@@ -104,17 +104,17 @@ namespace Bebbs.Harmonize.With.Harmony
                 get { return _authenticationToken; }
             }
 
-            ISessionInfo ISessionContext.SessionInfo
+            Hub.Session.IInfo ISessionContext.SessionInfo
             {
                 get { return _sessionInfo; }
             }
 
-            ISession IActiveContext.Session
+            Hub.Session.IInstance IActiveContext.Session
             {
                 get { return _session; }
             }
 
-            ISessionInfo IActiveContext.SessionInfo 
+            Hub.Session.IInfo IActiveContext.SessionInfo 
             {
                 get { return _sessionInfo; }
             }
@@ -140,12 +140,12 @@ namespace Bebbs.Harmonize.With.Harmony
             return new PrivateContext(context, accountId, authenticationToken);
         }
 
-        public static ISessionContext ForSession(this IAuthenticatedContext context, ISessionInfo sessionInfo)
+        public static ISessionContext ForSession(this IAuthenticatedContext context, Hub.Session.IInfo sessionInfo)
         {
             return new PrivateContext(context, sessionInfo);
         }
 
-        public static IActiveContext Activate(this ISessionContext context, ISessionInfo sessionInfo, ISession session)
+        public static IActiveContext Activate(this ISessionContext context, Hub.Session.IInfo sessionInfo, Hub.Session.IInstance session)
         {
             return new PrivateContext(context, sessionInfo, session);
         }

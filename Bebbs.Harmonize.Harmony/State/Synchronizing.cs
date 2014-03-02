@@ -6,49 +6,51 @@ namespace Bebbs.Harmonize.With.Harmony.State
 {
     internal class Synchronizing : StoppableState, IState<IActiveContext>
     {
-        private readonly IGlobalEventAggregator _eventAggregator;
+        private readonly Messages.IMediator _messageMediator;
         private readonly IAsyncHelper _asyncHelper;
         private IDisposable _subscription;
 
-        public Synchronizing(IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper) : base(eventAggregator, asyncHelper)
+        public Synchronizing(Messages.IMediator messageMediator, IAsyncHelper asyncHelper) : base(messageMediator, asyncHelper)
         {
-            _eventAggregator = eventAggregator;
+            _messageMediator = messageMediator;
             _asyncHelper = asyncHelper;
-        }
-
-        private void ProcessResponse(IActiveContext context, IHarmonyConfigurationResponseMessage message)
-        {
-            IRegistrationContext registrationContext = context.ForRegistration(message.HarmonyConfiguration);
-
-            _eventAggregator.Publish(new TransitionToStateMessage<IRegistrationContext>(Name.Registration, registrationContext));
-        }
-
-        private void ProcessException(IActiveContext context, Exception exception)
-        {
-            _eventAggregator.Publish(new TransitionToStateMessage<IContext>(Name.Stopped, context));
         }
 
         protected override void Stop(IContext context, IStopHarmonizingMessage message)
         {
-            _eventAggregator.Publish(new TransitionToStateMessage<IContext>(Name.Stopping, context));
+            _messageMediator.Publish(new TransitionToStateMessage<IContext>(Name.Stopping, context));
         }
 
         public void OnEnter(IActiveContext context)
         {
-            EventSource.Log.EnteringState(Name.Synchronizing);
+            Instrumentation.State.EnteringState(Name.Synchronizing);
 
             base.EnterStoppable(context);
 
-            _subscription = _eventAggregator.GetEvent<IHarmonyConfigurationResponseMessage>().Timeout(TimeSpan.FromSeconds(30)).Subscribe(response => ProcessResponse(context, response), exception => ProcessException(context, exception));
+            GetConfiguration(context);
 
-            _eventAggregator.Publish(new RequestHarmonyConfigurationMessage(context.SessionInfo, context.Session));
+            Instrumentation.State.EnteredState(Name.Synchronizing);
+        }
 
-            EventSource.Log.EnteredState(Name.Synchronizing);
+        private async void GetConfiguration(IActiveContext context)
+        {
+            try
+            {
+                Hub.Configuration.IValues configuration = await context.Session.Endpoint.GetHarmonyConfigurationAsync();
+
+                IRegistrationContext registrationContext = context.ForRegistration(configuration);
+
+                _messageMediator.Publish(new TransitionToStateMessage<IRegistrationContext>(Name.Registration, registrationContext));
+            }
+            catch
+            {
+                _messageMediator.Publish(new TransitionToStateMessage<IContext>(Name.Stopped, context));
+            }
         }
 
         public void OnExit(IActiveContext context)
         {
-            EventSource.Log.ExitingState(Name.Synchronizing);
+            Instrumentation.State.ExitingState(Name.Synchronizing);
 
             if (_subscription != null)
             {
@@ -58,7 +60,7 @@ namespace Bebbs.Harmonize.With.Harmony.State
 
             base.EnterStoppable(context);
 
-            EventSource.Log.ExitedState(Name.Synchronizing);
+            Instrumentation.State.ExitedState(Name.Synchronizing);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
-namespace Bebbs.Harmonize.With.Harmony
+namespace Bebbs.Harmonize.With.Harmony.Hub.Session
 {
-    public interface ISessionInfo
+    public interface IInfo
     {
         string ServerIdentity { get; }
         string HubId { get; }
@@ -15,9 +15,9 @@ namespace Bebbs.Harmonize.With.Harmony
         string FriendlyName { get; }
     }
 
-    internal class SessionInfo : ISessionInfo
+    internal class Info : IInfo
     {
-        public SessionInfo(string serverIdentity, string hubId, string identity, string status, string productId,
+        public Info(string serverIdentity, string hubId, string identity, string status, string productId,
             string xmppVersion, string httpVersion, string rfVersion, string harmonyVersion, string friendlyName)
         {
             ServerIdentity = serverIdentity;

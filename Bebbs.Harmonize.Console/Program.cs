@@ -19,7 +19,7 @@ namespace Bebbs.Harmonize.Console
                 harmonizeEventListener.EnableEvents((EventSource)Harmonize.Instrumentation.Error, EventLevel.LogAlways, Keywords.All);
 
                 ObservableEventListener harmonyEventListener = new ObservableEventListener();
-                harmonyEventListener.EnableEvents((EventSource)With.Harmony.EventSource.Log, EventLevel.LogAlways, Keywords.All);
+                harmonyEventListener.EnableEvents((EventSource)With.Harmony.Instrumentation.State, EventLevel.LogAlways, Keywords.All);
 
                 ObservableEventListener owlCommandEventListener = new ObservableEventListener();
                 owlCommandEventListener.EnableEvents((EventSource)With.Owl.Intuition.Instrumentation.Command.Endpoint, EventLevel.LogAlways, Keywords.All);
@@ -31,7 +31,7 @@ namespace Bebbs.Harmonize.Console
                 owlStateEventListener.EnableEvents((EventSource)With.Owl.Intuition.Instrumentation.State.Machine, EventLevel.LogAlways, Keywords.All);
 
                 ObservableEventListener xmppEventListener = new ObservableEventListener();
-                xmppEventListener.EnableEvents((EventSource)XmppEventSource.Log, EventLevel.LogAlways, Keywords.All);
+                xmppEventListener.EnableEvents((EventSource)With.Harmony.Instrumentation.Xmpp, EventLevel.LogAlways, Keywords.All);
 
                 ObservableEventListener alljoynEventListener = new ObservableEventListener();
                 alljoynEventListener.EnableEvents(With.Alljoyn.Instrumentation.Coordinator, EventLevel.LogAlways, Keywords.All);

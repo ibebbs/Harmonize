@@ -1,8 +1,15 @@
-﻿using Bebbs.Harmonize.With.Settings;
-using System;
+﻿using System;
 
-namespace Bebbs.Harmonize.Console.Settings
+namespace Bebbs.Harmonize.With.Harmony.Settings
 {
+    public interface IValues
+    {
+        string EMail { get; }
+        string Password { get; }
+        Uri AuthenticationEndpoint { get; }
+        string HarmonyHubAddress { get; }
+    }
+
     internal class Values : IValues
     {
         public Values(string email, string password, Uri authenticationEndpoint, string harmonyHubAddress)

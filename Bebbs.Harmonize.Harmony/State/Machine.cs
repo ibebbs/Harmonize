@@ -15,20 +15,19 @@ namespace Bebbs.Harmonize.With.Harmony.State
     public class Machine : IMachine
     {
         private readonly IFactory _stateFactory;
-        private readonly With.Settings.IProvider _settingsProvider;
-        private readonly IGlobalEventAggregator _eventAggregator;
+        private readonly Settings.IProvider _settingsProvider;
+        private readonly Messages.IMediator _messageMediator;
         private readonly IAsyncHelper _asyncHelper;
 
         private IDisposable _transitionSubscription;
         private IState _currentState;
         private IContext _currentContext;
-        private With.Settings.IValues _settings;
 
-        public Machine(IFactory stateFactory, With.Settings.IProvider settingsProvider, IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper)
+        public Machine(IFactory stateFactory, Settings.IProvider settingsProvider, Messages.IMediator messageMediator, IAsyncHelper asyncHelper)
         {
             _stateFactory = stateFactory;
             _settingsProvider = settingsProvider;
-            _eventAggregator = eventAggregator;
+            _messageMediator = messageMediator;
             _asyncHelper = asyncHelper;
         }
 
@@ -85,21 +84,21 @@ namespace Bebbs.Harmonize.With.Harmony.State
 
         public void Initialize()
         {
-            _settings = _settingsProvider.GetValues();
+            Settings.IValues settings = _settingsProvider.GetValues();
 
             _currentState = _stateFactory.ConstructState(Name.Stopped);
-            _currentContext = ContextFactory.Create(_settings.EMail, _settings.Password);
+            _currentContext = ContextFactory.Create(settings.EMail, settings.Password);
 
             EnterState();
 
-            _transitionSubscription = _eventAggregator.GetEvent<ITransitionToStateMessage>().ObserveOn(_asyncHelper.AsyncScheduler).Subscribe(ProcessTransition);
+            _transitionSubscription = _messageMediator.GetEvent<ITransitionToStateMessage>().ObserveOn(_asyncHelper.AsyncScheduler).Subscribe(ProcessTransition);
         }
 
         public Task Start()
         {
             IObservable<Unit> observable = ObservableExtentions.Either(
-                _eventAggregator.GetEvent<Messages.IStartedMessage>().Timeout(TimeSpan.FromSeconds(30)),
-                _eventAggregator.GetEvent<Messages.IErrorMessage>(),
+                _messageMediator.GetEvent<Messages.IStartedMessage>().Timeout(TimeSpan.FromSeconds(30)),
+                _messageMediator.GetEvent<Messages.IErrorMessage>(),
                 (started, error) =>
                 {
                     if (error != null)
@@ -113,9 +112,9 @@ namespace Bebbs.Harmonize.With.Harmony.State
                 }
             );
 
-            Task result = observable.ToTask();
+            Task result = observable.Take(1).ToTask();
 
-            _eventAggregator.Publish(new Messages.StartHarmonizingMessage());
+            _messageMediator.Publish(new Messages.StartHarmonizingMessage());
 
             return result;
         }
@@ -125,8 +124,8 @@ namespace Bebbs.Harmonize.With.Harmony.State
             if (_currentState is State.StoppableState)
             {
                 IObservable<Unit> observable = ObservableExtentions.Either(
-                    _eventAggregator.GetEvent<Messages.IStoppedMessage>().Timeout(TimeSpan.FromSeconds(10)),
-                    _eventAggregator.GetEvent<Messages.IErrorMessage>(),
+                    _messageMediator.GetEvent<Messages.IStoppedMessage>().Timeout(TimeSpan.FromSeconds(10)),
+                    _messageMediator.GetEvent<Messages.IErrorMessage>(),
                     (started, error) =>
                     {
                         if (error != null)
@@ -143,7 +142,7 @@ namespace Bebbs.Harmonize.With.Harmony.State
 
                 Task result = observable.ToTask();
 
-                _eventAggregator.Publish(new Messages.StopHarmonizingMessage());
+                _messageMediator.Publish(new Messages.StopHarmonizingMessage());
 
                 return result;
             }

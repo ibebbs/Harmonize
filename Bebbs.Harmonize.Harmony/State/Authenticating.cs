@@ -7,14 +7,14 @@ namespace Bebbs.Harmonize.With.Harmony.State
 {
     internal class Authenticating : StoppableState, IState<IContext>
     {
-        private readonly IGlobalEventAggregator _eventAggregator;
+        private readonly Messages.IMediator _messageMediator;
         private readonly IAsyncHelper _asyncHelper;
 
         private IDisposable _subscription;
 
-        public Authenticating(IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper) : base(eventAggregator, asyncHelper)
+        public Authenticating(Messages.IMediator messageMediator, IAsyncHelper asyncHelper) : base(messageMediator, asyncHelper)
         {
-            _eventAggregator = eventAggregator;
+            _messageMediator = messageMediator;
             _asyncHelper = asyncHelper;
         }
 
@@ -24,42 +24,42 @@ namespace Bebbs.Harmonize.With.Harmony.State
             {
                 IAuthenticatedContext authenticatedContext = context.WithAuthentication(message.AccountId, message.AuthenticationToken);
 
-                _eventAggregator.Publish(new TransitionToStateMessage<IAuthenticatedContext>(Name.RetrievingSessionInfo, authenticatedContext));
+                _messageMediator.Publish(new TransitionToStateMessage<IAuthenticatedContext>(Name.RetrievingSessionInfo, authenticatedContext));
             }
             else
             {
                 IFaultedContext faultedContext = context.Faulted(new AuthenticationException(message.Message));
 
-                _eventAggregator.Publish(new TransitionToStateMessage<IFaultedContext>(Name.Faulted, faultedContext));
+                _messageMediator.Publish(new TransitionToStateMessage<IFaultedContext>(Name.Faulted, faultedContext));
             }
         }
 
         private void ProcessException(IContext context, Exception exception)
         {
-            _eventAggregator.Publish(new TransitionToStateMessage<IContext>(Name.Stopped, context));
+            _messageMediator.Publish(new TransitionToStateMessage<IContext>(Name.Stopped, context));
         }
 
         protected override void Stop(IContext context, IStopHarmonizingMessage message)
         {
-            _eventAggregator.Publish(new TransitionToStateMessage<IContext>(Name.Stopping, context));
+            _messageMediator.Publish(new TransitionToStateMessage<IContext>(Name.Stopping, context));
         }
 
         public void OnEnter(IContext context)
         {
-            EventSource.Log.EnteringState(Name.Authenticating);
+            Instrumentation.State.EnteringState(Name.Authenticating);
 
             base.EnterStoppable(context);
 
-            _subscription = _eventAggregator.GetEvent<IAuthenticationResponseMessage>().Timeout(TimeSpan.FromSeconds(30)).Subscribe(response => ProcessResponse(context, response), exception => ProcessException(context, exception));
+            _subscription = _messageMediator.GetEvent<IAuthenticationResponseMessage>().Timeout(TimeSpan.FromSeconds(30)).Subscribe(response => ProcessResponse(context, response), exception => ProcessException(context, exception));
 
-            _eventAggregator.Publish(new RequestAuthenticationMessage(context.EMail, context.Password));
+            _messageMediator.Publish(new RequestAuthenticationMessage(context.EMail, context.Password));
 
-            EventSource.Log.EnteredState(Name.Authenticating);
+            Instrumentation.State.EnteredState(Name.Authenticating);
         }
 
         public void OnExit(IContext context)
         {
-            EventSource.Log.ExitingState(Name.Authenticating);
+            Instrumentation.State.ExitingState(Name.Authenticating);
 
             if (_subscription != null)
             {
@@ -69,7 +69,7 @@ namespace Bebbs.Harmonize.With.Harmony.State
 
             base.ExitStoppable(context);
 
-            EventSource.Log.ExitedState(Name.Authenticating);
+            Instrumentation.State.ExitedState(Name.Authenticating);
         }
     }
 }

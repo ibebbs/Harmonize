@@ -2,18 +2,18 @@
 {
     public class Faulted : IState<IFaultedContext>
     {
-        private readonly IGlobalEventAggregator _eventAggregator;
+        private readonly Messages.IMediator _messageMediator;
         private readonly IAsyncHelper _asyncHelper;
 
-        public Faulted(IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper)
+        public Faulted(Messages.IMediator messageMediator, IAsyncHelper asyncHelper)
         {
-            _eventAggregator = eventAggregator;
+            _messageMediator = messageMediator;
             _asyncHelper = asyncHelper;
         }
 
         public void OnEnter(IFaultedContext context)
         {
-            _eventAggregator.Publish(new Messages.ErrorMessage(context.Exception));
+            _messageMediator.Publish(new Messages.ErrorMessage(context.Exception));
         }
 
         public void OnExit(IFaultedContext context)

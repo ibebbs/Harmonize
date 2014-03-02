@@ -6,49 +6,49 @@ namespace Bebbs.Harmonize.With.Harmony.State
 {
     public class Started : StoppableState, IState<IRegistrationContext>
     {
-        private readonly IGlobalEventAggregator _eventAggregator;
+        private readonly Messages.IMediator _messageMediator;
         private readonly IAsyncHelper _asyncHelper;
         private readonly Messages.IFactory _messageFactory;
 
         private IDisposable _subscription;
 
-        public Started(IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper, Messages.IFactory messageFactory) : base(eventAggregator, asyncHelper)
+        public Started(Messages.IMediator messageMediator, IAsyncHelper asyncHelper, Messages.IFactory messageFactory) : base(messageMediator, asyncHelper)
         {
-            _eventAggregator = eventAggregator;
+            _messageMediator = messageMediator;
             _asyncHelper = asyncHelper;
             _messageFactory = messageFactory;
         }
 
         protected override void Stop(IContext context, IStopHarmonizingMessage message)
         {
-            _eventAggregator.Publish(new TransitionToStateMessage<IContext>(Name.Deregistration, (IRegistrationContext)context));
+            _messageMediator.Publish(new TransitionToStateMessage<IContext>(Name.Deregistration, (IRegistrationContext)context));
         }
 
         private void ProcessCommand(IActiveContext context, With.Command.ICommand command)
         {
             IHarmonyCommandMessage harmonyCommand = _messageFactory.ConstructHarmonyCommand(context.Session, command);
 
-            _eventAggregator.Publish(harmonyCommand);
+            _messageMediator.Publish(harmonyCommand);
         }
 
         public void OnEnter(IRegistrationContext context)
         {
-            EventSource.Log.EnteringState(Name.Started);
+            Instrumentation.State.EnteringState(Name.Started);
 
             base.EnterStoppable(context);
 
             _subscription = new CompositeDisposable(
-                _eventAggregator.GetEvent<With.Command.ICommand>().Subscribe(command => ProcessCommand(context, command))
+                _messageMediator.GetEvent<With.Command.ICommand>().Subscribe(command => ProcessCommand(context, command))
             );
 
-            _eventAggregator.Publish(new Messages.StartedMessage());
+            _messageMediator.Publish(new Messages.StartedMessage());
 
-            EventSource.Log.EnteredState(Name.Started);
+            Instrumentation.State.EnteredState(Name.Started);
         }
 
         public void OnExit(IRegistrationContext context)
         {
-            EventSource.Log.ExitingState(Name.Started);
+            Instrumentation.State.ExitingState(Name.Started);
 
             if (_subscription != null)
             {
@@ -58,7 +58,7 @@ namespace Bebbs.Harmonize.With.Harmony.State
 
             base.ExitStoppable(context);
 
-            EventSource.Log.ExitedState(Name.Started);
+            Instrumentation.State.ExitedState(Name.Started);
         }
     }
 }

@@ -5,36 +5,36 @@ namespace Bebbs.Harmonize.With.Harmony.State
 {
     public class Stopped : IState<IContext>
     {
-        private readonly IGlobalEventAggregator _eventAggregator;
+        private readonly Messages.IMediator _messageMediator;
         private readonly IAsyncHelper _asyncHelper;
 
         private IDisposable _subscription;
 
-        public Stopped(IGlobalEventAggregator eventAggregator, IAsyncHelper asyncHelper)
+        public Stopped(Messages.IMediator messageMediator, IAsyncHelper asyncHelper)
         {
-            _eventAggregator = eventAggregator;
+            _messageMediator = messageMediator;
             _asyncHelper = asyncHelper;
         }
 
         private void ProcessMessage(IContext context, IStartHarmonizingMessage message)
         {
-            _eventAggregator.Publish(new TransitionToStateMessage<IContext>(Name.Starting, context));
+            _messageMediator.Publish(new TransitionToStateMessage<IContext>(Name.Starting, context));
         }
 
         public void OnEnter(IContext context)
         {
-            EventSource.Log.EnteringState(Name.Stopped);
+            Instrumentation.State.EnteringState(Name.Stopped);
 
-            _subscription = _eventAggregator.GetEvent<IStartHarmonizingMessage>().Subscribe(message => ProcessMessage(context, message));
+            _subscription = _messageMediator.GetEvent<IStartHarmonizingMessage>().Subscribe(message => ProcessMessage(context, message));
 
-            _eventAggregator.Publish(new Messages.StoppedMessage());
+            _messageMediator.Publish(new Messages.StoppedMessage());
 
-            EventSource.Log.EnteringState(Name.Stopped);
+            Instrumentation.State.EnteringState(Name.Stopped);
         }
 
         public void OnExit(IContext context)
         {
-            EventSource.Log.ExitingState(Name.Stopped);
+            Instrumentation.State.ExitingState(Name.Stopped);
 
             if (_subscription != null)
             {
@@ -42,7 +42,7 @@ namespace Bebbs.Harmonize.With.Harmony.State
                 _subscription = null;
             }
 
-            EventSource.Log.ExitedState(Name.Stopped);
+            Instrumentation.State.ExitedState(Name.Stopped);
         }
     }
 }

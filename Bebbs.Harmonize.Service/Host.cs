@@ -23,7 +23,7 @@ namespace Bebbs.Harmonize.Service
 
             _harmonizer = new Harmonize.Harmonizer(harmonizeOptions);
 
-            _harmonizer.Start(new Settings.Provider());
+            _harmonizer.Start();
         }
 
         protected override async void OnStop()

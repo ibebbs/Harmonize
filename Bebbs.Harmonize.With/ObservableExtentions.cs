@@ -35,6 +35,21 @@ namespace Bebbs.Harmonize.With
             );
         }
 
+        /// <summary>
+        /// Emits values when the value of the predicate is false
+        /// </summary>
+        /// <remarks>
+        /// The opposite of where
+        /// </remarks>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public static IObservable<T> Except<T>(this IObservable<T> source, Func<T,bool> predicate)
+        {
+            return source.Where(value => !predicate(value));
+        }
+
         public static IObservable<T> ThrowWhen<T>(this IObservable<T> source, Func<T,bool> predicate, Func<T,Exception> projection)
         {
             return Observable.Create<T>(

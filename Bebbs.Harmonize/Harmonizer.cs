@@ -20,11 +20,6 @@ namespace Bebbs.Harmonize
             options.Modules.ForEach(module => _kernel.Load(module));
         }
 
-        private void SetValues(With.Settings.IProvider settingsProvider)
-        {
-            _kernel.Bind<With.Settings.IProvider>().ToConstant(settingsProvider);
-        }
-
         private void Initialize()
         {
             IEnumerable<With.IInitialize> initializables = _kernel.GetAll<With.IInitialize>();
@@ -95,10 +90,8 @@ namespace Bebbs.Harmonize
             }
         }
 
-        public Task Start(With.Settings.IProvider settingsProvider)
+        public Task Start()
         {
-            SetValues(settingsProvider);
-
             Initialize();
 
             return StartHarmonizing();
