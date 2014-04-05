@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bebbs.Harmonize.State.Component;
 
 namespace Bebbs.Harmonize.State.Event
 {
     public class Registered
     {
+        public Identity Registrar { get; set; }
+
+        public Entity Entity { get; set; }
     }
 }

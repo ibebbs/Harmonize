@@ -15,7 +15,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.Entity
         public Instance(PhysicalAddress macAddress, IEntityDescription description, IEnumerable<IObservable> observables, IEnumerable<IActionable> actionables)
         {
             Identity = new StringIdentity(string.Format(IdentityPattern, macAddress));
-
+            Description = description;
             Observables = (observables ?? Enumerable.Empty<IObservable>()).ToArray();
             Actionables = (actionables ?? Enumerable.Empty<IActionable>()).ToArray();
         }

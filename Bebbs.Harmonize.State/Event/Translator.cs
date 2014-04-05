@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using EventStore.ClientAPI;
+﻿using EventStore.ClientAPI;
 using ServiceStack.Text;
 using System;
 using System.Text;
@@ -21,68 +20,68 @@ namespace Bebbs.Harmonize.State.Event
 
     internal class Translator : ITranslator
     {
-        private static readonly Encoding Encoding = Encoding.UTF8;
+        private readonly IMapper _mapper;
+        private readonly ISerializer _serializer;
+        private readonly IEncoder _encoder;
 
-        static Translator()
+        public Translator(IMapper mapper, ISerializer serializer, IEncoder encoder)
         {
-            Mapper.CreateMap<With.Message.IObservation, Observed>();
-            Mapper.CreateMap<With.Message.IStopped, Stopped>();
-            Mapper.CreateMap<With.Message.IStarted, Started>();
-            Mapper.CreateMap<With.Message.IDeregister, Deregistered>();
-            Mapper.CreateMap<With.Message.IRegister, Registered>();
+            _mapper = mapper;
+            _serializer = serializer;
+            _encoder = encoder;
         }
 
         public EventData Translate(With.Message.IObservation message)
         {
-            Observed value = Mapper.Map<Observed>(message);
+            Observed value = _mapper.Map(message);
 
-            string text = JsonSerializer.SerializeToString<Observed>(value);
+            string text = _serializer.Serialize(value);
 
-            byte[] data = Encoding.GetBytes(text);
+            byte[] data = _encoder.Encode(text);
 
             return new EventData(Guid.NewGuid(), typeof(Observed).FullName, true, data, new byte[0]);
         }
 
         public EventData Translate(With.Message.IStopped message)
         {
-            Stopped value = Mapper.Map<Stopped>(message);
+            Stopped value = _mapper.Map(message);
 
-            string text = JsonSerializer.SerializeToString<Stopped>(value);
+            string text = _serializer.Serialize(value);
 
-            byte[] data = Encoding.GetBytes(text);
+            byte[] data = _encoder.Encode(text);
 
             return new EventData(Guid.NewGuid(), typeof(Stopped).FullName, true, data, new byte[0]);
         }
 
         public EventData Translate(With.Message.IStarted message)
         {
-            Started value = Mapper.Map<Started>(message);
+            Started value = _mapper.Map(message);
 
-            string text = JsonSerializer.SerializeToString<Started>(value);
+            string text = _serializer.Serialize(value);
 
-            byte[] data = Encoding.GetBytes(text);
+            byte[] data = _encoder.Encode(text);
 
             return new EventData(Guid.NewGuid(), typeof(Started).FullName, true, data, new byte[0]);
         }
 
         public EventData Translate(With.Message.IDeregister message)
         {
-            Deregistered value = Mapper.Map<Deregistered>(message);
+            Deregistered value = _mapper.Map(message);
 
-            string text = JsonSerializer.SerializeToString<Deregistered>(value);
+            string text = _serializer.Serialize(value);
 
-            byte[] data = Encoding.GetBytes(text);
+            byte[] data = _encoder.Encode(text);
 
             return new EventData(Guid.NewGuid(), typeof(Deregistered).FullName, true, data, new byte[0]);
         }
 
         public EventData Translate(With.Message.IRegister message)
         {
-            Registered value = Mapper.Map<Registered>(message);
+            Registered value = _mapper.Map(message);
 
-            string text = JsonSerializer.SerializeToString<Registered>(value);
+            string text = _serializer.Serialize(value);
 
-            byte[] data = Encoding.GetBytes(text);
+            byte[] data = _encoder.Encode(text);
 
             return new EventData(Guid.NewGuid(), typeof(Registered).FullName, true, data, new byte[0]);
         }

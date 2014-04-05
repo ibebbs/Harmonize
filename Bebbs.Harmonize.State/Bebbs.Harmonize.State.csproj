@@ -78,6 +78,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Component\Actionable.cs" />
+    <Compile Include="Component\Description.cs" />
+    <Compile Include="Component\Entity.cs" />
+    <Compile Include="Component\EntityDescription.cs" />
+    <Compile Include="Component\Identity.cs" />
+    <Compile Include="Component\Measurement.cs" />
+    <Compile Include="Component\Observable.cs" />
+    <Compile Include="Component\Parameter.cs" />
+    <Compile Include="Component\ParameterDescription.cs" />
+    <Compile Include="Component\ValueDescription.cs" />
+    <Compile Include="Event\Action.cs" />
+    <Compile Include="Event\Encoder.cs" />
+    <Compile Include="Event\Mapper.cs" />
+    <Compile Include="Event\Serializer.cs" />
     <Compile Include="Instrumentation.cs" />
     <Compile Include="Event\Observed.cs" />
     <Compile Include="Event\Registered.cs" />
