@@ -36,10 +36,10 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
 
     public interface IMachine
     {
-        void EnteringState(State.Name name);
-        void EnteredState(State.Name name);
-        void ExitingState(State.Name name);
-        void ExitedState(State.Name name);
+        void EnteringState(Gateway.State.Name name);
+        void EnteredState(Gateway.State.Name name);
+        void ExitingState(Gateway.State.Name name);
+        void ExitedState(Gateway.State.Name name);
     }
 
     public static class Instrumentation

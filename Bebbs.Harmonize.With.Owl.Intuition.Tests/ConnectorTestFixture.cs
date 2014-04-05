@@ -26,7 +26,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
         [TestMethod]
         public void ShouldUseDeviceFactoryToConstructDevicesWithCorrectSettings()
         {
-            Configuration.Gateway deviceA = new Configuration.Gateway
+            Configuration.Device deviceA = new Configuration.Device
             {
                 LocalCommandPort = 5100,
                 LocalPacketPort = 5110,
@@ -37,7 +37,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
                 AutoConfigurePacketPort = true
             };
 
-            Configuration.Gateway deviceB = new Configuration.Gateway
+            Configuration.Device deviceB = new Configuration.Device
             {
                 LocalCommandPort = 6100,
                 LocalPacketPort = 6110,

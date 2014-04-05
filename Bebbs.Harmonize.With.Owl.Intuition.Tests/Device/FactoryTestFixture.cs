@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bebbs.Harmonize.With.Owl.Intuition.Gateway;
+﻿using Bebbs.Harmonize.With.Owl.Intuition.Gateway;
 using FakeItEasy;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Ninject;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Tests.Device
 {
@@ -11,9 +11,14 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests.Device
         [TestMethod]
         public void ShouldBeAbleToCreateADeviceContext()
         {
-            Factory factory = new Factory();
+            IGlobalEventAggregator eventAggregator = A.Fake<IGlobalEventAggregator>();
 
-            Settings.IProvider settingsProvider = A.Fake<Settings.IProvider>();
+            StandardKernel kernel = new StandardKernel();
+            kernel.Bind<IGlobalEventAggregator>().ToConstant(eventAggregator).InSingletonScope();
+
+            Factory factory = new Factory(kernel);
+
+            Gateway.Settings.IProvider settingsProvider = A.Fake<Gateway.Settings.IProvider>();
 
             IContext context = factory.CreateDeviceInContext(settingsProvider);
 

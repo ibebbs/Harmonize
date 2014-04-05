@@ -1,57 +1,82 @@
 ﻿using Ninject;
 using System;
 using System.Reactive;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 {
-    public interface IInstance : IInitialize, ICleanup, IStart, IStop, IDisposable
+    public interface IInstance : IInitialize, ICleanup, IStart, IStop
     {
 
     }
 
     internal class Instance : IInstance
     {
-        private IKernel _kernel;
+        private readonly Event.IMediator _eventMediator;
+        private readonly Entity.IFactory _entityFactory;
         private readonly State.IMachine _stateMachine;
-        private State.ITransition _stateTransition;
-        private State.Event.IMediator _stateEventMediator;
 
-        public Instance(IKernel kernel, State.IMachine stateMachine, State.ITransition stateTransition, State.Event.IMediator stateEventMediator)
+        private IDisposable _eventSubscription;
+
+        private Component.IEntity _entity;
+
+        public Instance(Event.IMediator eventMediator, State.IMachine stateMachine, Entity.IFactory entityFactory)
         {
-            _kernel = kernel;
+            _eventMediator = eventMediator;
             _stateMachine = stateMachine;
-            _stateTransition = stateTransition;
-            _stateEventMediator = stateEventMediator;
+            _entityFactory = entityFactory;
         }
 
-        public void Dispose()
+        private void Process(Event.Connected connection)
         {
-            if (_kernel != null)
-            {
-                Cleanup();
+            _entity = _entityFactory.Create(connection.Name, connection.Remarks, connection.MacAddress, connection.Roster);
 
-                _kernel.Dispose();
+            _eventMediator.Publish(new Event.Register(_entity));
+        }
+
+        private void Process(Event.Disconnected disconnection)
+        {
+            if (_entity != null)
+            {
+                _eventMediator.Publish(new Event.Deregister(_entity));
             }
+        }
+
+        private void Process(Event.Reading reading)
+        {
+            throw new NotImplementedException();
         }
 
         public void Initialize()
         {
+            _eventSubscription = new CompositeDisposable(
+                _eventMediator.GetEvent<Event.Connected>().Subscribe(Process),
+                _eventMediator.GetEvent<Event.Disconnected>().Subscribe(Process),
+                _eventMediator.GetEvent<Event.Reading>().Subscribe(Process)
+            );
+
             _stateMachine.Initialize();
         }
 
         public void Cleanup()
         {
             _stateMachine.Cleanup();
+            
+            if (_eventSubscription != null)
+            {
+                _eventSubscription.Dispose();
+                _eventSubscription = null;
+            }
         }
 
         public Task Start()
         {
             IObservable<Unit> observable = ObservableExtentions.Either(
-                _stateEventMediator.GetEvent<State.Event.Started>().Timeout(TimeSpan.FromSeconds(30)),
-                _stateEventMediator.GetEvent<State.Event.Errored>(),
+                _eventMediator.GetEvent<Gateway.Event.Started>().Timeout(TimeSpan.FromSeconds(30)),
+                _eventMediator.GetEvent<Gateway.Event.Errored>(),
                 (started, error) =>
                 {
                     if (error != null)
@@ -67,7 +92,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 
             Task result = observable.ToTask();
 
-            _stateTransition.ToConnecting();
+            _eventMediator.Publish(new Event.Connect());
 
             return Task.FromResult<object>(null);
         }

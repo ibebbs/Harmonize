@@ -15,15 +15,15 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Packet
 
     internal class Parser : IParser
     {
-        public static readonly XmlSerializer<Wrapper> Serializer = new XmlSerializer<Wrapper>();
+        public static readonly XmlSerializer<Reading> Serializer = new XmlSerializer<Reading>();
 
-        private Wrapper GetWrapper(string packets)
+        private Reading GetWrapper(string packets)
         {
             try
             {
-                string wrapped = Wrapper.Wrap(packets);
+                string wrapped = Reading.Wrap(packets);
 
-                Wrapper wrapper = Serializer.Deserialize(wrapped);
+                Reading wrapper = Serializer.Deserialize(wrapped);
 
                 return wrapper;
             }
@@ -31,13 +31,13 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Packet
             {
                 Instrumentation.Packet.Parser.Error(e);
 
-                return new Wrapper();
+                return new Reading();
             }
         }
 
         public IEnumerable<IPacket> GetPackets(string packets)
         {
-            Wrapper wrapper = GetWrapper(packets);
+            Reading wrapper = GetWrapper(packets);
 
             if (wrapper.Electricity != null)
             {

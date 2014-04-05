@@ -13,10 +13,10 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Packet.Endpoint
 
     internal class Factory : IFactory
     {
-        private readonly Settings.IProvider _settingsProvider;
+        private readonly Gateway.Settings.IProvider _settingsProvider;
         private readonly IParser _packetParser;
 
-        public Factory(Settings.IProvider settingsProvider, IParser packetParser)
+        public Factory(Gateway.Settings.IProvider settingsProvider, IParser packetParser)
         {
             _settingsProvider = settingsProvider;
             _packetParser = packetParser;
@@ -24,7 +24,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Packet.Endpoint
 
         public IInstance CreateEndpoint()
         {
-            Settings.IValues settings = _settingsProvider.GetValues();
+            Gateway.Settings.IValues settings = _settingsProvider.GetValues();
 
             return new Instance(_packetParser, settings.LocalPacketEndpoint);
         }

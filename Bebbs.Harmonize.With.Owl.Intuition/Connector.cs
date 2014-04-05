@@ -19,20 +19,20 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
     internal class Connector : IConnector
     {
         private readonly Configuration.IProvider _configurationProvider;
-        private readonly Gateway.IFactory _deviceFactory;
+        private readonly Gateway.IFactory _gatewayFactory;
 
         private Configuration.Details _configuration;
         private IEnumerable<Gateway.IContext> _contexts;
 
-        public Connector(Configuration.IProvider configurationProvider, Gateway.IFactory deviceFactory)
+        public Connector(Configuration.IProvider configurationProvider, Gateway.IFactory gatewayFactory)
         {
             _configurationProvider = configurationProvider;
-            _deviceFactory = deviceFactory;
+            _gatewayFactory = gatewayFactory;
         }
 
-        private Gateway.IContext Create(Configuration.Gateway configurationDevice)
+        private Gateway.IContext Create(Configuration.Device configurationDevice)
         {
-            return _deviceFactory.CreateDeviceInContext(configurationDevice);
+            return _gatewayFactory.CreateDeviceInContext(configurationDevice);
         }
 
         private IEnumerable<Gateway.IContext> LoadInstances()
@@ -55,7 +55,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
 
         private void Initialize(Gateway.IContext deviceContext)
         {
-            deviceContext.Instance.Initialize();
+            deviceContext.Initialize();
         }
 
         public void Initialize()

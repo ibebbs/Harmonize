@@ -95,8 +95,17 @@
     <Compile Include="Configuration\Details.cs" />
     <Compile Include="Configuration\Provider.cs" />
     <Compile Include="Connector.cs" />
-    <Compile Include="Configuration\Gateway.cs" />
+    <Compile Include="Configuration\Device.cs" />
+    <Compile Include="Gateway\Bridge.cs" />
     <Compile Include="Gateway\Context.cs" />
+    <Compile Include="Gateway\Entity\Description.cs" />
+    <Compile Include="Gateway\Entity\Factory.cs" />
+    <Compile Include="Gateway\Entity\Instance.cs" />
+    <Compile Include="Gateway\Event\Deregister.cs" />
+    <Compile Include="Gateway\Event\Reading.cs" />
+    <Compile Include="Gateway\Event\Connected.cs" />
+    <Compile Include="Gateway\Event\Disconnected.cs" />
+    <Compile Include="Gateway\Event\Register.cs" />
     <Compile Include="Gateway\Factory.cs" />
     <Compile Include="Gateway\Instance.cs" />
     <Compile Include="Instrumentation.cs" />
@@ -111,35 +120,35 @@
     <Compile Include="Packet\Parser.cs" />
     <Compile Include="Packet\Serializer.cs" />
     <Compile Include="Packet\Signal.cs" />
-    <Compile Include="Packet\Wrapper.cs" />
+    <Compile Include="Packet\Reading.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\Provider.cs" />
-    <Compile Include="Settings\Values.cs" />
-    <Compile Include="State\Configuring.cs" />
-    <Compile Include="State\Connecting.cs" />
-    <Compile Include="State\Context\Listen.cs" />
-    <Compile Include="State\Context\Registration.cs" />
-    <Compile Include="State\Context\Configuration.cs" />
-    <Compile Include="State\Context\Connection.cs" />
-    <Compile Include="State\Context\Disconnected.cs" />
-    <Compile Include="State\Context\Factory.cs" />
-    <Compile Include="State\Context\Fault.cs" />
-    <Compile Include="State\Context\IContext.cs" />
-    <Compile Include="State\Disconnected.cs" />
-    <Compile Include="State\Event\Connect.cs" />
-    <Compile Include="State\Event\Errored.cs" />
-    <Compile Include="State\Event\Factory.cs" />
-    <Compile Include="State\Event\Mediator.cs" />
-    <Compile Include="State\Event\Started.cs" />
-    <Compile Include="State\Event\TransitionState.cs" />
-    <Compile Include="State\Factory.cs" />
-    <Compile Include="State\Faulted.cs" />
-    <Compile Include="State\IState.cs" />
-    <Compile Include="State\Listening.cs" />
-    <Compile Include="State\Machine.cs" />
-    <Compile Include="State\Name.cs" />
-    <Compile Include="State\Registering.cs" />
-    <Compile Include="State\Transition.cs" />
+    <Compile Include="Gateway\Settings\Provider.cs" />
+    <Compile Include="Gateway\Settings\Values.cs" />
+    <Compile Include="Gateway\State\Configuring.cs" />
+    <Compile Include="Gateway\State\Connecting.cs" />
+    <Compile Include="Gateway\State\Context\Listen.cs" />
+    <Compile Include="Gateway\State\Context\Registration.cs" />
+    <Compile Include="Gateway\State\Context\Configuration.cs" />
+    <Compile Include="Gateway\State\Context\Connection.cs" />
+    <Compile Include="Gateway\State\Context\Disconnected.cs" />
+    <Compile Include="Gateway\State\Context\Factory.cs" />
+    <Compile Include="Gateway\State\Context\Fault.cs" />
+    <Compile Include="Gateway\State\Context\IContext.cs" />
+    <Compile Include="Gateway\State\Disconnected.cs" />
+    <Compile Include="Gateway\Event\Connect.cs" />
+    <Compile Include="Gateway\Event\Errored.cs" />
+    <Compile Include="Gateway\State\Event\Factory.cs" />
+    <Compile Include="Gateway\Event\Mediator.cs" />
+    <Compile Include="Gateway\Event\Started.cs" />
+    <Compile Include="Gateway\State\Event\Transition.cs" />
+    <Compile Include="Gateway\State\Factory.cs" />
+    <Compile Include="Gateway\State\Faulted.cs" />
+    <Compile Include="Gateway\State\IState.cs" />
+    <Compile Include="Gateway\State\Listening.cs" />
+    <Compile Include="Gateway\State\Machine.cs" />
+    <Compile Include="Gateway\State\Name.cs" />
+    <Compile Include="Gateway\State\Registering.cs" />
+    <Compile Include="Gateway\State\Transition.cs" />
     <Compile Include="Values\BatteryState.cs" />
     <Compile Include="Values\LinkQuality.cs" />
     <Compile Include="Values\SignalStrength.cs" />
@@ -159,6 +168,7 @@
       <Name>Bebbs.Harmonize.With</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

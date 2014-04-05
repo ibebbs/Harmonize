@@ -5,7 +5,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
     [XmlRoot("Configuration")]
     public class Details
     {
-        [XmlElement("Gateway", typeof(Gateway))]
-        public Gateway[] Devices { get; set; }
+        [XmlElement("Gateway", typeof(Device))]
+        public Device[] Devices { get; set; }
     }
 }
