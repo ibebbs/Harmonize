@@ -11,7 +11,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Command.Response.Builder
 
         public IResponse Build(System.Text.RegularExpressions.Match match)
         {
-            Status status = match.ReadGroupAs<Status>(StatusGroup, value =>(Status)Enum.Parse(typeof(Status), value));
+            Status status = match.ReadGroupAs<Status>(StatusGroup, value =>(Status)Enum.Parse(typeof(Status), value, true));
 
             return new Command.Response.Save(status);
         }

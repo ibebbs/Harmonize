@@ -2,6 +2,13 @@
 
 namespace Bebbs.Harmonize.With.Owl.Intuition
 {
+    public interface IConfiguration
+    {
+        void Error(string error);
+
+        void Failure(string failure);
+    }
+
     public interface IEndpoint
     {
         void Send(string value);
@@ -53,5 +60,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
         {
             public static readonly IMachine Machine = EventSourceImplementer.GetEventSourceAs<IMachine>();
         }
+
+        public static readonly IConfiguration Configuration = EventSourceImplementer.GetEventSourceAs<IConfiguration>();
     }
 }

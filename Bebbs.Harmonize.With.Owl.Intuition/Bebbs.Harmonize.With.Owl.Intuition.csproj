@@ -32,11 +32,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EventSourceProxy">
-      <HintPath>..\packages\EventSourceProxy.2.0.2\lib\EventSourceProxy.dll</HintPath>
+    <Reference Include="EventSourceProxy, Version=3.0.0.0, Culture=neutral, PublicKeyToken=77171fed4dfe3d96, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EventSourceProxy.3.0.1\lib\EventSourceProxy.dll</HintPath>
     </Reference>
-    <Reference Include="Ninject">
-      <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.ChildKernel">
+      <HintPath>..\packages\Ninject.Extensions.ChildKernel.3.2.0.0\lib\net45-full\Ninject.Extensions.ChildKernel.dll</HintPath>
     </Reference>
     <Reference Include="Reactive.EventAggregator">
       <HintPath>..\packages\Reactive.EventAggregator.1.1.0\lib\Net45\Reactive.EventAggregator.dll</HintPath>
@@ -87,6 +92,13 @@
     <Compile Include="Command\Status.cs" />
     <Compile Include="Command\Subject.cs" />
     <Compile Include="Command\Verb.cs" />
+    <Compile Include="Configuration\Details.cs" />
+    <Compile Include="Configuration\Provider.cs" />
+    <Compile Include="Connector.cs" />
+    <Compile Include="Configuration\Device.cs" />
+    <Compile Include="Device\Context.cs" />
+    <Compile Include="Device\Factory.cs" />
+    <Compile Include="Device\Instance.cs" />
     <Compile Include="Instrumentation.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Packet\Battery.cs" />
@@ -136,7 +148,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Bebbs.Harmonize.With.Owl.Intuition.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj">
       <Project>{91848444-1506-4f50-bf6c-d0528cd6c74e}</Project>

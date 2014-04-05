@@ -24,5 +24,13 @@ namespace Bebbs.Harmonize.With.Serialization
                 return (T)Serializer.Deserialize(reader);
             }
         }
+
+        public T Deserialize(Stream stream)
+        {
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                return (T)Serializer.Deserialize(reader);
+            }
+        }
     }
 }

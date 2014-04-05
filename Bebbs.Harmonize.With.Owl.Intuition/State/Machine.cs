@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.State
 {
-    public interface IMachine : IDisposable, IInitialize, IStart, IStop, ICleanup
+    public interface IMachine : IInitialize, ICleanup
     {
 
     }
@@ -28,13 +27,6 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.State
             _eventMediator = eventMediator;
             _stateFactory = stateFactory;
             _transition = transition;
-        }
-
-        public void Dispose()
-        {
-            Cleanup();
-
-            ExitState();
         }
 
         private void ConstructState(Context.IContext context)
@@ -83,36 +75,6 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.State
             _subscription = _eventMediator.GetEvent<Event.TransitionState>().Subscribe(TransitionState);
 
             _transition.ToDisconnected();
-        }
-
-        public Task Start()
-        {
-            IObservable<Unit> observable = ObservableExtentions.Either(
-                _eventMediator.GetEvent<Event.Started>().Timeout(TimeSpan.FromSeconds(30)),
-                _eventMediator.GetEvent<Event.Errored>(),
-                (started, error) =>
-                {
-                    if (error != null)
-                    {
-                        throw new ApplicationException("Error starting Harmony", error.Exception);
-                    }
-                    else
-                    {
-                        return Unit.Default;
-                    }
-                }
-            );
-
-            Task result = observable.ToTask();
-
-            _transition.ToConnecting();
-
-            return Task.FromResult<object>(null);
-        }
-
-        public Task Stop()
-        {
-            return Task.FromResult<object>(null);
         }
 
         public void Cleanup()
