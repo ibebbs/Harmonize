@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Bebbs.Harmonize.With.Owl.Intuition.Device;
+using Bebbs.Harmonize.With.Owl.Intuition.Gateway;
 using FakeItEasy;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Tests.Device

@@ -1,6 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <Configuration>
-  <Devices>
-    <Device localIpAddress="192.168.1.105" localCommandPort="5100" localPacketPort="5110" owlCommandKey="6C9DB92A" owlIpAddress="192.168.1.100" owlCommandPort="5100" OwlCommandResponseTimeout="00:00:10" owlCommandResponseTimeout="00:00:30" autoConfigurePacketPort="true" />
-  </Devices>
+    <Gateway localIpAddress="192.168.1.105" localCommandPort="5100" localPacketPort="5110" owlCommandKey="6C9DB92A" owlIpAddress="192.168.1.100" owlCommandPort="5100" OwlCommandResponseTimeout="00:00:10" owlCommandResponseTimeout="00:00:30" autoConfigurePacketPort="true" />
 </Configuration>

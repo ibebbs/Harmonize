@@ -6,7 +6,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
         public override void Load()
         {
             Kernel.Bind<Configuration.IProvider>().To<Configuration.Provider>().InSingletonScope();
-            Kernel.Bind<Device.IFactory>().To<Device.Factory>().InSingletonScope();
+            Kernel.Bind<Gateway.IFactory>().To<Gateway.Factory>().InSingletonScope();
 
             Kernel.Bind<IInitialize, ICleanup, IStart, IStop>().To<Connector>().InSingletonScope();
         }

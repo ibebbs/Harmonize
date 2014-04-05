@@ -9,12 +9,12 @@ using System.Xml.Serialization;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
 {
-    [XmlRoot("Device")]
-    public class Device : Settings.IProvider
+    [XmlRoot("Gateway")]
+    public class Gateway : Settings.IProvider
     {
         private Lazy<IValues> _values;
 
-        public Device()
+        public Gateway()
         {
             _values = new Lazy<IValues>(ConstructValues);
         }

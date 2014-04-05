@@ -11,14 +11,14 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
     public class ConnectorTestFixture
     {
         private Intuition.Configuration.IProvider _configurationProvider;
-        private Intuition.Device.IFactory _deviceFactory;
+        private Intuition.Gateway.IFactory _deviceFactory;
         private Connector _subject;
 
         [TestInitialize]
         public void Initialize()
         {
             _configurationProvider = A.Fake<Intuition.Configuration.IProvider>();
-            _deviceFactory = A.Fake<Intuition.Device.IFactory>();
+            _deviceFactory = A.Fake<Intuition.Gateway.IFactory>();
 
             _subject = new Connector(_configurationProvider, _deviceFactory);
         }
@@ -26,7 +26,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
         [TestMethod]
         public void ShouldUseDeviceFactoryToConstructDevicesWithCorrectSettings()
         {
-            Configuration.Device deviceA = new Configuration.Device
+            Configuration.Gateway deviceA = new Configuration.Gateway
             {
                 LocalCommandPort = 5100,
                 LocalPacketPort = 5110,
@@ -37,7 +37,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
                 AutoConfigurePacketPort = true
             };
 
-            Configuration.Device deviceB = new Configuration.Device
+            Configuration.Gateway deviceB = new Configuration.Gateway
             {
                 LocalCommandPort = 6100,
                 LocalPacketPort = 6110,

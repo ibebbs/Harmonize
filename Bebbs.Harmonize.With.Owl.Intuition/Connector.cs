@@ -19,23 +19,23 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
     internal class Connector : IConnector
     {
         private readonly Configuration.IProvider _configurationProvider;
-        private readonly Device.IFactory _deviceFactory;
+        private readonly Gateway.IFactory _deviceFactory;
 
         private Configuration.Details _configuration;
-        private IEnumerable<Device.IContext> _contexts;
+        private IEnumerable<Gateway.IContext> _contexts;
 
-        public Connector(Configuration.IProvider configurationProvider, Device.IFactory deviceFactory)
+        public Connector(Configuration.IProvider configurationProvider, Gateway.IFactory deviceFactory)
         {
             _configurationProvider = configurationProvider;
             _deviceFactory = deviceFactory;
         }
 
-        private Device.IContext Create(Configuration.Device configurationDevice)
+        private Gateway.IContext Create(Configuration.Gateway configurationDevice)
         {
             return _deviceFactory.CreateDeviceInContext(configurationDevice);
         }
 
-        private IEnumerable<Device.IContext> LoadInstances()
+        private IEnumerable<Gateway.IContext> LoadInstances()
         {
             try
             {
@@ -49,11 +49,11 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
             {
                 Instrumentation.Configuration.Error(e.Message);
 
-                return Enumerable.Empty<Device.IContext>();
+                return Enumerable.Empty<Gateway.IContext>();
             }
         }
 
-        private void Initialize(Device.IContext deviceContext)
+        private void Initialize(Gateway.IContext deviceContext)
         {
             deviceContext.Instance.Initialize();
         }
@@ -91,7 +91,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
             return Task.WhenAll(stopTasks);
         }
 
-        public IEnumerable<Device.IContext> Instances 
+        public IEnumerable<Gateway.IContext> Instances 
         {
             get { return _contexts; }
         }

@@ -1,7 +1,7 @@
 ﻿using Ninject;
 using System;
 
-namespace Bebbs.Harmonize.With.Owl.Intuition.Device
+namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 {
     public interface IContext : IDisposable
     {

@@ -95,10 +95,10 @@
     <Compile Include="Configuration\Details.cs" />
     <Compile Include="Configuration\Provider.cs" />
     <Compile Include="Connector.cs" />
-    <Compile Include="Configuration\Device.cs" />
-    <Compile Include="Device\Context.cs" />
-    <Compile Include="Device\Factory.cs" />
-    <Compile Include="Device\Instance.cs" />
+    <Compile Include="Configuration\Gateway.cs" />
+    <Compile Include="Gateway\Context.cs" />
+    <Compile Include="Gateway\Factory.cs" />
+    <Compile Include="Gateway\Instance.cs" />
     <Compile Include="Instrumentation.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Packet\Battery.cs" />

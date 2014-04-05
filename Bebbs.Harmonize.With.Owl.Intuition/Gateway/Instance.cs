@@ -1,12 +1,11 @@
 ﻿using Ninject;
-using Ninject.Extensions.ChildKernel;
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
 
-namespace Bebbs.Harmonize.With.Owl.Intuition.Device
+namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 {
     public interface IInstance : IInitialize, ICleanup, IStart, IStop, IDisposable
     {
