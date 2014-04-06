@@ -21,7 +21,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 
         private IDisposable _eventSubscription;
 
-        private Component.IEntity _entity;
+        private Entity.IInstance _entity;
 
         public Instance(Event.IMediator eventMediator, State.IMachine stateMachine, Entity.IFactory entityFactory)
         {
@@ -35,27 +35,27 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
             _entity = _entityFactory.Create(connection.Name, connection.Remarks, connection.MacAddress, connection.Roster);
 
             _eventMediator.Publish(new Event.Register(_entity));
+
+            _entity.Initialize();
         }
 
         private void Process(Event.Disconnected disconnection)
         {
             if (_entity != null)
             {
-                _eventMediator.Publish(new Event.Deregister(_entity));
-            }
-        }
+                _entity.Cleanup();
 
-        private void Process(Event.Reading reading)
-        {
-            throw new NotImplementedException();
+                _eventMediator.Publish(new Event.Deregister(_entity));
+
+                _entity = null;
+            }
         }
 
         public void Initialize()
         {
             _eventSubscription = new CompositeDisposable(
                 _eventMediator.GetEvent<Event.Connected>().Subscribe(Process),
-                _eventMediator.GetEvent<Event.Disconnected>().Subscribe(Process),
-                _eventMediator.GetEvent<Event.Reading>().Subscribe(Process)
+                _eventMediator.GetEvent<Event.Disconnected>().Subscribe(Process)
             );
 
             _stateMachine.Initialize();

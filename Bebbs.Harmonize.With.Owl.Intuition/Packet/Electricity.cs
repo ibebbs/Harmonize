@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Xml.Serialization;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Packet
 {
     [XmlRoot("electricity")]
-    public class Electricity : IPacket
+    public class Electricity : IReading
     {
         [XmlAttribute("id")]
         public string Id { get; set; }

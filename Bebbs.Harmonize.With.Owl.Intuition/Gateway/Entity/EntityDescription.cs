@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.Entity
 {
-    internal class Description : IEntityDescription
+    internal class EntityDescription : IEntityDescription
     {
-        public Description(string name, string remarks)
+        public EntityDescription(string name, string remarks)
         {
             Name = name;
             Remarks = remarks;

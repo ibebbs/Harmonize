@@ -26,7 +26,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
 
     public interface IPacketEndpoint : IEndpoint
     {
-        void Packet(Packet.IPacket packet);
+        void Reading(Packet.IReading packet);
     }
 
     public interface IPacketParser

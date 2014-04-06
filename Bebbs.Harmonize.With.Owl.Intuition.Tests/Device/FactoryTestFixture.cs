@@ -12,9 +12,11 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests.Device
         public void ShouldBeAbleToCreateADeviceContext()
         {
             IGlobalEventAggregator eventAggregator = A.Fake<IGlobalEventAggregator>();
+            IClock clock = A.Fake<IClock>();
 
             StandardKernel kernel = new StandardKernel();
             kernel.Bind<IGlobalEventAggregator>().ToConstant(eventAggregator).InSingletonScope();
+            kernel.Bind<IClock>().ToConstant(clock).InSingletonScope();
 
             Factory factory = new Factory(kernel);
 

@@ -9,7 +9,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Packet.Endpoint
 {
     public interface IInstance : IDisposable
     {
-        IObservable<IPacket> Packets { get; }
+        IObservable<IReading> Readings { get; }
 
         void Open();
         void Close();
@@ -21,7 +21,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Packet.Endpoint
         private readonly IPEndPoint _localPacketEndpoint;
 
         private UdpClient _udpClient;
-        private IConnectableObservable<IPacket> _packets;
+        private IConnectableObservable<IReading> _readings;
         private IDisposable _subscription;
 
         public Instance(IParser packetParser, IPEndPoint localPacketEndpoint)
@@ -32,13 +32,13 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Packet.Endpoint
             _udpClient = new UdpClient();
             _udpClient.Client.Bind(_localPacketEndpoint);
 
-            _packets = Observable.FromAsync(_udpClient.ReceiveAsync).Repeat()
-                                 .Select(result => result.Buffer)
-                                 .Select(Encoding.ASCII.GetString)
-                                 .Do(Instrumentation.Packet.Endpoint.Receive)
-                                 .SelectMany(_packetParser.GetPackets)
-                                 .Do(Instrumentation.Packet.Endpoint.Packet)
-                                 .Publish();
+            _readings = Observable.FromAsync(_udpClient.ReceiveAsync).Repeat()
+                                  .Select(result => result.Buffer)
+                                  .Select(Encoding.ASCII.GetString)
+                                  .Do(Instrumentation.Packet.Endpoint.Receive)
+                                  .SelectMany(_packetParser.GetReadings)
+                                  .Do(Instrumentation.Packet.Endpoint.Reading)
+                                  .Publish();
         }
 
         public void Dispose()
@@ -52,14 +52,14 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Packet.Endpoint
             }
         }
 
-        public IObservable<IPacket> Packets 
+        public IObservable<IReading> Readings 
         {
-            get { return _packets; }
+            get { return _readings; }
         }
 
         public void Open()
         {
-            _subscription = _packets.Connect();
+            _subscription = _readings.Connect();
         }
 
         public void Close()

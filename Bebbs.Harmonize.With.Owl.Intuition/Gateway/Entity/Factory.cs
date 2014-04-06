@@ -1,5 +1,4 @@
 ﻿using Bebbs.Harmonize.With.Component;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -8,28 +7,36 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.Entity
 {
     public interface IFactory
     {
-        IEntity Create(string name, string remarks, PhysicalAddress macAddress, IEnumerable<Command.Response.Device> roster);
+        IInstance Create(string name, string remarks, PhysicalAddress macAddress, IEnumerable<Command.Response.Device> roster);
     }
 
     internal class Factory : IFactory
     {
-        private IEnumerable<IObservable> CreateObservable(Command.Response.Device device)
+        private readonly Observable.IAbstractFactory _observableFactory;
+
+        public Factory(Observable.IAbstractFactory observableFactory)
         {
-            return Enumerable.Empty<IObservable>();
+            _observableFactory = observableFactory;
         }
 
-        private IEnumerable<IActionable> CreateActionable(Command.Response.Device device)
+        private IEnumerable<IGatewayObservable> CreateObservable(IInstance entity, Command.Response.Device device)
         {
-            return Enumerable.Empty<IActionable>();
+            return _observableFactory.CreateForEntityDeviceType(entity, device.DeviceType);
         }
 
-        public IEntity Create(string name, string remarks, PhysicalAddress macAddress, IEnumerable<Command.Response.Device> roster)
+        private IEnumerable<IGatewayActionable> CreateActionable(IInstance entity, Command.Response.Device device)
         {
-            Description description = new Description(name, remarks);
-            IEnumerable<IObservable> observables = roster.SelectMany(CreateObservable);
-            IEnumerable<IActionable> actionables = roster.SelectMany(CreateActionable);
+            return Enumerable.Empty<IGatewayActionable>();
+        }
 
-            return new Instance(macAddress, description, observables, actionables);
+        public IInstance Create(string name, string remarks, PhysicalAddress macAddress, IEnumerable<Command.Response.Device> roster)
+        {
+            Instance instance = new Instance(macAddress, name, remarks);
+
+            instance.Observables = roster.SelectMany(device => CreateObservable(instance, device));
+            instance.Actionables = roster.SelectMany(device => CreateActionable(instance, device));
+
+            return instance;
         }
     }
 }

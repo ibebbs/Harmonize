@@ -1,31 +1,49 @@
 ﻿using Bebbs.Harmonize.With.Component;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.Entity
 {
-    internal class Instance : IEntity
+    public interface IInstance : IEntity, IInitialize, ICleanup
+    {
+    }
+
+    internal class Instance : IInstance
     {
         private const string IdentityPattern = "Bebbs.Harmonize.With.Owl.Intuition.Gateway.Entity-{0}";
 
-        public Instance(PhysicalAddress macAddress, IEntityDescription description, IEnumerable<IObservable> observables, IEnumerable<IActionable> actionables)
+        public Instance(PhysicalAddress macAddress, string name, string remarks)
         {
             Identity = new StringIdentity(string.Format(IdentityPattern, macAddress));
-            Description = description;
-            Observables = (observables ?? Enumerable.Empty<IObservable>()).ToArray();
-            Actionables = (actionables ?? Enumerable.Empty<IActionable>()).ToArray();
+            Description = new EntityDescription(name, remarks);
+        }
+
+        IEnumerable<IObservable> IEntity.Observables
+        {
+            get { return Observables; }
+        }
+
+        IEnumerable<IActionable> IEntity.Actionables
+        {
+            get { return Actionables; }
+        }
+
+        public void Initialize()
+        {
+            Observables.ForEach(observable => observable.Initialize());
+        }
+
+        public void Cleanup()
+        {
+            Observables.ForEach(observable => observable.Cleanup());
         }
 
         public IIdentity Identity { get; private set; }
 
         public IEntityDescription Description { get; private set; }
 
-        public IEnumerable<IObservable> Observables { get; private set; }
+        public IEnumerable<IGatewayObservable> Observables { get; set; }
 
-        public IEnumerable<IActionable> Actionables { get; private set; }
+        public IEnumerable<IGatewayActionable> Actionables { get; set; }
     }
 }

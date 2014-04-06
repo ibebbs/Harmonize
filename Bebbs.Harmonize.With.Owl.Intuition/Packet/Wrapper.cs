@@ -7,12 +7,12 @@ using System.Xml.Serialization;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Packet
 {
-    [XmlRoot("reading")]
-    public class Reading
+    [XmlRoot("wrapper")]
+    public class Wrapper
     {
         public static string Wrap(string packet)
         {
-            return string.Format("<reading>{0}</reading>", packet.Replace('\'', '"'));
+            return string.Format("<wrapper>{0}</wrapper>", packet.Replace('\'', '"'));
         }
 
         [XmlElement("electricity")]

@@ -1,10 +1,6 @@
 ﻿using Bebbs.Harmonize.With.Component;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Disposables;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 {
@@ -33,6 +29,11 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
             _eventAggregator.Publish(new Message.Register(Identity, registration.Entity));
         }
 
+        private void Process(Event.Observation observation)
+        {
+            _eventAggregator.Publish(new Message.Observation(observation.EntityIdentity, observation.ObservableIdentity, observation.AsOf, observation.Measurement));
+        }
+
         private void Process(Event.Deregister deregistration)
         {
             _eventAggregator.Publish(new Message.Deregister(Identity, deregistration.Entity.Identity));
@@ -42,6 +43,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
         {
             _mediatorSubscription = new CompositeDisposable(
                 _eventMediator.GetEvent<Event.Register>().Subscribe(Process),
+                _eventMediator.GetEvent<Event.Observation>().Subscribe(Process),
                 _eventMediator.GetEvent<Event.Deregister>().Subscribe(Process)
             );
         }

@@ -57,6 +57,7 @@ namespace Bebbs.Harmonize.State.Event
             TypeMapper.CreateMap<With.Component.IParameterValue, Schema.ParameterValue>()
                 .ForMember(dest => dest.UniqueIdentifier, opt => opt.MapFrom(src => src.Identity));
             */
+
             TypeMapper.CreateMap<With.Message.IRegister, Event.Registered>();
             TypeMapper.CreateMap<With.Message.IDeregister, Event.Deregistered>();
             TypeMapper.CreateMap<With.Message.IObservation, Event.Observed>();

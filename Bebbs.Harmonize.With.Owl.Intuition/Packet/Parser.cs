@@ -1,29 +1,25 @@
 ﻿using Bebbs.Harmonize.With.Serialization;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Packet
 {
     public interface IParser
     {
-        IEnumerable<IPacket> GetPackets(string packets);
+        IEnumerable<IReading> GetReadings(string packets);
     }
 
     internal class Parser : IParser
     {
-        public static readonly XmlSerializer<Reading> Serializer = new XmlSerializer<Reading>();
+        public static readonly XmlSerializer<Wrapper> Serializer = new XmlSerializer<Wrapper>();
 
-        private Reading GetWrapper(string packets)
+        private Wrapper GetWrapper(string packets)
         {
             try
             {
-                string wrapped = Reading.Wrap(packets);
+                string wrapped = Wrapper.Wrap(packets);
 
-                Reading wrapper = Serializer.Deserialize(wrapped);
+                Wrapper wrapper = Serializer.Deserialize(wrapped);
 
                 return wrapper;
             }
@@ -31,13 +27,13 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Packet
             {
                 Instrumentation.Packet.Parser.Error(e);
 
-                return new Reading();
+                return new Wrapper();
             }
         }
 
-        public IEnumerable<IPacket> GetPackets(string packets)
+        public IEnumerable<IReading> GetReadings(string packets)
         {
-            Reading wrapper = GetWrapper(packets);
+            Wrapper wrapper = GetWrapper(packets);
 
             if (wrapper.Electricity != null)
             {

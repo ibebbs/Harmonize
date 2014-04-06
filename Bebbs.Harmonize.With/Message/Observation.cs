@@ -10,7 +10,7 @@ namespace Bebbs.Harmonize.With.Message
         Component.IMeasurement Measurement { get; }
     }
 
-    internal class Observation : IObservation
+    public class Observation : IObservation
     {
         public Observation(Component.IIdentity entity, Component.IIdentity observable, DateTimeOffset date, Component.IMeasurement measurement)
         {

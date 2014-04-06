@@ -20,14 +20,15 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.State
             _context = context;
         }
 
-        private void Publish(Packet.IPacket packet)
+        private void Publish(Packet.IReading reading)
         {
+            _eventMediator.Publish(new Gateway.Event.Reading(reading));
         }
 
         public void OnEnter()
         {
             _packetEndpoint = _packetEndpointFactory.CreateEndpoint();
-            _subscription = _packetEndpoint.Packets.Subscribe(Publish);
+            _subscription = _packetEndpoint.Readings.Subscribe(Publish);
 
             _packetEndpoint.Open();
 

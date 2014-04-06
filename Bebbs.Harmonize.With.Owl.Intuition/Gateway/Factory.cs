@@ -42,6 +42,9 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 
             kernel.Bind<Entity.IFactory>().To<Entity.Factory>().InSingletonScope();
 
+            kernel.Bind<Entity.Observable.IFactory>().To<Entity.Observable.CurrentElectricityConsumptionFactory>().InSingletonScope();
+            kernel.Bind<Entity.Observable.IAbstractFactory>().To<Entity.Observable.AbstractFactory>().InSingletonScope();
+
             kernel.Bind<IBridge>().To<Bridge>().InSingletonScope();
             kernel.Bind<IInstance>().To<Instance>().InSingletonScope();
             kernel.Bind<IContext>().To<Context>().InSingletonScope();
