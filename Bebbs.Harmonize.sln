@@ -34,9 +34,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Owl.In
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Owl.Intuition.Tests", "Bebbs.Harmonize.With.Owl.Intuition.Tests\Bebbs.Harmonize.With.Owl.Intuition.Tests.csproj", "{D0777346-1007-44DC-A8D5-BED9D264CC88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.Service", "Bebbs.Harmonize.Service\Bebbs.Harmonize.Service.csproj", "{84F14256-C5BD-4EB3-9688-530B31644706}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.State.Tests", "Bebbs.Harmonize.State.Tests\Bebbs.Harmonize.State.Tests.csproj", "{BFBF9477-8B5F-4081-A06B-29F3A0E88F7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.Service", "Bebbs.Harmonize.Service\Bebbs.Harmonize.Service.csproj", "{C45F6830-20E3-4F53-9AF1-06A458B08B77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,14 +92,14 @@ Global
 		{D0777346-1007-44DC-A8D5-BED9D264CC88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0777346-1007-44DC-A8D5-BED9D264CC88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0777346-1007-44DC-A8D5-BED9D264CC88}.Release|Any CPU.Build.0 = Release|Any CPU
-		{84F14256-C5BD-4EB3-9688-530B31644706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84F14256-C5BD-4EB3-9688-530B31644706}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84F14256-C5BD-4EB3-9688-530B31644706}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{84F14256-C5BD-4EB3-9688-530B31644706}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BFBF9477-8B5F-4081-A06B-29F3A0E88F7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BFBF9477-8B5F-4081-A06B-29F3A0E88F7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFBF9477-8B5F-4081-A06B-29F3A0E88F7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFBF9477-8B5F-4081-A06B-29F3A0E88F7C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C45F6830-20E3-4F53-9AF1-06A458B08B77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C45F6830-20E3-4F53-9AF1-06A458B08B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C45F6830-20E3-4F53-9AF1-06A458B08B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C45F6830-20E3-4F53-9AF1-06A458B08B77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

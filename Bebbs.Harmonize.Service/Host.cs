@@ -1,45 +1,39 @@
-﻿using Bebbs.Harmonize.With;
-using System.Collections.Generic;
-using System.ServiceProcess;
+﻿using System.ServiceProcess;
 
 namespace Bebbs.Harmonize.Service
 {
-    public class Host : ServiceBase
+    public partial class Host : ServiceBase
     {
-        private Harmonizer _harmonizer;
+        private Controller _controller;
+
+        public Host()
+        {
+            InitializeComponent();
+        }
 
         protected override void OnStart(string[] args)
         {
             base.OnStart(args);
 
-            IEnumerable<HarmonizedModule> modules = new HarmonizedModule[]
-            {
-                new With.Owl.Intuition.Module(),
-                new Harmonize.With.Messaging.Module(),
-                new Harmonize.With.Messaging.Over.RabbitMq.Module()
-            };
+            Options options = new Options();
 
-            Harmonize.Options harmonizeOptions = new Harmonize.Options(modules);
+            CommandLine.Parser.Default.ParseArguments(args, options);
 
-            _harmonizer = new Harmonize.Harmonizer(harmonizeOptions);
+            _controller = new Controller();
 
-            _harmonizer.Start();
+            _controller.Start(options);
         }
 
         protected override async void OnStop()
         {
             base.OnStop();
 
-            if (_harmonizer != null)
+            if (_controller != null)
             {
-                await _harmonizer.Stop();
-                _harmonizer = null;
-            }
-        }
+                await _controller.Stop();
 
-        public static void Main()
-        {
-            System.ServiceProcess.ServiceBase.Run(new Host());
+                _controller = null;
+            }
         }
     }
 }

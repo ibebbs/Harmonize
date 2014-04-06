@@ -18,6 +18,7 @@ namespace Bebbs.Harmonize.Console
         public async void Start()
         {
             List<HarmonizedModule> modules = new List<HarmonizedModule>();
+            List<string> modulePaths = new List<string>();
 
             if (_options.WithHarmony)
             {
@@ -26,7 +27,8 @@ namespace Bebbs.Harmonize.Console
 
             if (_options.WithOwl)
             {
-                modules.Add(new With.Owl.Intuition.Module());
+                //modules.Add(new With.Owl.Intuition.Module());
+                modulePaths.Add("./Modules/*.dll");
             }
 
             if (_options.UseAllJoyn)
@@ -44,7 +46,7 @@ namespace Bebbs.Harmonize.Console
                 modules.Add(new Harmonize.With.Messaging.Over.RabbitMq.Module());
             }
 
-            Harmonize.Options harmonizeOptions = new Harmonize.Options(modules);
+            Harmonize.Options harmonizeOptions = new Harmonize.Options(modulePaths, modules);
 
             _harmonizer = new Harmonize.Harmonizer(harmonizeOptions);
 

@@ -28,5 +28,8 @@ namespace Bebbs.Harmonize.Console
 
         [Option('r', "rabbit", DefaultValue = false, HelpText = "Harmonize with Messaging over RabbitMq", Required = false)]
         public bool UseRabbitMq { get; set; }
+
+        [Option('t', "trace", DefaultValue = "Bebbs-Harmonize-With-Owl-Intuition-Configuration, Bebbs-Harmonize-With-Owl-Intuition-Machine", Required=false)]
+        public string TraceEvents { get; set; }
     }
 }

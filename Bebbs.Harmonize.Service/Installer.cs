@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.ServiceProcess;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.Service
 {
@@ -20,8 +15,10 @@ namespace Bebbs.Harmonize.Service
             serviceInstaller = new ServiceInstaller();
 
             processInstaller.Account = ServiceAccount.LocalSystem;
+
             serviceInstaller.StartType = ServiceStartMode.Automatic;
             serviceInstaller.ServiceName = "Harmonize";
+            serviceInstaller.DisplayName = "Bebbs Harmonizer Service";
 
             Installers.Add(serviceInstaller);
             Installers.Add(processInstaller);

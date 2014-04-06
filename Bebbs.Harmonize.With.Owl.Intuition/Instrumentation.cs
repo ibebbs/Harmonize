@@ -1,11 +1,15 @@
 ﻿using EventSourceProxy;
+using System.Diagnostics.Tracing;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition
 {
+    [EventSourceImplementation(Name = "Bebbs-Harmonize-With-Owl-Intuition-Configuration")]
     public interface IConfiguration
     {
+        [Event(1, Message = "Error", Level = EventLevel.Error)]
         void Error(string error);
 
+        [Event(2, Message = "Failure", Level = EventLevel.Warning)]
         void Failure(string failure);
     }
 
@@ -15,6 +19,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
         void Receive(string value);
     }
 
+    [EventSourceImplementation(Name = "Bebbs-Harmonize-With-Owl-Intuition-Command-Endpoint")]
     public interface ICommandEndpoint : IEndpoint
     {
         void Response(Command.IResponse response);
@@ -24,16 +29,19 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
         void Error(System.Exception exception);
     }
 
+    [EventSourceImplementation(Name = "Bebbs-Harmonize-With-Owl-Intuition-Packet-Endpoint")]
     public interface IPacketEndpoint : IEndpoint
     {
         void Reading(Packet.IReading packet);
     }
 
+    [EventSourceImplementation(Name = "Bebbs-Harmonize-With-Owl-Intuition-Packet-Parser")]
     public interface IPacketParser
     {
         void Error(System.Exception e);
     }
 
+    [EventSourceImplementation(Name = "Bebbs-Harmonize-With-Owl-Intuition-State-Machine")]
     public interface IMachine
     {
         void EnteringState(Gateway.State.Name name);

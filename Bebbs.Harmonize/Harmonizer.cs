@@ -2,6 +2,7 @@
 using Ninject;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,15 +10,37 @@ namespace Bebbs.Harmonize
 {
     public class Harmonizer
     {
-        private readonly StandardKernel _kernel;
+        private readonly IOptions _options;
+        private StandardKernel _kernel;
 
         public Harmonizer(IOptions options)
+        {
+            _options = options;
+        }
+
+        private void LoadModules(string filePattern)
+        {
+            try
+            {
+                Instrumentation.Harmonization.LoadingModules(filePattern);
+
+                _kernel.Load(filePattern);
+            }
+            catch (Exception e)
+            {
+                Instrumentation.Error.LoadingModules(filePattern, e);
+            }
+        }
+
+        private void CreateKernel()
         {
             _kernel = new StandardKernel();
             _kernel.Load(new Module());
             _kernel.Load(new State.Module());
 
-            options.Modules.ForEach(module => _kernel.Load(module));
+            _options.ModulePatterns.ForEach(LoadModules);
+
+            _options.Modules.ForEach(module => _kernel.Load(module));
         }
 
         private void Initialize()
@@ -26,7 +49,14 @@ namespace Bebbs.Harmonize
 
             foreach (With.IInitialize initializable in initializables)
             {
-                initializable.Initialize();
+                try
+                {
+                    initializable.Initialize();
+                }
+                catch (Exception e)
+                {
+                    Instrumentation.Error.Initializing(initializable.GetType().Name, e);
+                }
             }
         }
 
@@ -38,7 +68,7 @@ namespace Bebbs.Harmonize
             }
             catch (Exception exception)
             {
-                Instrumentation.Error.WhenStarting(startable, exception);
+                Instrumentation.Error.Starting(startable.GetType().Name, exception);
             }
         }
 
@@ -50,7 +80,7 @@ namespace Bebbs.Harmonize
             }
             catch (Exception exception)
             {
-                Instrumentation.Error.WhenStopping(stoppable, exception);
+                Instrumentation.Error.Stopping(stoppable.GetType().Name, exception);
             }
         }
 
@@ -92,6 +122,10 @@ namespace Bebbs.Harmonize
 
         public Task Start()
         {
+            Instrumentation.Harmonization.Starting(_options);
+
+            CreateKernel();
+
             Initialize();
 
             return StartHarmonizing();
@@ -99,6 +133,8 @@ namespace Bebbs.Harmonize
 
         public async Task Stop()
         {
+            Instrumentation.Harmonization.Stopping();
+
             await StopHarmonizing();
 
             Cleanup();
