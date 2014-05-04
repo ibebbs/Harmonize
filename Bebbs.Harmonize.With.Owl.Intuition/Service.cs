@@ -11,20 +11,20 @@ using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition
 {
-    public interface IConnector : IInitialize, ICleanup, IStart, IStop
+    public interface IService : IInitialize, ICleanup, IStart, IStop
     {
 
     }
 
-    internal class Connector : IConnector
+    internal class Service : IService
     {
         private readonly Configuration.IProvider _configurationProvider;
         private readonly Gateway.IFactory _gatewayFactory;
 
-        private Configuration.Details _configuration;
+        private Configuration.Settings _configuration;
         private IEnumerable<Gateway.IContext> _contexts;
 
-        public Connector(Configuration.IProvider configurationProvider, Gateway.IFactory gatewayFactory)
+        public Service(Configuration.IProvider configurationProvider, Gateway.IFactory gatewayFactory)
         {
             _configurationProvider = configurationProvider;
             _gatewayFactory = gatewayFactory;

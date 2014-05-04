@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bebbs.Harmonize.With.Messaging
+namespace Bebbs.Harmonize.With.Messaging.Serialization
 {
     public interface IWrapper
     {

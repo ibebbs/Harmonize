@@ -1,15 +1,17 @@
 ﻿
+using System;
 namespace Bebbs.Harmonize.With.Component
 {
     public interface IIdentity
     {
+        string Value { get; }
     }
 
-    public class StringIdentity : IIdentity
+    public class Identity : IIdentity
     {
         private readonly string _identity;
 
-        public StringIdentity(string identity)
+        public Identity(string identity)
         {
             _identity = identity;
         }
@@ -22,6 +24,25 @@ namespace Bebbs.Harmonize.With.Component
         public override int GetHashCode()
         {
             return _identity.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            IIdentity other = obj as IIdentity;
+
+            if (other != null && string.Equals(this.Value, other.Value, StringComparison.CurrentCultureIgnoreCase))
+            {
+                return true;
+            }
+            else
+            {
+                return base.Equals(obj);
+            }
+        }
+
+        public string Value
+        {
+            get { return _identity; }
         }
     }
 }

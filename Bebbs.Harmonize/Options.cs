@@ -5,23 +5,25 @@ namespace Bebbs.Harmonize
 {
     public interface IOptions
     {
-        IEnumerable<string> ModulePatterns { get; }
+        IEnumerable<IModulePattern> ModulePatterns { get; }
         IEnumerable<With.HarmonizedModule> Modules { get; }
     }
 
     public class Options : IOptions
     {
-        public Options(IEnumerable<string> modulePattern, IEnumerable<With.HarmonizedModule> modules)
+        public Options(IEnumerable<IModulePattern> modulePatterns, IEnumerable<With.HarmonizedModule> modules)
         {
-            ModulePatterns = (modulePattern ?? Enumerable.Empty<string>()).ToArray();
+            ModulePatterns = (modulePatterns ?? Enumerable.Empty<IModulePattern>()).ToArray();
             Modules = (modules ?? Enumerable.Empty<With.HarmonizedModule>()).ToArray();
         }
 
         public Options(IEnumerable<With.HarmonizedModule> modules) : this(null, modules) { }
 
-        public Options(IEnumerable<string> modulePattern) : this(modulePattern, null) { }
+        public Options(IEnumerable<IModulePattern> modulePatterns) : this(modulePatterns, null) { }
 
-        public IEnumerable<string> ModulePatterns { get; private set; }
+        public string ModulePath { get; private set; }
+
+        public IEnumerable<IModulePattern> ModulePatterns { get; private set; }
 
         public IEnumerable<With.HarmonizedModule> Modules { get; private set; }
     }

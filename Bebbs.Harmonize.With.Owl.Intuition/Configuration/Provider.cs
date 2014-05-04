@@ -1,28 +1,22 @@
 ﻿using Bebbs.Harmonize.With.Serialization;
 using System.IO;
 using System.Reflection;
+using Config = SimpleConfig.Configuration;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
 {
     public interface IProvider
     {
-        Details GetConfiguration();
+        Settings GetConfiguration();
     }
 
     internal class Provider : IProvider
     {
-        private static readonly XmlSerializer<Details> Serializer = new XmlSerializer<Details>();
+        private static readonly XmlSerializer<Settings> Serializer = new XmlSerializer<Settings>();
 
-        public Details GetConfiguration()
+        public Settings GetConfiguration()
         {
-            Assembly current = Assembly.GetAssembly(typeof(Module));
-
-            string configurationFile = Path.ChangeExtension(current.Location, "xml");
-
-            using (FileStream stream = File.OpenRead(configurationFile))
-            {
-                return Serializer.Deserialize(stream);
-            }
+            return Config.Load<Settings>(sectionName: "owlIntuition");
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Bebbs.Harmonize.Console
                 modules.Add(new Harmonize.With.Messaging.Over.RabbitMq.Module());
             }
 
-            Harmonize.Options harmonizeOptions = new Harmonize.Options(modulePaths, modules);
+            Harmonize.Options harmonizeOptions = new Harmonize.Options(modulePaths.Select(path => new ModulePattern { Path = path, Pattern = "Bebbs.Harmonize.With.*.dll" }).ToArray());
 
             _harmonizer = new Harmonize.Harmonizer(harmonizeOptions);
 

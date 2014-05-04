@@ -2,7 +2,7 @@
 
 namespace Bebbs.Harmonize.With.Message
 {
-    public interface IAct
+    public interface IAct : IMessage
     {
         Component.IIdentity Entity { get; }
         Component.IIdentity Actionable { get; }

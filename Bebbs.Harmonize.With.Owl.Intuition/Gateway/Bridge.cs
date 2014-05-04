@@ -11,7 +11,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 
     internal class Bridge : IBridge
     {
-        private static readonly IIdentity Identity = new StringIdentity("Bebbs.Harmonize.With.Owl.Intuition");
+        private static readonly IIdentity Identity = new Identity("Bebbs.Harmonize.With.Owl.Intuition");
 
         private readonly Event.IMediator _eventMediator;
         private readonly With.IGlobalEventAggregator _eventAggregator;

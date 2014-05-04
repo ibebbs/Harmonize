@@ -1,15 +1,15 @@
 ﻿using System.IO;
 using System.Xml.Serialization;
 
-namespace Bebbs.Harmonize.With.Messaging
+namespace Bebbs.Harmonize.With.Messaging.Serialization
 {
-    public interface ISerializer
+    public interface IHelper
     {
         string Serialize(Schema.Message message);
         Schema.Message Deserialize(string message);
     }
 
-    internal class Serializer : ISerializer
+    internal class Helper : IHelper
     {
         private static readonly XmlSerializer Instance = new XmlSerializer(typeof(Schema.Message));
 

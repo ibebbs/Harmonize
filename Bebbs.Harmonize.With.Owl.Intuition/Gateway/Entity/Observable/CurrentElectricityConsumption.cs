@@ -30,7 +30,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.Entity.Observable
             _clock = clock;
             _entity = entity;
 
-            _identity = new StringIdentity(string.Format(ObservableIdentityPattern, _entity.Identity.ToString(), "CurrentElectricityConsumption"));
+            _identity = new Identity(string.Format(ObservableIdentityPattern, _entity.Identity.ToString(), "CurrentElectricityConsumption"));
         }
 
         private void Process(Packet.Electricity reading)

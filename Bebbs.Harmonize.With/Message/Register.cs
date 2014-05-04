@@ -1,7 +1,7 @@
 ﻿
 namespace Bebbs.Harmonize.With.Message
 {
-    public interface IRegister
+    public interface IRegister : IMessage
     {
         Component.IIdentity Registrar { get; }
         Component.IEntity Entity { get; }

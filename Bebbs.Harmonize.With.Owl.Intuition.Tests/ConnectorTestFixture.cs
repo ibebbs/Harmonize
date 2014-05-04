@@ -12,7 +12,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
     {
         private Intuition.Configuration.IProvider _configurationProvider;
         private Intuition.Gateway.IFactory _deviceFactory;
-        private Connector _subject;
+        private Service _subject;
 
         [TestInitialize]
         public void Initialize()
@@ -20,7 +20,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
             _configurationProvider = A.Fake<Intuition.Configuration.IProvider>();
             _deviceFactory = A.Fake<Intuition.Gateway.IFactory>();
 
-            _subject = new Connector(_configurationProvider, _deviceFactory);
+            _subject = new Service(_configurationProvider, _deviceFactory);
         }
 
         [TestMethod]
@@ -49,7 +49,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
             };
 
             A.CallTo(() => _configurationProvider.GetConfiguration()).Returns(
-                new Configuration.Details
+                new Configuration.Settings
                 {
                     Devices = new [] { deviceA, deviceB }
                 }

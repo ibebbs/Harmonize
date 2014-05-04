@@ -2,7 +2,7 @@
 
 namespace Bebbs.Harmonize.With.Message
 {
-    public interface IObservation
+    public interface IObservation : IMessage
     {
         Component.IIdentity Entity { get; }
         Component.IIdentity Observable { get; }

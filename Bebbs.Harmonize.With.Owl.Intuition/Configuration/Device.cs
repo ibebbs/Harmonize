@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
 {
-    [XmlRoot("Gateway")]
-    public class Device : Gateway.Settings.IProvider
+    public interface IDevice : Gateway.Settings.IProvider
+    {
+
+    }
+
+    public class Device : IDevice
     {
         private Lazy<Gateway.Settings.IValues> _values;
 
@@ -21,7 +26,9 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
 
         private Gateway.Settings.IValues ConstructValues()
         {
-            IPAddress ipAddress = IPAddress.Parse(LocalIpAddress);
+            IPAddress ipAddress = string.IsNullOrWhiteSpace(LocalIpAddress)
+              ? Dns.GetHostEntry(Dns.GetHostName()).AddressList.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork)
+              : IPAddress.Parse(LocalIpAddress);
 
             return new Gateway.Settings.Values(
                 Name,
@@ -42,7 +49,6 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
             TimeSpan timeSpan;
             PhysicalAddress physicalAddress;
 
-            if (!IPAddress.TryParse(LocalIpAddress, out ipAddress)) yield return "LocalIpAddress must be a valid IP Address";
             if (LocalCommandPort < 1000) yield return "LocalCommandPort must be greater than 1000";
             if (LocalPacketPort < 1000) yield return "LocalPacketPort must be greater than 1000";
             if (string.IsNullOrWhiteSpace(OwlCommandKey)) yield return "OwlCommandKey must not be specified";
@@ -66,7 +72,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
             }
         }
 
-        public Gateway.Settings.IValues GetValues()
+        Gateway.Settings.IValues Gateway.Settings.IProvider.GetValues()
         {
             return _values.Value;
         }
@@ -74,43 +80,36 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
         /// <summary>
         /// Gets the user defined name for the gateway
         /// </summary>
-        [XmlAttribute("name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Gets the user defined description for the gateway
         /// </summary>
-        [XmlElement("Remarks")]
         public string Remarks { get; set; }
 
         /// <summary>
         /// Gets the ip address used to send commands and receive packets
         /// </summary>
-        [XmlAttribute("localIpAddress")]
         public string LocalIpAddress { get; set; }
 
         /// <summary>
         /// Gets the port from which to issue commands to the network owl
         /// </summary>
-        [XmlAttribute("localCommandPort")]
         public int LocalCommandPort { get; set; }
 
         /// <summary>
         /// Gets the local port on which we want to receive measurement packets
         /// </summary>
-        [XmlAttribute("localPacketPort")]
         public int LocalPacketPort { get; set; }
 
         /// <summary>
         /// Gets the "UDP key" value used to authenticate the client app with the Network OWL
         /// </summary>
-        [XmlAttribute("owlCommandKey")]
         public string OwlCommandKey { get; set; }
 
         /// <summary>
         /// Gets the mac address of the Network Owl
         /// </summary>
-        [XmlAttribute("owlMacAddress")]
         public string OwlMacAddress { get; set; }
 
         /// <summary>
@@ -119,7 +118,6 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
         /// <remarks>
         /// This is usually UDP port 5100
         /// </remarks>
-        [XmlAttribute("owlIpAddress")]
         public string OwlIpAddress { get; set; }
 
         /// <summary>
@@ -128,19 +126,16 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
         /// <remarks>
         /// This is usually UDP port 5100
         /// </remarks>
-        [XmlAttribute("owlCommandPort")]
         public int OwlCommandPort { get; set; }
 
         /// <summary>
         /// Gets the maximum time to wait for a command response
         /// </summary>
-        [XmlAttribute("owlCommandResponseTimeout")]
         public string OwlCommandResponseTimeout { get; set; }
 
         /// <summary>
         /// Gets whether the client should automatically configure the Network OWL to transmit measurement packets to the local packet endpoint port
         /// </summary>
-        [XmlAttribute("autoConfigurePacketPort")]
         public bool AutoConfigurePacketPort { get; set; }
     }
 }

@@ -11,24 +11,28 @@ namespace Bebbs.Harmonize
     public class Harmonizer
     {
         private readonly IOptions _options;
-        private StandardKernel _kernel;
+
+        private IKernel _kernel;
+        private IService _service;
 
         public Harmonizer(IOptions options)
         {
             _options = options;
         }
 
-        private void LoadModules(string filePattern)
+        private void LoadModules(IModulePattern modulePattern)
         {
+            string pattern = Path.Combine(modulePattern.Path, modulePattern.Pattern);
+
             try
             {
-                Instrumentation.Harmonization.LoadingModules(filePattern);
+                Instrumentation.Harmonization.LoadingModules(pattern);
 
-                _kernel.Load(filePattern);
+                _kernel.Load(pattern);
             }
             catch (Exception e)
             {
-                Instrumentation.Error.LoadingModules(filePattern, e);
+                Instrumentation.Error.LoadingModules(pattern, e);
             }
         }
 
@@ -36,108 +40,44 @@ namespace Bebbs.Harmonize
         {
             _kernel = new StandardKernel();
             _kernel.Load(new Module());
-            _kernel.Load(new State.Module());
 
             _options.ModulePatterns.ForEach(LoadModules);
 
             _options.Modules.ForEach(module => _kernel.Load(module));
         }
 
-        private void Initialize()
+        private void DisposeKernel()
         {
-            IEnumerable<With.IInitialize> initializables = _kernel.GetAll<With.IInitialize>();
-
-            foreach (With.IInitialize initializable in initializables)
+            if (_kernel != null)
             {
-                try
-                {
-                    initializable.Initialize();
-                }
-                catch (Exception e)
-                {
-                    Instrumentation.Error.Initializing(initializable.GetType().Name, e);
-                }
+                _kernel.Dispose();
+                _kernel = null;
             }
         }
 
-        private async Task StartSafely(With.IStart startable)
-        {
-            try
-            {
-                await startable.Start();
-            }
-            catch (Exception exception)
-            {
-                Instrumentation.Error.Starting(startable.GetType().Name, exception);
-            }
-        }
-
-        private async Task StopSafely(With.IStop stoppable)
-        {
-            try
-            {
-                await stoppable.Stop();
-            }
-            catch (Exception exception)
-            {
-                Instrumentation.Error.Stopping(stoppable.GetType().Name, exception);
-            }
-        }
-
-        private async Task StartHarmonizing()
-        {
-            With.IGlobalEventAggregator eventAggregator = _kernel.Get<With.IGlobalEventAggregator>();
-
-            eventAggregator.Publish(new With.Message.Starting());
-
-            Task[] startables = _kernel.GetAll<With.IStart>().Select(StartSafely).ToArray();
-
-            await Task.WhenAll(startables);
-
-            eventAggregator.Publish(new With.Message.Started());
-        }
-
-        private async Task StopHarmonizing()
-        {
-            With.IGlobalEventAggregator eventAggregator = _kernel.Get<With.IGlobalEventAggregator>();
-
-            eventAggregator.Publish(new With.Message.Stopping());
-
-            Task[] stoppables = _kernel.GetAll<With.IStop>().Select(StopSafely).ToArray();
-
-            await Task.WhenAll(stoppables);
-
-            eventAggregator.Publish(new With.Message.Stopped());
-        }
-
-        private void Cleanup()
-        {
-            IEnumerable<With.ICleanup> cleanupables = _kernel.GetAll<With.ICleanup>();
-
-            foreach (With.ICleanup cleanupable in cleanupables)
-            {
-                cleanupable.Cleanup();
-            }
-        }
-
-        public Task Start()
+        public void Start()
         {
             Instrumentation.Harmonization.Starting(_options);
 
             CreateKernel();
 
-            Initialize();
-
-            return StartHarmonizing();
+            _service = _kernel.Get<IService>();
+            _service.Initialize();
+            _service.Start();
         }
 
-        public async Task Stop()
+        public void Stop()
         {
             Instrumentation.Harmonization.Stopping();
 
-            await StopHarmonizing();
+            if (_service != null)
+            {
+                _service.Stop();
+                _service.Cleanup();
+                _service = null;
+            }
 
-            Cleanup();
+            DisposeKernel();
         }
     }
 }

@@ -3,16 +3,16 @@ namespace Bebbs.Harmonize.With.Harmony.Hub
 {
     internal class Identity : With.Component.IIdentity
     {
-        public Identity(string id)
+        public Identity(string value)
         {
-            Id = id;
+            Value = value;
         }
-
-        public string Id { get; private set; }
 
         public override string ToString()
         {
-            return Id;
+            return Value;
         }
+
+        public string Value { get; private set; }
     }
 }

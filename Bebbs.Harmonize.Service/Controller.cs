@@ -8,7 +8,7 @@ namespace Bebbs.Harmonize.Service
 
         public void Start(Options options)
         {
-            Harmonize.Options harmonizeOptions = new Harmonize.Options(new[] { options.ModulePattern });
+            Harmonize.Options harmonizeOptions = new Harmonize.Options(new IModulePattern[] { new ModulePattern { Path = ".", Pattern = options.ModulePattern } });
 
             Instrumentation.Start(options.Console, options.LogPath, options.TraceNames);
 

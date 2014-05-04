@@ -14,7 +14,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.Entity
 
         public Instance(PhysicalAddress macAddress, string name, string remarks)
         {
-            Identity = new StringIdentity(string.Format(IdentityPattern, macAddress));
+            Identity = new Identity(string.Format(IdentityPattern, macAddress));
             Description = new EntityDescription(name, remarks);
         }
 

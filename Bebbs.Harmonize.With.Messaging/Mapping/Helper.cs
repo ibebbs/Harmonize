@@ -13,6 +13,8 @@ namespace Bebbs.Harmonize.With.Messaging.Mapping
 
         Message.IObserve ToComponent(Schema.Observe message);
 
+        Message.IObservation ToComponent(Schema.Observation message);
+
         Message.ISubscribe ToComponent(Schema.Subscribe message);
 
         Message.IAct ToComponent(Schema.Act message);
@@ -69,6 +71,7 @@ namespace Bebbs.Harmonize.With.Messaging.Mapping
             CreateMapping<Schema.Register, Message.IRegister, Register>();
             CreateMapping<Schema.Deregister, Message.IDeregister, Deregister>();
             CreateMapping<Schema.Observe, Message.IObserve, Observe>();
+            CreateMapping<Schema.Observation, Message.IObservation, Observation>();
             CreateMapping<Schema.Subscribe, Message.ISubscribe, Subscribe>();
             CreateMapping<Schema.Act, Message.IAct, Act>();
 
@@ -118,6 +121,11 @@ namespace Bebbs.Harmonize.With.Messaging.Mapping
         public Message.IObserve ToComponent(Schema.Observe message)
         {
             return Mapper.Map<Schema.Observe, Message.IObserve>(message);
+        }
+
+        public Message.IObservation ToComponent(Schema.Observation message)
+        {
+            return Mapper.Map<Schema.Observation, Message.IObservation>(message);
         }
 
         public Message.ISubscribe ToComponent(Schema.Subscribe message)
