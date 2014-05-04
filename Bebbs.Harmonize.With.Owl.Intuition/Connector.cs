@@ -11,26 +11,26 @@ using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition
 {
-    public interface IService : IInitialize, ICleanup, IStart, IStop
+    public interface IConnector : Host.IService
     {
 
     }
 
-    internal class Service : IService
+    internal class Connector : IConnector
     {
         private readonly Configuration.IProvider _configurationProvider;
         private readonly Gateway.IFactory _gatewayFactory;
 
-        private Configuration.Settings _configuration;
+        private Configuration.ISettings _configuration;
         private IEnumerable<Gateway.IContext> _contexts;
 
-        public Service(Configuration.IProvider configurationProvider, Gateway.IFactory gatewayFactory)
+        public Connector(Configuration.IProvider configurationProvider, Gateway.IFactory gatewayFactory)
         {
             _configurationProvider = configurationProvider;
             _gatewayFactory = gatewayFactory;
         }
 
-        private Gateway.IContext Create(Configuration.Device configurationDevice)
+        private Gateway.IContext Create(Configuration.IDevice configurationDevice)
         {
             return _gatewayFactory.CreateDeviceInContext(configurationDevice);
         }
@@ -39,7 +39,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
         {
             try
             {
-                _configuration = _configurationProvider.GetConfiguration();
+                _configuration = _configurationProvider.GetSettings();
 
                 _contexts = _configuration.Devices.Select(Create).ToArray();
 

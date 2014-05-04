@@ -9,18 +9,16 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             HostFactory.Run(
                 configure =>
                 {
-                    configure.Service<Harmonizer>(
+                    configure.Service<Host.Container<Connector>>(
                         service =>
                         {
-                            service.ConstructUsing(ConstructHarmonizer);
-                            service.WhenStarted(harmonizer => harmonizer.Start());
-                            service.WhenStopped(harmonizer => harmonizer.Stop());
+                            service.WhenStarted(async harmonizer => await harmonizer.Start());
+                            service.WhenStopped(async harmonizer => await harmonizer.Stop());
                         }
                     );
                     configure.RunAsLocalSystem();

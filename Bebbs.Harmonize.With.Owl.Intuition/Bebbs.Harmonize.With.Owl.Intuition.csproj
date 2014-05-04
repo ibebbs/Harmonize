@@ -114,7 +114,7 @@
     <Compile Include="Command\Verb.cs" />
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Configuration\Provider.cs" />
-    <Compile Include="Service.cs" />
+    <Compile Include="Connector.cs" />
     <Compile Include="Configuration\Device.cs" />
     <Compile Include="Gateway\Bridge.cs" />
     <Compile Include="Gateway\Context.cs" />
@@ -190,6 +190,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bebbs.Harmonize.Host\Bebbs.Harmonize.Host.csproj">
+      <Project>{21984f93-19aa-4d2b-bbdb-95e0092019a1}</Project>
+      <Name>Bebbs.Harmonize.Host</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj">
       <Project>{91848444-1506-4f50-bf6c-d0528cd6c74e}</Project>
       <Name>Bebbs.Harmonize.With</Name>

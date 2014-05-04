@@ -1,83 +1,74 @@
-﻿using Bebbs.Harmonize.With;
-using Ninject;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System;
+using System.Reactive.Disposables;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize
 {
-    public class Harmonizer
+    public interface IHarmonizer : Host.IService
     {
-        private readonly IOptions _options;
+    }
 
-        private IKernel _kernel;
-        private IService _service;
+    internal class Harmonizer : IHarmonizer
+    {
+        private readonly With.Messaging.Service.IEndpoint _serviceEndpoint;
+        private readonly Subject<With.Message.IMessage> _messages;
+        private readonly IConnectableObservable<With.Message.IMessage> _messageObservable;
 
-        public Harmonizer(IOptions options)
+        private IDisposable _messageSubscription;
+        private IDisposable _consumerSubscription;
+
+        public Harmonizer(With.Messaging.Service.IEndpoint serviceEndpoint)
         {
-            _options = options;
+            _serviceEndpoint = serviceEndpoint;
+            _messages = new Subject<With.Message.IMessage>();
+
+            _messageObservable = _messages.Publish();
         }
 
-        private void LoadModules(IModulePattern modulePattern)
+        public void Initialize()
         {
-            string pattern = Path.Combine(modulePattern.Path, modulePattern.Pattern);
+            _serviceEndpoint.Initialize();
 
-            try
+            _consumerSubscription = new CompositeDisposable(
+                _messageObservable.OfType<With.Message.IRegister>().Subscribe(message => _serviceEndpoint.Register(message.Entity.Identity)),
+                _messageObservable.OfType<With.Message.IDeregister>().Subscribe(message => _serviceEndpoint.Deregister(message.Entity)),
+                _messageObservable.OfType<With.Message.IObserve>().Subscribe(message => _serviceEndpoint.AddObserver(message.Entity, message.Observable, message.Observer)),
+                _messageObservable.OfType<With.Message.IIgnore>().Subscribe(message => _serviceEndpoint.RemoveObserver(message.Entity, message.Observable, message.Observer))
+            );
+        }
+
+        public Task Start()
+        {
+            _messageSubscription = _messageObservable.Connect();
+            _serviceEndpoint.Start(_messages);
+
+            return Task.FromResult<object>(null);
+        }
+
+        public Task Stop()
+        {
+            if (_messageSubscription != null)
             {
-                Instrumentation.Harmonization.LoadingModules(pattern);
-
-                _kernel.Load(pattern);
-            }
-            catch (Exception e)
-            {
-                Instrumentation.Error.LoadingModules(pattern, e);
-            }
-        }
-
-        private void CreateKernel()
-        {
-            _kernel = new StandardKernel();
-            _kernel.Load(new Module());
-
-            _options.ModulePatterns.ForEach(LoadModules);
-
-            _options.Modules.ForEach(module => _kernel.Load(module));
-        }
-
-        private void DisposeKernel()
-        {
-            if (_kernel != null)
-            {
-                _kernel.Dispose();
-                _kernel = null;
-            }
-        }
-
-        public void Start()
-        {
-            Instrumentation.Harmonization.Starting(_options);
-
-            CreateKernel();
-
-            _service = _kernel.Get<IService>();
-            _service.Initialize();
-            _service.Start();
-        }
-
-        public void Stop()
-        {
-            Instrumentation.Harmonization.Stopping();
-
-            if (_service != null)
-            {
-                _service.Stop();
-                _service.Cleanup();
-                _service = null;
+                _messageSubscription.Dispose();
+                _messageSubscription = null;
             }
 
-            DisposeKernel();
+            _serviceEndpoint.Stop();
+
+            return Task.FromResult<object>(null);
+        }
+
+        public void Cleanup()
+        {
+            if (_consumerSubscription != null)
+            {
+                _consumerSubscription.Dispose();
+                _consumerSubscription = null;
+            }
+
+            _serviceEndpoint.Cleanup();
         }
     }
 }

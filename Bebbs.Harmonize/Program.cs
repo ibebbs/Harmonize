@@ -7,31 +7,20 @@ using Topshelf;
 using Topshelf.HostConfigurators;
 using Topshelf.ServiceConfigurators;
 
-namespace Bebbs.Harmonize.Host
+namespace Bebbs.Harmonize
 {
     class Program
     {
-        private static Harmonizer ConstructHarmonizer(string name)
-        {
-            Configuration.Provider provider = new Configuration.Provider();
-            Configuration.ISettings settings = provider.GetSettings();
-
-            Options options = new Options(settings.ModulePatterns);
-
-            return new Harmonizer(options);
-        }
-
         static void Main(string[] args)
         {
             HostFactory.Run(
                 configure =>
                 {
-                    configure.Service<Harmonizer>(
+                    configure.Service<Host.Container<Harmonizer>>(
                         service =>
                         {
-                            service.ConstructUsing(ConstructHarmonizer);
-                            service.WhenStarted(harmonizer => harmonizer.Start());
-                            service.WhenStopped(harmonizer => harmonizer.Stop());
+                            service.WhenStarted(async harmonizer => await harmonizer.Start());
+                            service.WhenStopped(async harmonizer => await harmonizer.Stop());
                         }
                     );
                     configure.RunAsLocalSystem();

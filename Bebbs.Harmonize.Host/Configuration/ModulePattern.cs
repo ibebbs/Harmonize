@@ -2,6 +2,13 @@
 
 namespace Bebbs.Harmonize.Host.Configuration
 {
+    public interface IModulePattern
+    {
+        string Path { get; }
+        
+        string Pattern { get; }
+    }
+
     [XmlType("modulePattern")]
     public class ModulePattern : IModulePattern
     {

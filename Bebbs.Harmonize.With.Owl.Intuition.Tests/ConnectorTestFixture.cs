@@ -12,7 +12,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
     {
         private Intuition.Configuration.IProvider _configurationProvider;
         private Intuition.Gateway.IFactory _deviceFactory;
-        private Service _subject;
+        private Connector _subject;
 
         [TestInitialize]
         public void Initialize()
@@ -20,7 +20,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
             _configurationProvider = A.Fake<Intuition.Configuration.IProvider>();
             _deviceFactory = A.Fake<Intuition.Gateway.IFactory>();
 
-            _subject = new Service(_configurationProvider, _deviceFactory);
+            _subject = new Connector(_configurationProvider, _deviceFactory);
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
                 AutoConfigurePacketPort = true
             };
 
-            A.CallTo(() => _configurationProvider.GetConfiguration()).Returns(
+            A.CallTo(() => _configurationProvider.GetSettings()).Returns(
                 new Configuration.Settings
                 {
                     Devices = new [] { deviceA, deviceB }

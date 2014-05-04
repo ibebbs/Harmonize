@@ -107,6 +107,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bebbs.Harmonize.Host\Bebbs.Harmonize.Host.csproj">
+      <Project>{21984f93-19aa-4d2b-bbdb-95e0092019a1}</Project>
+      <Name>Bebbs.Harmonize.Host</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bebbs.Harmonize.With.Owl.Intuition\Bebbs.Harmonize.With.Owl.Intuition.csproj">
       <Project>{65767969-5717-4ea9-8f8e-5e8f34bd3605}</Project>
       <Name>Bebbs.Harmonize.With.Owl.Intuition</Name>

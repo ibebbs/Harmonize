@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Bebbs.Harmonize.With.Serialization;
+using System.IO;
+using System.Reflection;
 using Config = SimpleConfig.Configuration;
 
 namespace Bebbs.Harmonize.Host.Configuration
@@ -14,9 +12,11 @@ namespace Bebbs.Harmonize.Host.Configuration
 
     internal class Provider : IProvider
     {
+        private static readonly XmlSerializer<Settings> Serializer = new XmlSerializer<Settings>();
+
         public ISettings GetSettings()
         {
-            return Config.Load<Settings>(sectionName: "harmonize");
+            return Config.Load<Settings>(sectionName: "hostContainer");
         }
     }
 }

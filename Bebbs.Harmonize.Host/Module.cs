@@ -1,7 +1,7 @@
 ﻿using Bebbs.Harmonize.With;
 using Ninject.Modules;
 
-namespace Bebbs.Harmonize
+namespace Bebbs.Harmonize.Host
 {
     public class Module : NinjectModule
     {
@@ -10,8 +10,6 @@ namespace Bebbs.Harmonize
             Bind<IClock>().To<Clock>().InSingletonScope();
             Bind<IGlobalEventAggregator>().To<GlobalEventAggregator>().InSingletonScope();
             Bind<IAsyncHelper>().To<AsyncHelper>().InSingletonScope();
-
-            Bind<IService>().To<Service>().InSingletonScope();
         }
     }
 }

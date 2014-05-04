@@ -7,14 +7,14 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
 {
     public interface IProvider
     {
-        Settings GetConfiguration();
+        ISettings GetSettings();
     }
 
     internal class Provider : IProvider
     {
         private static readonly XmlSerializer<Settings> Serializer = new XmlSerializer<Settings>();
 
-        public Settings GetConfiguration()
+        public ISettings GetSettings()
         {
             return Config.Load<Settings>(sectionName: "owlIntuition");
         }

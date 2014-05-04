@@ -1,7 +1,7 @@
 ﻿using Bebbs.Harmonize.With;
 using System;
 
-namespace Bebbs.Harmonize
+namespace Bebbs.Harmonize.Host
 {
     internal class Clock : IClock
     {

@@ -8,7 +8,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
             Kernel.Bind<Configuration.IProvider>().To<Configuration.Provider>().InSingletonScope();
             Kernel.Bind<Gateway.IFactory>().To<Gateway.Factory>().InSingletonScope();
 
-            Kernel.Bind<IInitialize, ICleanup, IStart, IStop>().To<Service>().InSingletonScope();
+            Kernel.Bind<IConnector>().To<Connector>();
         }
     }
 }
