@@ -69,7 +69,7 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Service.Connection
 
         public void BuildQueue(string queueName)
         {
-            _model.QueueDeclare(queueName, false, true, true, null);
+            _model.QueueDeclare(queueName, false, true, false, null);
         }
 
         public void RemoveQueue(string queueName)

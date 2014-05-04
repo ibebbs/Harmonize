@@ -17,6 +17,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
                     configure.Service<Host.Container<Connector>>(
                         service =>
                         {
+                            service.ConstructUsing(name => new Host.Container<Connector>());
                             service.WhenStarted(async harmonizer => await harmonizer.Start());
                             service.WhenStopped(async harmonizer => await harmonizer.Stop());
                         }

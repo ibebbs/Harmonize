@@ -19,6 +19,7 @@ namespace Bebbs.Harmonize
                     configure.Service<Host.Container<Harmonizer>>(
                         service =>
                         {
+                            service.ConstructUsing(name => new Host.Container<Harmonizer>());
                             service.WhenStarted(async harmonizer => await harmonizer.Start());
                             service.WhenStopped(async harmonizer => await harmonizer.Stop());
                         }
