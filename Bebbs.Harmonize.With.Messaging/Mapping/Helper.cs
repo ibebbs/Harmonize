@@ -71,7 +71,7 @@ namespace Bebbs.Harmonize.With.Messaging.Mapping
             CreateMapping<Schema.Register, Message.IRegister, Register>();
             CreateMapping<Schema.Deregister, Message.IDeregister, Deregister>();
             CreateMapping<Schema.Observe, Message.IObserve, Observe>();
-            CreateMapping<Schema.Observation, Message.IObservation, Observation>();
+            CreateMapping<Schema.Observation, Message.IObservation, Observation>(mapping => mapping.ForMember(dest => dest.Date, opt => opt.MapFrom(src => new DateTimeOffset(src.Date, TimeSpan.Zero))));
             CreateMapping<Schema.Subscribe, Message.ISubscribe, Subscribe>();
             CreateMapping<Schema.Act, Message.IAct, Act>();
 
