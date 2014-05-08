@@ -11,16 +11,16 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Client.Connection.Consume
 
     internal class Factory : IFactory
     {
-        private readonly IHelper _messagingHelper;
+        private readonly Message.ISerializer _messageSerializer;
 
-        public Factory(Messaging.IHelper messagingHelper)
+        public Factory(Message.ISerializer messageSerializer)
         {
-            _messagingHelper = messagingHelper;
+            _messageSerializer = messageSerializer;
         }
 
         public IInstance CreateConsumer(IModel model, IObserver<IMessage> consumer)
         {
-            return new Instance(_messagingHelper, model, consumer);
+            return new Instance(_messageSerializer, model, consumer);
         }
     }
 }

@@ -10,18 +10,18 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 
         IKernel Kernel { get; }
         IInstance Instance { get; }
-        IBridge Bridge { get; }
+        Messaging.Client.IEndpoint Endpoint { get; }
         Settings.IProvider SettingsProvider { get; }
 
     }
 
     internal class Context : IContext
     {
-        public Context(IKernel kernel, IInstance instance, IBridge bridge, Settings.IProvider settingsProvider)
+        public Context(IKernel kernel, IInstance instance, Messaging.Client.IEndpoint clientEndpoint, Settings.IProvider settingsProvider)
         {
             Kernel = kernel;
             Instance = instance;
-            Bridge = bridge;
+            Endpoint = clientEndpoint;
             SettingsProvider = settingsProvider;
         }
 
@@ -38,19 +38,17 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 
         public void Initialize()
         {
-            Bridge.Initialize();
             Instance.Initialize();
         }
 
         public void CleanUp()
         {
             Instance.Cleanup();
-            Bridge.Cleanup();
         }
 
         public IKernel Kernel { get; private set; }
         public IInstance Instance { get; private set; }
-        public IBridge Bridge { get; private set; }
+        public Messaging.Client.IEndpoint Endpoint { get; private set; }
         public Settings.IProvider SettingsProvider { get; private set; }
     }
 }

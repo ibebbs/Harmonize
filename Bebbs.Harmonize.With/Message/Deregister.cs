@@ -7,15 +7,15 @@ namespace Bebbs.Harmonize.With.Message
         Component.IIdentity Entity { get; }
     }
 
-    public class Deregister
+    public class Deregister : IDeregister
     {
         public Deregister(Component.IIdentity registrar, Component.IIdentity entity)
         {
             Registrar = registrar;
-            Device = entity;
+            Entity = entity;
         }
 
         public Component.IIdentity Registrar { get; private set; }
-        public Component.IIdentity Device { get; private set; }
+        public Component.IIdentity Entity { get; private set; }
     }
 }

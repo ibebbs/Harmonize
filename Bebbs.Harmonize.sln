@@ -22,11 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With", "Beb
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.State", "Bebbs.Harmonize.State\Bebbs.Harmonize.State.csproj", "{2F852F35-ECF5-4898-B193-4B315032A3D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Messaging", "Bebbs.Harmonize.With.Messaging\Bebbs.Harmonize.With.Messaging.csproj", "{6D4F94C4-E199-493D-A386-E0C184BD0E56}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Messaging.Over.RabbitMq", "Bebbs.Harmonize.With.Messaging.Over.RabbitMq\Bebbs.Harmonize.With.Messaging.Over.RabbitMq.csproj", "{F6A5907C-4EBB-459A-B76D-8926D714A3B0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Messaging.Tests", "Bebbs.Harmonize.With.Messaging.Tests\Bebbs.Harmonize.With.Messaging.Tests.csproj", "{412C7E83-ECF4-443F-9BAF-369E1265865B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Owl.Intuition", "Bebbs.Harmonize.With.Owl.Intuition\Bebbs.Harmonize.With.Owl.Intuition.csproj", "{65767969-5717-4EA9-8F8E-5E8F34BD3605}"
 EndProject
@@ -35,6 +31,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.State.Tests", "Bebbs.Harmonize.State.Tests\Bebbs.Harmonize.State.Tests.csproj", "{BFBF9477-8B5F-4081-A06B-29F3A0E88F7C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.Host", "Bebbs.Harmonize.Host\Bebbs.Harmonize.Host.csproj", "{21984F93-19AA-4D2B-BBDB-95E0092019A1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Message.As.Hml", "Bebbs.Harmonize.With.Message.As.Hml\Bebbs.Harmonize.With.Message.As.Hml.csproj", "{D5FB700F-7CC9-4075-BEBA-9970D687C2D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Message.As.Hml.Tests", "Bebbs.Harmonize.With.Message.As.Hml.Tests\Bebbs.Harmonize.With.Message.As.Hml.Tests.csproj", "{C5800B4D-E280-464E-978A-7136544E77DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,18 +66,10 @@ Global
 		{2F852F35-ECF5-4898-B193-4B315032A3D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F852F35-ECF5-4898-B193-4B315032A3D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F852F35-ECF5-4898-B193-4B315032A3D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D4F94C4-E199-493D-A386-E0C184BD0E56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D4F94C4-E199-493D-A386-E0C184BD0E56}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D4F94C4-E199-493D-A386-E0C184BD0E56}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D4F94C4-E199-493D-A386-E0C184BD0E56}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6A5907C-4EBB-459A-B76D-8926D714A3B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F6A5907C-4EBB-459A-B76D-8926D714A3B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6A5907C-4EBB-459A-B76D-8926D714A3B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6A5907C-4EBB-459A-B76D-8926D714A3B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{412C7E83-ECF4-443F-9BAF-369E1265865B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{412C7E83-ECF4-443F-9BAF-369E1265865B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{412C7E83-ECF4-443F-9BAF-369E1265865B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{412C7E83-ECF4-443F-9BAF-369E1265865B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{65767969-5717-4EA9-8F8E-5E8F34BD3605}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{65767969-5717-4EA9-8F8E-5E8F34BD3605}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65767969-5717-4EA9-8F8E-5E8F34BD3605}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -94,6 +86,14 @@ Global
 		{21984F93-19AA-4D2B-BBDB-95E0092019A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{21984F93-19AA-4D2B-BBDB-95E0092019A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{21984F93-19AA-4D2B-BBDB-95E0092019A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5FB700F-7CC9-4075-BEBA-9970D687C2D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5FB700F-7CC9-4075-BEBA-9970D687C2D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5FB700F-7CC9-4075-BEBA-9970D687C2D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5FB700F-7CC9-4075-BEBA-9970D687C2D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5800B4D-E280-464E-978A-7136544E77DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5800B4D-E280-464E-978A-7136544E77DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5800B4D-E280-464E-978A-7136544E77DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5800B4D-E280-464E-978A-7136544E77DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

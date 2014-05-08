@@ -37,7 +37,7 @@ namespace Bebbs.Harmonize.With.Alljoyn
 
         private void DeregisterDevice(Message.Deregister message)
         {
-            _busCoordinator.Remove(message.Device);
+            _busCoordinator.Remove(message.Entity);
         }
 
         public void Initialize()

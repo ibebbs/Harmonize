@@ -2,15 +2,11 @@
 
 namespace Bebbs.Harmonize.With.Messaging.Service
 {
-    public interface IEndpoint
+    public interface IEndpoint : Common.IEndpoint
     {
-        void Initialize();
-
         void Start(IObserver<Message.IMessage> consumer);
 
         void Stop();
-
-        void Cleanup();
 
         void Register(Component.IIdentity entity);
 

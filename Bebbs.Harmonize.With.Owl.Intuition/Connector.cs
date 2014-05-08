@@ -18,14 +18,16 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
 
     internal class Connector : IConnector
     {
+        private readonly Messaging.Client.IEndpoint _clientEndpoint;
         private readonly Configuration.IProvider _configurationProvider;
         private readonly Gateway.IFactory _gatewayFactory;
 
         private Configuration.ISettings _configuration;
         private IEnumerable<Gateway.IContext> _contexts;
 
-        public Connector(Configuration.IProvider configurationProvider, Gateway.IFactory gatewayFactory)
+        public Connector(With.Messaging.Client.IEndpoint clientEndpoint, Configuration.IProvider configurationProvider, Gateway.IFactory gatewayFactory)
         {
+            _clientEndpoint = clientEndpoint;
             _configurationProvider = configurationProvider;
             _gatewayFactory = gatewayFactory;
         }
@@ -62,7 +64,10 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
         {
             try
             {
+                _clientEndpoint.Initialize();
+
                 _contexts = LoadInstances();
+
                 _contexts.ForEach(Initialize);
             }
             catch (Exception e)
@@ -75,6 +80,8 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
         {
             _contexts.ForEach(context => context.Dispose());
             _contexts = null;
+
+            _clientEndpoint.Cleanup();
         }
 
         public Task Start()

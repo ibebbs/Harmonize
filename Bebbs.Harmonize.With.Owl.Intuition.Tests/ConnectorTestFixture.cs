@@ -10,6 +10,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
     [TestClass]
     public class ConnectorTestFixture
     {
+        private Messaging.Client.IEndpoint _clientEndpoint;
         private Intuition.Configuration.IProvider _configurationProvider;
         private Intuition.Gateway.IFactory _deviceFactory;
         private Connector _subject;
@@ -19,8 +20,9 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
         {
             _configurationProvider = A.Fake<Intuition.Configuration.IProvider>();
             _deviceFactory = A.Fake<Intuition.Gateway.IFactory>();
+            _clientEndpoint = A.Fake<Messaging.Client.IEndpoint>();
 
-            _subject = new Connector(_configurationProvider, _deviceFactory);
+            _subject = new Connector(_clientEndpoint, _configurationProvider, _deviceFactory);
         }
 
         [TestMethod]

@@ -13,17 +13,16 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Client.Connection.Consume
 
     internal class Instance : IInstance
     {
-        private readonly IHelper _messagingHelper;
         private readonly Subject<byte[]> _deliveries;
 
         public event RabbitMQ.Client.Events.ConsumerCancelledEventHandler ConsumerCancelled;
 
-        public Instance(Messaging.IHelper messagingHelper, IModel model, IObserver<IMessage> consumer)
+        public Instance(Message.ISerializer messageSerializer, IModel model, IObserver<IMessage> consumer)
         {
             Model = model;
 
             _deliveries = new Subject<byte[]>();
-            _deliveries.Select(messagingHelper.Deserialize).Subscribe(consumer);
+            _deliveries.Select(System.Text.Encoding.UTF8.GetString).Select(messageSerializer.Deserialize).Subscribe(consumer);
         }
 
         public void HandleBasicCancel(string consumerTag)

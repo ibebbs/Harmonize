@@ -5,7 +5,7 @@ namespace Bebbs.Harmonize.With.Messaging.Client
     /// <summary>
     /// Represents a messaging endpoint that can be used to interact with harmonize
     /// </summary>
-    public interface IEndpoint
+    public interface IEndpoint : Common.IEndpoint
     {
         /// <summary>
         /// Registers the specified <see cref="Component.IEntity"/> and ensures messages destined for the entity
