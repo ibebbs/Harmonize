@@ -102,6 +102,12 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Tests.Schema
         }
 
         [TestMethod]
+        public void MappingIsValid()
+        {
+            Hml.Schema.Mapper.ValidateMapping();
+        }
+
+        [TestMethod]
         public void CanMapUniqueIdentifierFromSchemaToComponent()
         {
             Hml.Schema.Identity identifier = new Hml.Schema.Identity { Value = "Identifier" };

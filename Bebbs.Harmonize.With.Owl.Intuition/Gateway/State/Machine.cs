@@ -74,7 +74,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.State
         {
             _subscription = _eventMediator.GetEvent<Event.Transition>().Subscribe(TransitionState);
 
-            _transition.ToDisconnected();
+            TransitionState(new Event.Transition(new State.Context.Disconnected()));
         }
 
         public void Cleanup()

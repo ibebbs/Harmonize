@@ -18,7 +18,6 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
     {
         static Mapper()
         {
-            Mapping.CreateMap<With.Component.IAction, Action>();
             Mapping.CreateMap<With.Component.IActionable, Actionable>();
             Mapping.CreateMap<With.Component.IDescription, Description>();
             Mapping.CreateMap<With.Component.IEntity, Entity>();
@@ -30,6 +29,7 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
             Mapping.CreateMap<With.Component.IParameter, Parameter>();
             Mapping.CreateMap<With.Component.IParameterDescription, ParameterDescription>();
             Mapping.CreateMap<With.Component.IParameterValue, ParameterValue>();
+            Mapping.CreateMap<With.Component.IValueDescription, ValueDescription>();
 
             Mapping.CreateMap<With.Message.IAction, Action>();
             Mapping.CreateMap<With.Message.IDeregister, Deregister>();
@@ -37,6 +37,11 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
             Mapping.CreateMap<With.Message.IObservation, Observation>();
             Mapping.CreateMap<With.Message.IObserve, Observe>();
             Mapping.CreateMap<With.Message.IRegister, Register>();
+        }
+
+        internal static void ValidateMapping()
+        {
+            Mapping.AssertConfigurationIsValid();
         }
 
         private Message PerformMapping(IAction source)
