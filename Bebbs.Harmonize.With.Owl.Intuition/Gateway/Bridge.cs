@@ -1,6 +1,7 @@
 ﻿using Bebbs.Harmonize.With.Component;
 using System;
 using System.Reactive.Disposables;
+using System.Reactive.Subjects;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 {
@@ -14,29 +15,32 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
         private static readonly IIdentity Identity = new Identity("Bebbs.Harmonize.With.Owl.Intuition");
 
         private readonly Event.IMediator _eventMediator;
-        private readonly With.IGlobalEventAggregator _eventAggregator;
+        private readonly With.Messaging.Client.IEndpoint _clientEndpoint;
+        private readonly Subject<With.Message.IMessage> _messages;
 
         private IDisposable _mediatorSubscription;
 
-        public Bridge(Event.IMediator eventMediator, With.IGlobalEventAggregator eventAggregator)
+        public Bridge(Event.IMediator eventMediator, With.Messaging.Client.IEndpoint clientEndpoint)
         {
             _eventMediator = eventMediator;
-            _eventAggregator = eventAggregator;
+            _clientEndpoint = clientEndpoint;
+
+            _messages = new Subject<Message.IMessage>();
         }
 
         private void Process(Event.Register registration)
         {
-            _eventAggregator.Publish(new Message.Register(Identity, registration.Entity));
+            _clientEndpoint.Register(Identity, registration.Entity, _messages);
         }
 
         private void Process(Event.Observation observation)
         {
-            _eventAggregator.Publish(new Message.Observation(observation.EntityIdentity, observation.ObservableIdentity, observation.AsOf, observation.Measurement));
+            _clientEndpoint.Publish(observation.EntityIdentity, observation.ObservableIdentity, observation.AsOf, observation.Measurement);
         }
 
         private void Process(Event.Deregister deregistration)
         {
-            _eventAggregator.Publish(new Message.Deregister(Identity, deregistration.Entity.Identity));
+            _clientEndpoint.Deregister(Identity, deregistration.Entity);
         }
 
         public void Initialize()

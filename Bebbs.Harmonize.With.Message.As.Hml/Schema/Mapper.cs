@@ -31,7 +31,7 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
             Mapping.CreateMap<With.Component.IParameterDescription, ParameterDescription>();
             Mapping.CreateMap<With.Component.IParameterValue, ParameterValue>();
 
-            Mapping.CreateMap<With.Message.IAct, Act>();
+            Mapping.CreateMap<With.Message.IAction, Action>();
             Mapping.CreateMap<With.Message.IDeregister, Deregister>();
             Mapping.CreateMap<With.Message.IIgnore, Ignore>();
             Mapping.CreateMap<With.Message.IObservation, Observation>();
@@ -39,9 +39,9 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
             Mapping.CreateMap<With.Message.IRegister, Register>();
         }
 
-        private Message PerformMapping(IAct source)
+        private Message PerformMapping(IAction source)
         {
-            return Mapping.Map<IAct, Act>(source);
+            return Mapping.Map<IAction, Action>(source);
         }
 
         private Message PerformMapping(IDeregister source)

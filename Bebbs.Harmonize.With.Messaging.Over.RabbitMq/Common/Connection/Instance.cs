@@ -1,34 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Service.Connection
+namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Connection
 {
     public interface IInstance : IDisposable
     {
         void BuildExchange(string exchangeName);
 
-        void BuildQueue(string queueName);
-
-        void RemoveQueue(string queueName);
+        void Publish(string exchangeName, string routingKey, With.Message.IMessage message);
 
         void RemoveExchange(string exchangeName);
+
+        void BuildQueue(string queueName);
+
+        void BindConsumer(string queueName, IObserver<With.Message.IMessage> consumer);
+
+        void RemoveQueue(string queueName);
 
         IRoute Route(string routingKey);
     }
 
     internal class Instance : IInstance
     {
+        private readonly Configuration.ISettings _configurationSettings;
         private readonly Common.IConnectionFactory _connectionFactory;
+        private readonly With.Message.ISerializer _messageSerializer;
 
         private RabbitMQ.Client.IConnection _connection;
         private RabbitMQ.Client.IModel _model;
 
-        public Instance(Common.IConnectionFactory connectionFactory)
+        public Instance(Configuration.ISettings configurationSettings, Common.IConnectionFactory connectionFactory, With.Message.ISerializer messageSerializer)
         {
+            _configurationSettings = configurationSettings;
             _connectionFactory = connectionFactory;
+            _messageSerializer = messageSerializer;
         }
 
         private void BindRoute(string routingKey, string exchangeName, string queueName)
@@ -43,7 +47,7 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Service.Connection
 
         public void Connect()
         {
-            _connection = _connectionFactory.CreateConnection();
+            _connection = _connectionFactory.CreateConnection(_configurationSettings);
             _model = _connection.CreateModel();
         }
 
@@ -67,19 +71,29 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Service.Connection
             _model.ExchangeDeclare(exchangeName, RabbitMQ.Client.ExchangeType.Topic);
         }
 
-        public void BuildQueue(string queueName)
+        public void Publish(string exchangeName, string routingKey, With.Message.IMessage message)
         {
-            _model.QueueDeclare(queueName, false, true, false, null);
-        }
-
-        public void RemoveQueue(string queueName)
-        {
-            _model.QueueDelete(queueName);
+            Message.Producer.Publish(exchangeName, routingKey, _messageSerializer, _model, message);
         }
 
         public void RemoveExchange(string exchangeName)
         {
             _model.ExchangeDelete(exchangeName);
+        }
+
+        public void BuildQueue(string queueName)
+        {
+            _model.QueueDeclare(queueName, false, true, false, null);
+        }
+
+        public void BindConsumer(string queueName, IObserver<With.Message.IMessage> consumer)
+        {
+            _model.BasicConsume(queueName, false, Message.Consumer.Subscribe(_messageSerializer, _model, consumer));
+        }
+
+        public void RemoveQueue(string queueName)
+        {
+            _model.QueueDelete(queueName);
         }
 
         public IRoute Route(string routingKey)

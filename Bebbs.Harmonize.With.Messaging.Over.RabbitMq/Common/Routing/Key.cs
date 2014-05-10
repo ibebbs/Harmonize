@@ -12,11 +12,11 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Routing
 
         string ForDeregistrationOf(IIdentity entity);
 
-        string ForObservation(Message.IObservation observation);
+        string ForObservationBy(IIdentity entity, IIdentity observable);
 
         string ForObservationOf(IIdentity entity, IIdentity observable);
 
-        string ForAction(Message.IAct action);
+        string ForActionBy(IIdentity entity, IIdentity actionable);
 
         string ForActionOf(IIdentity entity);
     }
@@ -50,9 +50,9 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Routing
             return string.Format("{0}.{1}", DeregistrationRoot, entity.Value);
         }
 
-        public string ForObservation(Message.IObservation observation)
+        public string ForObservationBy(IIdentity entity, IIdentity observable)
         {
-            return string.Format("{0}.{1}.{2}", ObservationRoot, observation.Entity.Value, observation.Observable.Value);
+            return string.Format("{0}.{1}.{2}", ObservationRoot, entity.Value, observable.Value);
         }
 
         public string ForObservationOf(IIdentity entity, IIdentity observable)
@@ -60,9 +60,9 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Routing
             return string.Format("{0}.{1}.{2}", ObservationRoot, entity.Value, observable.Value);
         }
 
-        public string ForAction(Message.IAct action)
+        public string ForActionBy(IIdentity entity, IIdentity actionable)
         {
-            return string.Format("{0}.{1}.{2}", ActionRoot, action.Entity.Value, action.Actionable.Value);
+            return string.Format("{0}.{1}.{2}", ActionRoot, entity.Value, actionable.Value);
         }
 
         public string ForActionOf(IIdentity entity)

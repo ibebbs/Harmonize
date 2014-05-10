@@ -87,6 +87,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Command\Endpoint\Factory.cs" />
     <Compile Include="Command\Endpoint\Instance.cs" />
     <Compile Include="Command\Request\GetDevice.cs" />
@@ -139,7 +140,6 @@
     <Compile Include="Gateway\Factory.cs" />
     <Compile Include="Gateway\Instance.cs" />
     <Compile Include="Instrumentation.cs" />
-    <Compile Include="Module.cs" />
     <Compile Include="Packet\Battery.cs" />
     <Compile Include="Packet\Channel.cs" />
     <Compile Include="Packet\Endpoint\Factory.cs" />

@@ -4,24 +4,24 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Service
 {
     internal class Endpoint : Messaging.Service.IEndpoint
     {
-        private readonly Connection.IFactory _connectionFactory;
         private readonly Configuration.ISettings _configurationSettings;
+        private readonly Common.Connection.IFactory _connectionFactory;
         private readonly Common.Routing.IKey _routingKey;
         private readonly Common.Queue.IName _queueName;
 
-        private Connection.IInstance _connectionInstance;
+        private Common.Connection.IInstance _connectionInstance;
 
-        public Endpoint(Connection.IFactory connectionFactory, Configuration.ISettings configurationSettings, Common.Routing.IKey routingKey, Common.Queue.IName queueName)
+        public Endpoint(Configuration.ISettings configurationSettings, Common.Connection.IFactory connectionFactory, Common.Routing.IKey routingKey, Common.Queue.IName queueName)
         {
-            _connectionFactory = connectionFactory;
             _configurationSettings = configurationSettings;
+            _connectionFactory = connectionFactory;
             _routingKey = routingKey;
             _queueName = queueName;
         }
 
         public void Initialize()
         {
-            _connectionInstance = _connectionFactory.Create();
+            _connectionInstance = _connectionFactory.Create(_configurationSettings);
         }
 
         public void Cleanup()

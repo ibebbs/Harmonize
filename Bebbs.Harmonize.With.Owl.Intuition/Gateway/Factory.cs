@@ -5,7 +5,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
 {
     public interface IFactory
     {
-        IContext CreateDeviceInContext(Settings.IProvider settingsProvider);
+        IContext CreateDeviceInContext(Settings.IProvider settingsProvider, Messaging.Client.IEndpoint clientEndpoint);
     }
 
     internal class Factory : IFactory
@@ -17,7 +17,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
             _kernel = kernel;
         }
 
-        public IContext CreateDeviceInContext(Settings.IProvider settingsProvider)
+        public IContext CreateDeviceInContext(Settings.IProvider settingsProvider, Messaging.Client.IEndpoint clientEndpoint)
         {
             ChildKernel kernel = new ChildKernel(_kernel);
 
@@ -50,6 +50,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway
             kernel.Bind<IContext>().To<Context>().InSingletonScope();
 
             kernel.Bind<Settings.IProvider>().ToConstant(settingsProvider);
+            kernel.Bind<Messaging.Client.IEndpoint>().ToConstant(clientEndpoint);
 
             return kernel.Get<IContext>();
         }

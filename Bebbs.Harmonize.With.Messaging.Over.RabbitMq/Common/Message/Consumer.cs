@@ -4,20 +4,25 @@ using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
-namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Client.Connection.Consumer
+namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Message
 {
-    public interface IInstance : IBasicConsumer
+    public interface IConsumer : IBasicConsumer
     {
 
     }
 
-    internal class Instance : IInstance
+    internal class Consumer : IConsumer
     {
+        public static IConsumer Subscribe(With.Message.ISerializer messageSerializer, IModel model, IObserver<IMessage> consumer)
+        {
+            return new Consumer(messageSerializer, model, consumer);
+        }
+
         private readonly Subject<byte[]> _deliveries;
 
         public event RabbitMQ.Client.Events.ConsumerCancelledEventHandler ConsumerCancelled;
 
-        public Instance(Message.ISerializer messageSerializer, IModel model, IObserver<IMessage> consumer)
+        internal Consumer(With.Message.ISerializer messageSerializer, IModel model, IObserver<IMessage> consumer)
         {
             Model = model;
 

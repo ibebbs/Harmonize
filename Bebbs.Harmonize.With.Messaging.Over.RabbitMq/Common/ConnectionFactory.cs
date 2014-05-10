@@ -4,26 +4,21 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common
 {
     public interface IConnectionFactory
     {
-        IConnection CreateConnection();
+        IConnection CreateConnection(Configuration.ISettings configurationSettings);
     }
 
     public class ConnectionFactory : IConnectionFactory
     {
-        private readonly RabbitMQ.Client.ConnectionFactory _connectionFactory;
-
-        public ConnectionFactory(Configuration.ISettings configurationSettings)
+        public IConnection CreateConnection(Configuration.ISettings configurationSettings)
         {
-            _connectionFactory = new RabbitMQ.Client.ConnectionFactory()
+            RabbitMQ.Client.ConnectionFactory connectionFactory = new RabbitMQ.Client.ConnectionFactory()
             {
                 HostName = configurationSettings.HostName,
                 UserName = configurationSettings.UserName,
                 Password = configurationSettings.Password
             };
-        }
 
-        public IConnection CreateConnection()
-        {
-            return _connectionFactory.CreateConnection();
+            return connectionFactory.CreateConnection();
         }
     }
 }

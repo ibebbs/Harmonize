@@ -2,7 +2,7 @@
 
 namespace Bebbs.Harmonize.With.Message
 {
-    public interface IAct : IMessage
+    public interface IAction : IMessage
     {
         Component.IIdentity Entity { get; }
         Component.IIdentity Actionable { get; }
@@ -10,9 +10,9 @@ namespace Bebbs.Harmonize.With.Message
         IEnumerable<Component.IParameterValue> ParameterValues { get; }
     }
 
-    public class Act : IAct
+    public class Action : IAction
     {
-        public Act(Component.IIdentity entity, Component.IIdentity actionable, Component.IIdentity actor, IEnumerable<Component.IParameterValue> parameterValues)
+        public Action(Component.IIdentity entity, Component.IIdentity actionable, Component.IIdentity actor, IEnumerable<Component.IParameterValue> parameterValues)
         {
             Entity = entity;
             Actionable = actionable;

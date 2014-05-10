@@ -40,6 +40,7 @@ namespace Bebbs.Harmonize.Host
         {
             _kernel = new StandardKernel();
             _kernel.Load(new Module());
+            _kernel.Load(new With.Module());
 
             Configuration.ISettings settings = _configurationProvider.GetSettings();
 

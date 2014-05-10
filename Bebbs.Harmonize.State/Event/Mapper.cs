@@ -61,7 +61,7 @@ namespace Bebbs.Harmonize.State.Event
             TypeMapper.CreateMap<With.Message.IRegister, Event.Registered>();
             TypeMapper.CreateMap<With.Message.IDeregister, Event.Deregistered>();
             TypeMapper.CreateMap<With.Message.IObservation, Event.Observed>();
-            TypeMapper.CreateMap<With.Message.IAct, Event.Action>();
+            TypeMapper.CreateMap<With.Message.IAction, Event.Action>();
 
             TypeMapper.AssertConfigurationIsValid();
         }

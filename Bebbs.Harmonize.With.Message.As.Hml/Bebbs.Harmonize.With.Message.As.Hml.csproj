@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Schema\Act.cs" />
+    <Compile Include="Schema\Action.cs" />
     <Compile Include="Schema\Deregister.cs" />
     <Compile Include="Schema\Actionable.cs" />
     <Compile Include="Schema\Description.cs" />

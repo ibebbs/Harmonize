@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Service.Connection
+namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Connection
 {
     public interface IRoute
     {

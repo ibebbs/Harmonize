@@ -11,18 +11,18 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
     public class ConnectorTestFixture
     {
         private Messaging.Client.IEndpoint _clientEndpoint;
-        private Intuition.Configuration.IProvider _configurationProvider;
+        private Intuition.Configuration.ISettings _configurationSettings;
         private Intuition.Gateway.IFactory _deviceFactory;
         private Connector _subject;
 
         [TestInitialize]
         public void Initialize()
         {
-            _configurationProvider = A.Fake<Intuition.Configuration.IProvider>();
+            _configurationSettings = A.Fake<Intuition.Configuration.ISettings>();
             _deviceFactory = A.Fake<Intuition.Gateway.IFactory>();
             _clientEndpoint = A.Fake<Messaging.Client.IEndpoint>();
 
-            _subject = new Connector(_clientEndpoint, _configurationProvider, _deviceFactory);
+            _subject = new Connector(_clientEndpoint, _configurationSettings, _deviceFactory);
         }
 
         [TestMethod]
@@ -50,17 +50,12 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests
                 AutoConfigurePacketPort = true
             };
 
-            A.CallTo(() => _configurationProvider.GetSettings()).Returns(
-                new Configuration.Settings
-                {
-                    Devices = new [] { deviceA, deviceB }
-                }
-            );
+            A.CallTo(() => _configurationSettings.Devices).Returns(new [] { deviceA, deviceB });
 
             _subject.Initialize();
 
-            A.CallTo(() => _deviceFactory.CreateDeviceInContext(deviceA)).MustHaveHappened(Repeated.Exactly.Once);
-            A.CallTo(() => _deviceFactory.CreateDeviceInContext(deviceB)).MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(() => _deviceFactory.CreateDeviceInContext(deviceA, _clientEndpoint)).MustHaveHappened(Repeated.Exactly.Once);
+            A.CallTo(() => _deviceFactory.CreateDeviceInContext(deviceB, _clientEndpoint)).MustHaveHappened(Repeated.Exactly.Once);
         }
     }
 }

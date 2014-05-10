@@ -91,6 +91,7 @@
     <Compile Include="IStart.cs" />
     <Compile Include="IStop.cs" />
     <Compile Include="Message\Action.cs" />
+    <Compile Include="Message\Factory.cs" />
     <Compile Include="Message\IMessage.cs" />
     <Compile Include="Message\ISerializer.cs" />
     <Compile Include="Message\Observation.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Messaging\Client\IEndpoint.cs" />
     <Compile Include="Messaging\Common\IEndpoint.cs" />
     <Compile Include="Messaging\Service\IEndpoint.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="ObservableExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serialization\XmlSerializer.cs" />

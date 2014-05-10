@@ -74,12 +74,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client\Connection\Consumer\Factory.cs" />
-    <Compile Include="Client\Connection\Consumer\Instance.cs" />
-    <Compile Include="Client\Connection\Instance.cs" />
-    <Compile Include="Client\Connection\Factory.cs" />
-    <Compile Include="Client\Connection\Producer\Factory.cs" />
-    <Compile Include="Client\Connection\Producer\Instance.cs" />
+    <Compile Include="Client\Configuration\Provider.cs" />
+    <Compile Include="Client\Configuration\Settings.cs" />
+    <Compile Include="Common\Message\Consumer.cs" />
+    <Compile Include="Common\Message\Encoding.cs" />
+    <Compile Include="Common\Message\Producer.cs" />
     <Compile Include="Common\Queue\Name.cs" />
     <Compile Include="Common\Configuration\ISettings.cs" />
     <Compile Include="Client\Endpoint.cs" />
@@ -90,9 +89,9 @@
     <Compile Include="Common\Routing\Key.cs" />
     <Compile Include="Service\Configuration\Provider.cs" />
     <Compile Include="Service\Configuration\Settings.cs" />
-    <Compile Include="Service\Connection\Factory.cs" />
-    <Compile Include="Service\Connection\Instance.cs" />
-    <Compile Include="Service\Connection\Route.cs" />
+    <Compile Include="Common\Connection\Factory.cs" />
+    <Compile Include="Common\Connection\Instance.cs" />
+    <Compile Include="Common\Connection\Route.cs" />
     <Compile Include="Service\Endpoint.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -11,18 +11,17 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Tests.Device
         [TestMethod]
         public void ShouldBeAbleToCreateADeviceContext()
         {
-            IGlobalEventAggregator eventAggregator = A.Fake<IGlobalEventAggregator>();
+            With.Messaging.Client.IEndpoint clientEndpoint = A.Fake<With.Messaging.Client.IEndpoint>();
             IClock clock = A.Fake<IClock>();
 
             StandardKernel kernel = new StandardKernel();
-            kernel.Bind<IGlobalEventAggregator>().ToConstant(eventAggregator).InSingletonScope();
             kernel.Bind<IClock>().ToConstant(clock).InSingletonScope();
 
             Factory factory = new Factory(kernel);
 
             Gateway.Settings.IProvider settingsProvider = A.Fake<Gateway.Settings.IProvider>();
 
-            IContext context = factory.CreateDeviceInContext(settingsProvider);
+            IContext context = factory.CreateDeviceInContext(settingsProvider, clientEndpoint);
 
             Assert.IsNotNull(context);
             Assert.IsNotNull(context.Kernel);

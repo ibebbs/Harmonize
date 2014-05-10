@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Bebbs.Harmonize.With.Messaging.Client
 {
@@ -13,25 +14,25 @@ namespace Bebbs.Harmonize.With.Messaging.Client
         /// </summary>
         /// <param name="entity">The entity to register</param>
         /// <param name="consumer">The consumer that will process messages for the entity</param>
-        void Register(Component.IEntity entity, IObserver<Message.IMessage> consumer);
+        void Register(With.Component.IIdentity registrar, Component.IEntity entity, IObserver<Message.IMessage> consumer);
 
         /// <summary>
         /// Deregisters the specified <see cref="Component.IEntity"/> and ensures that messages are no longer
         /// received for the entity
         /// </summary>
         /// <param name="entity"></param>
-        void Deregister(Component.IEntity entity);
+        void Deregister(With.Component.IIdentity registrar, Component.IEntity entity);
 
         /// <summary>
-        /// Publishes the specified <see cref="Message.IObservation"/>
+        /// Publishes a message for the specified observation
         /// </summary>
         /// <param name="observation"></param>
-        void Publish(Message.IObservation observation);
+        void Publish(With.Component.IIdentity entity, With.Component.IIdentity observable, DateTimeOffset date, With.Component.IMeasurement measurement);
 
         /// <summary>
-        /// Performs the specified <see cref="Message.IAct"/>
+        /// Publishes a message to perform the specified action
         /// </summary>
         /// <param name="action"></param>
-        void Perform(Message.IAct action);
+        void Perform(With.Component.IIdentity actor, With.Component.IIdentity entity, With.Component.IIdentity actionable, IEnumerable<With.Component.IParameterValue> parameterValues);
     }
 }

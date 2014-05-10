@@ -179,7 +179,7 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Tests.Schema
         [TestMethod]
         public void CanMapActFromSchemaToMessage()
         {
-            Hml.Schema.Act schema = new Hml.Schema.Act
+            Hml.Schema.Action schema = new Hml.Schema.Action
             {
                 Entity = new Hml.Schema.Identity { Value = "ObserveEntity" },
                 Actionable = new Hml.Schema.Identity { Value = "ActionableValue" },
@@ -199,10 +199,10 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Tests.Schema
 
             Message.IMessage message = _subject.ToMessage(schema);
 
-            Assert.IsInstanceOfType(message, typeof(Message.IAct));
-            Assert.AreEqual<string>("ObserveEntity", ((Message.IAct)message).Entity.Value);
-            Assert.AreEqual<string>("ActionableValue", ((Message.IAct)message).Actionable.Value);
-            Assert.AreEqual<string>("ActionableActor", ((Message.IAct)message).Actor.Value);
+            Assert.IsInstanceOfType(message, typeof(Message.IAction));
+            Assert.AreEqual<string>("ObserveEntity", ((Message.IAction)message).Entity.Value);
+            Assert.AreEqual<string>("ActionableValue", ((Message.IAction)message).Actionable.Value);
+            Assert.AreEqual<string>("ActionableActor", ((Message.IAction)message).Actor.Value);
         }
 
         [TestMethod]
@@ -249,7 +249,7 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Tests.Schema
         [TestMethod]
         public void CanMapActFromMessageToSchema()
         {
-            Message.IAct message = A.Fake<Message.IAct>();
+            Message.IAction message = A.Fake<Message.IAction>();
             A.CallTo(() => message.Entity).Returns(A.Fake<Component.IIdentity>());
             A.CallTo(() => message.Actionable).Returns(A.Fake<Component.IIdentity>());
             A.CallTo(() => message.Actor).Returns(A.Fake<Component.IIdentity>());
@@ -257,7 +257,7 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Tests.Schema
             Hml.Schema.Message schema = _subject.ToSchema(message);
 
             Assert.IsNotNull(schema);
-            Assert.IsInstanceOfType(schema, typeof(Hml.Schema.Act));
+            Assert.IsInstanceOfType(schema, typeof(Hml.Schema.Action));
         }
     }
 }

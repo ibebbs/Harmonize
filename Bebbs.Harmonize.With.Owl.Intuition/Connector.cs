@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition
 {
-    public interface IConnector : Host.IService
+    public interface IConnector
     {
 
     }
@@ -19,31 +19,28 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
     internal class Connector : IConnector
     {
         private readonly Messaging.Client.IEndpoint _clientEndpoint;
-        private readonly Configuration.IProvider _configurationProvider;
+        private readonly Configuration.ISettings _configurationSettings;
         private readonly Gateway.IFactory _gatewayFactory;
 
-        private Configuration.ISettings _configuration;
         private IEnumerable<Gateway.IContext> _contexts;
 
-        public Connector(With.Messaging.Client.IEndpoint clientEndpoint, Configuration.IProvider configurationProvider, Gateway.IFactory gatewayFactory)
+        public Connector(With.Messaging.Client.IEndpoint clientEndpoint, Configuration.ISettings configurationSettings, Gateway.IFactory gatewayFactory)
         {
             _clientEndpoint = clientEndpoint;
-            _configurationProvider = configurationProvider;
+            _configurationSettings = configurationSettings;
             _gatewayFactory = gatewayFactory;
         }
 
         private Gateway.IContext Create(Configuration.IDevice configurationDevice)
         {
-            return _gatewayFactory.CreateDeviceInContext(configurationDevice);
+            return _gatewayFactory.CreateDeviceInContext(configurationDevice, _clientEndpoint);
         }
 
         private IEnumerable<Gateway.IContext> LoadInstances()
         {
             try
             {
-                _configuration = _configurationProvider.GetSettings();
-
-                _contexts = _configuration.Devices.Select(Create).ToArray();
+                _contexts = _configurationSettings.Devices.Select(Create).ToArray();
 
                 return _contexts;
             }
@@ -64,8 +61,6 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
         {
             try
             {
-                _clientEndpoint.Initialize();
-
                 _contexts = LoadInstances();
 
                 _contexts.ForEach(Initialize);
