@@ -3,17 +3,17 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
 {
     public class Ignore : Message, With.Message.IIgnore
     {
-        Component.IIdentity IIgnore.Entity
+        With.Component.IIdentity IIgnore.Entity
         {
             get { return Entity; }
         }
 
-        Component.IIdentity IIgnore.Observable
+        With.Component.IIdentity IIgnore.Observable
         {
             get { return Observable; }
         }
 
-        Component.IIdentity IIgnore.Observer
+        With.Component.IIdentity IIgnore.Observer
         {
             get { return Observer; }
         }

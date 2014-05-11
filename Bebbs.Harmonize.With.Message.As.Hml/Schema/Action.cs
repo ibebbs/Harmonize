@@ -4,22 +4,22 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
 {
     public class Action : Message, With.Message.IAction
     {
-        Component.IIdentity IAction.Entity
+        With.Component.IIdentity IAction.Entity
         {
             get { return Entity; }
         }
 
-        Component.IIdentity IAction.Actionable
+        With.Component.IIdentity IAction.Actionable
         {
             get { return Actionable; }
         }
 
-        Component.IIdentity IAction.Actor
+        With.Component.IIdentity IAction.Actor
         {
             get { return Actor; }
         }
 
-        IEnumerable<Component.IParameterValue> IAction.ParameterValues
+        IEnumerable<With.Component.IParameterValue> IAction.ParameterValues
         {
             get { return ParameterValues; }
         }

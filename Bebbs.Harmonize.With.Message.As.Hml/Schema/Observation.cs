@@ -4,12 +4,12 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
 {
     public class Observation : Message, With.Message.IObservation
     {
-        Component.IIdentity IObservation.Entity
+        With.Component.IIdentity IObservation.Entity
         {
             get { return Entity; }
         }
 
-        Component.IIdentity IObservation.Observable
+        With.Component.IIdentity IObservation.Observable
         {
             get { return Observable; }
         }
@@ -19,7 +19,7 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
             get { return Date; }
         }
 
-        Component.IMeasurement IObservation.Measurement
+        With.Component.IMeasurement IObservation.Measurement
         {
             get { return Measurement; }
         }

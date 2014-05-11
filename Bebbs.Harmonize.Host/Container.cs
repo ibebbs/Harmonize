@@ -1,7 +1,10 @@
 ﻿using Bebbs.Harmonize.With;
 using Ninject;
+using Ninject.Modules;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.Host
@@ -9,6 +12,7 @@ namespace Bebbs.Harmonize.Host
     public class Container<TService> where TService : IService
     {
         private readonly Configuration.IProvider _configurationProvider;
+        private readonly IEnumerable<INinjectModule> _modules;
 
         private IKernel _kernel;
         private TService _service;
@@ -16,9 +20,18 @@ namespace Bebbs.Harmonize.Host
         public Container(Configuration.IProvider configurationProvider)
         {
             _configurationProvider = configurationProvider;
+            _modules = Enumerable.Empty<INinjectModule>();
         }
 
-        public Container() : this(new Configuration.Provider()) { }
+        public Container(IEnumerable<INinjectModule> modules) : this(new Configuration.Provider())
+        {
+            _modules = (modules ?? Enumerable.Empty<INinjectModule>()).ToArray();
+        }
+
+        public Container(params INinjectModule[] modules) : this(new Configuration.Provider()) 
+        {
+            _modules = modules;
+        }
 
         private void LoadModules(Configuration.IModulePattern modulePattern)
         {
@@ -45,6 +58,8 @@ namespace Bebbs.Harmonize.Host
             Configuration.ISettings settings = _configurationProvider.GetSettings();
 
             settings.ModulePatterns.ForEach(LoadModules);
+
+            _modules.ForEach(module => _kernel.Load(module));
         }
 
         private void DisposeKernel()

@@ -3,12 +3,12 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
 {
     public class Deregister : Message, With.Message.IDeregister
     {
-        Component.IIdentity IDeregister.Registrar
+        With.Component.IIdentity IDeregister.Registrar
         {
             get { return Registrar; }
         }
 
-        Component.IIdentity IDeregister.Entity
+        With.Component.IIdentity IDeregister.Entity
         {
             get { return Entity; }
         }

@@ -6,15 +6,25 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Routing
     {
         string ForRegistration();
 
+        string ForComponent();
+
         string ForObserve();
+
+        string ForObservation();
 
         string ForRegistrationOf(IIdentity entity);
 
         string ForDeregistrationOf(IIdentity entity);
 
+        string ForAdditionOf(IIdentity component);
+
+        string ForRemovalOf(IIdentity component);
+
         string ForObservationBy(IIdentity entity, IIdentity observable);
 
         string ForObservationOf(IIdentity entity, IIdentity observable);
+
+        string ForAllActions();
 
         string ForActionBy(IIdentity entity, IIdentity actionable);
 
@@ -25,19 +35,31 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Routing
     {
         private const string RegistrationRoot = "REGISTRATION";
         private const string DeregistrationRoot = "REGISTRATION";
+        private const string ComponentRoot = "COMPONENT";
         private const string ObservationRoot = "OBSERVATION";
+        private const string ObserveRoot = "OBSERVE";
         private const string ActionRoot = "ACTION";
         private const string SingleWildCard = "*";
         private const string MultiWildCard = "#";
 
         public string ForRegistration()
         {
-            return string.Format("{0}.{1}", RegistrationRoot, SingleWildCard);
+            return string.Format("{0}.{1}", RegistrationRoot, MultiWildCard);
+        }
+
+        public string ForComponent()
+        {
+            return string.Format("{0}.{1}", ComponentRoot, MultiWildCard);
         }
 
         public string ForObserve()
         {
-            return string.Format("{0}.{1}", DeregistrationRoot, SingleWildCard);
+            return string.Format("{0}.{1}", ObserveRoot, MultiWildCard);
+        }
+
+        public string ForObservation()
+        {
+            return string.Format("{0}.{1}", ObservationRoot, MultiWildCard);
         }
 
         public string ForRegistrationOf(IIdentity entity)
@@ -50,6 +72,16 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Routing
             return string.Format("{0}.{1}", DeregistrationRoot, entity.Value);
         }
 
+        public string ForAdditionOf(IIdentity component)
+        {
+            return string.Format("{0}.{1}", ComponentRoot, component.Value);
+        }
+
+        public string ForRemovalOf(IIdentity component)
+        {
+            return string.Format("{0}.{1}", ComponentRoot, component.Value);
+        }
+
         public string ForObservationBy(IIdentity entity, IIdentity observable)
         {
             return string.Format("{0}.{1}.{2}", ObservationRoot, entity.Value, observable.Value);
@@ -58,6 +90,11 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Routing
         public string ForObservationOf(IIdentity entity, IIdentity observable)
         {
             return string.Format("{0}.{1}.{2}", ObservationRoot, entity.Value, observable.Value);
+        }
+
+        public string ForAllActions()
+        {
+            return string.Format("{0}.#", ActionRoot);
         }
 
         public string ForActionBy(IIdentity entity, IIdentity actionable)

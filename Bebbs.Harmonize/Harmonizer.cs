@@ -34,6 +34,8 @@ namespace Bebbs.Harmonize
             _consumerSubscription = new CompositeDisposable(
                 _messageObservable.OfType<With.Message.IRegister>().Subscribe(message => _serviceEndpoint.Register(message.Entity.Identity)),
                 _messageObservable.OfType<With.Message.IDeregister>().Subscribe(message => _serviceEndpoint.Deregister(message.Entity)),
+                _messageObservable.OfType<With.Message.IAdd>().Subscribe(message => _serviceEndpoint.Add(message.Component.Identity)),
+                _messageObservable.OfType<With.Message.IRemove>().Subscribe(message => _serviceEndpoint.Remove(message.Component)),
                 _messageObservable.OfType<With.Message.IObserve>().Subscribe(message => _serviceEndpoint.AddObserver(message.Entity, message.Observable, message.Observer)),
                 _messageObservable.OfType<With.Message.IIgnore>().Subscribe(message => _serviceEndpoint.RemoveObserver(message.Entity, message.Observable, message.Observer))
             );

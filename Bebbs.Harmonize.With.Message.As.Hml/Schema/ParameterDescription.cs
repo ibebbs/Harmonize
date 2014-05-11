@@ -3,27 +3,27 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
 {
     public class ParameterDescription : Description, With.Component.IParameterDescription
     {
-        Component.MeasurementType Component.IParameterDescription.Measurement
+        With.Component.MeasurementType With.Component.IParameterDescription.Measurement
         {
-            get { return (Component.MeasurementType)(int)Measurement; }
+            get { return (With.Component.MeasurementType)(int)Measurement; }
         }
 
-        Component.IMeasurement Component.IParameterDescription.Minimum
+        With.Component.IMeasurement With.Component.IParameterDescription.Minimum
         {
             get { return Minimum; }
         }
 
-        Component.IMeasurement Component.IParameterDescription.Maximum
+        With.Component.IMeasurement With.Component.IParameterDescription.Maximum
         {
             get { return Maximum; }
         }
 
-        Component.IMeasurement Component.IParameterDescription.Default
+        With.Component.IMeasurement With.Component.IParameterDescription.Default
         {
             get { return Default; }
         }
 
-        bool Component.IParameterDescription.Required
+        bool With.Component.IParameterDescription.Required
         {
             get { return Required; }
         }

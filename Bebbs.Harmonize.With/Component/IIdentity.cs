@@ -1,5 +1,5 @@
-﻿
-using System;
+﻿using System;
+
 namespace Bebbs.Harmonize.With.Component
 {
     public interface IIdentity
@@ -9,6 +9,11 @@ namespace Bebbs.Harmonize.With.Component
 
     public class Identity : IIdentity
     {
+        public static IIdentity Unique()
+        {
+            return new Identity(Guid.NewGuid().ToString());
+        }
+
         private readonly string _identity;
 
         public Identity(string identity)

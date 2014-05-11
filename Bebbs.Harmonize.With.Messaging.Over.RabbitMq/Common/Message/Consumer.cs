@@ -1,6 +1,7 @@
 ﻿using Bebbs.Harmonize.With.Message;
 using RabbitMQ.Client;
 using System;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
@@ -27,7 +28,7 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Message
             Model = model;
 
             _deliveries = new Subject<byte[]>();
-            _deliveries.Select(System.Text.Encoding.UTF8.GetString).Select(messageSerializer.Deserialize).Subscribe(consumer);
+            _deliveries.ObserveOn(Scheduler.Default).Select(System.Text.Encoding.UTF8.GetString).Select(messageSerializer.Deserialize).Subscribe(consumer);
         }
 
         public void HandleBasicCancel(string consumerTag)

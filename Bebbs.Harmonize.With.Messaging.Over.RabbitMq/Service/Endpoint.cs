@@ -37,36 +37,53 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Service
         {
             _connectionInstance.BuildExchange(_configurationSettings.ExchangeName);
             _connectionInstance.BuildQueue(_configurationSettings.QueueName);
+            _connectionInstance.BindConsumer(_configurationSettings.QueueName, consumer);
             _connectionInstance.Route(_routingKey.ForRegistration()).From(_configurationSettings.ExchangeName).To(_configurationSettings.QueueName).Start();
+            _connectionInstance.Route(_routingKey.ForComponent()).From(_configurationSettings.ExchangeName).To(_configurationSettings.QueueName).Start();
             _connectionInstance.Route(_routingKey.ForObserve()).From(_configurationSettings.ExchangeName).To(_configurationSettings.QueueName).Start();
         }
 
         public void Stop()
         {
             _connectionInstance.Route(_routingKey.ForObserve()).From(_configurationSettings.ExchangeName).To(_configurationSettings.QueueName).Stop();
+            _connectionInstance.Route(_routingKey.ForComponent()).From(_configurationSettings.ExchangeName).To(_configurationSettings.QueueName).Stop();
             _connectionInstance.Route(_routingKey.ForRegistration()).From(_configurationSettings.ExchangeName).To(_configurationSettings.QueueName).Stop();
             _connectionInstance.RemoveQueue(_configurationSettings.QueueName);
             _connectionInstance.RemoveExchange(_configurationSettings.ExchangeName);
         }
 
-        public void Register(Component.IIdentity entity)
+        public void Add(With.Component.IIdentity component)
+        {
+            _connectionInstance.Route(_routingKey.ForRegistration()).From(_configurationSettings.ExchangeName).To(_queueName.For(component)).Start();
+            _connectionInstance.Route(_routingKey.ForObservation()).From(_configurationSettings.ExchangeName).To(_queueName.For(component)).Start();
+            _connectionInstance.Route(_routingKey.ForAllActions()).From(_configurationSettings.ExchangeName).To(_queueName.For(component)).Start();
+        }
+
+        public void Remove(With.Component.IIdentity component)
+        {
+            _connectionInstance.Route(_routingKey.ForRegistration()).From(_configurationSettings.ExchangeName).To(_queueName.For(component)).Stop();
+            _connectionInstance.Route(_routingKey.ForObservation()).From(_configurationSettings.ExchangeName).To(_queueName.For(component)).Stop();
+            _connectionInstance.Route(_routingKey.ForAllActions()).From(_configurationSettings.ExchangeName).To(_queueName.For(component)).Stop();
+        }
+
+        public void Register(With.Component.IIdentity entity)
         {
             _connectionInstance.Route(_routingKey.ForActionOf(entity)).From(_configurationSettings.ExchangeName).To(_queueName.For(entity)).Start();
             //_connectionInstance.PublishRegistered(entity);
         }
 
-        public void Deregister(Component.IIdentity entity)
+        public void Deregister(With.Component.IIdentity entity)
         {
             //_connectionInstance.PublishDeregistered(entity);
             _connectionInstance.Route(_routingKey.ForActionOf(entity)).From(_configurationSettings.ExchangeName).To(_queueName.For(entity)).Stop();
         }
 
-        public void AddObserver(Component.IIdentity sourceEntity, Component.IIdentity observable, Component.IIdentity targetEntity)
+        public void AddObserver(With.Component.IIdentity sourceEntity, With.Component.IIdentity observable, With.Component.IIdentity targetEntity)
         {
             _connectionInstance.Route(_routingKey.ForObservationOf(sourceEntity, observable)).From(_configurationSettings.ExchangeName).To(_queueName.For(targetEntity)).Start();
         }
 
-        public void RemoveObserver(Component.IIdentity sourceEntity, Component.IIdentity observable, Component.IIdentity targetEntity)
+        public void RemoveObserver(With.Component.IIdentity sourceEntity, With.Component.IIdentity observable, With.Component.IIdentity targetEntity)
         {
             _connectionInstance.Route(_routingKey.ForObservationOf(sourceEntity, observable)).From(_configurationSettings.ExchangeName).To(_queueName.For(targetEntity)).Stop();
         }

@@ -19,6 +19,8 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
         static Mapper()
         {
             Mapping.CreateMap<With.Component.IActionable, Actionable>();
+            Mapping.CreateMap<With.Component.IComponent, Component>();
+            Mapping.CreateMap<With.Component.IComponentDescription, ComponentDescription>();
             Mapping.CreateMap<With.Component.IDescription, Description>();
             Mapping.CreateMap<With.Component.IEntity, Entity>();
             Mapping.CreateMap<With.Component.IEntityDescription, EntityDescription>();
@@ -31,12 +33,14 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
             Mapping.CreateMap<With.Component.IParameterValue, ParameterValue>();
             Mapping.CreateMap<With.Component.IValueDescription, ValueDescription>();
 
+            Mapping.CreateMap<With.Message.IAdd, Add>();
             Mapping.CreateMap<With.Message.IAction, Action>();
             Mapping.CreateMap<With.Message.IDeregister, Deregister>();
             Mapping.CreateMap<With.Message.IIgnore, Ignore>();
             Mapping.CreateMap<With.Message.IObservation, Observation>();
             Mapping.CreateMap<With.Message.IObserve, Observe>();
             Mapping.CreateMap<With.Message.IRegister, Register>();
+            Mapping.CreateMap<With.Message.IRemove, Remove>();
         }
 
         internal static void ValidateMapping()
@@ -74,6 +78,16 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
             return Mapping.Map<IRegister, Register>(source);
         }
 
+        private Message PerformMapping(IAdd source)
+        {
+            return Mapping.Map<IAdd, Add>(source);
+        }
+
+        private Message PerformMapping(IRemove source)
+        {
+            return Mapping.Map<IRemove, Remove>(source);
+        }
+
         private Message PerformMapping(IMessage source)
         {
             throw new InvalidOperationException(string.Format("Unknown message type: '{0}'", source.GetType().Name));
@@ -91,7 +105,7 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
             return schema;
         }
 
-        public Component.IIdentity ToComponent(Identity identity)
+        public With.Component.IIdentity ToComponent(Identity identity)
         {
             return identity;
         }

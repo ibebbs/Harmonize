@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 
 namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Client
 {
-    internal class Endpoint : Messaging.Client.IEndpoint, IInitialize, ICleanup
+    internal class Endpoint : Messaging.Client.IEndpoint
     {
         private readonly Configuration.ISettings _configurationSettings;
         private readonly Common.Connection.IFactory _connectionFactory;

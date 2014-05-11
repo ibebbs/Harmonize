@@ -3,22 +3,22 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
 {
     public class ValueDescription : Description, With.Component.IValueDescription
     {
-        Component.MeasurementType Component.IValueDescription.Measurement
+        With.Component.MeasurementType With.Component.IValueDescription.Measurement
         {
-            get { return (Component.MeasurementType)(int)Measurement; }
+            get { return (With.Component.MeasurementType)(int)Measurement; }
         }
 
-        Component.IMeasurement Component.IValueDescription.Minimum
+        With.Component.IMeasurement With.Component.IValueDescription.Minimum
         {
             get { return Minimum; }
         }
 
-        Component.IMeasurement Component.IValueDescription.Maximum
+        With.Component.IMeasurement With.Component.IValueDescription.Maximum
         {
             get { return Maximum; }
         }
 
-        Component.IMeasurement Component.IValueDescription.Default
+        With.Component.IMeasurement With.Component.IValueDescription.Default
         {
             get { return Default; }
         }

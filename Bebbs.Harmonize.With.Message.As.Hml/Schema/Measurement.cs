@@ -3,12 +3,12 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
 {
     public class Measurement : With.Component.IMeasurement
     {
-        Component.MeasurementType Component.IMeasurement.Type
+        With.Component.MeasurementType With.Component.IMeasurement.Type
         {
-            get { return (Component.MeasurementType)(int)Type; }
+            get { return (With.Component.MeasurementType)(int)Type; }
         }
 
-        string Component.IMeasurement.Value
+        string With.Component.IMeasurement.Value
         {
             get { return Value; }
         }

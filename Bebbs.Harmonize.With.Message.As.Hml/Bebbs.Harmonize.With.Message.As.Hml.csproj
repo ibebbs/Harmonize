@@ -53,11 +53,14 @@
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Schema\Action.cs" />
+    <Compile Include="Schema\Add.cs" />
     <Compile Include="Schema\Deregister.cs" />
     <Compile Include="Schema\Actionable.cs" />
     <Compile Include="Schema\Description.cs" />
     <Compile Include="Schema\Entity.cs" />
     <Compile Include="Schema\EntityDescription.cs" />
+    <Compile Include="Schema\Component.cs" />
+    <Compile Include="Schema\ComponentDescription.cs" />
     <Compile Include="Schema\Ignore.cs" />
     <Compile Include="Schema\Identity.cs" />
     <Compile Include="Schema\Location.cs" />
@@ -66,6 +69,7 @@
     <Compile Include="Schema\Parameter.cs" />
     <Compile Include="Schema\ParameterDescription.cs" />
     <Compile Include="Schema\ParameterValue.cs" />
+    <Compile Include="Schema\Remove.cs" />
     <Compile Include="Schema\ValueDescription.cs" />
     <Compile Include="Schema\Mapper.cs" />
     <Compile Include="Schema\MeasurementType.cs" />

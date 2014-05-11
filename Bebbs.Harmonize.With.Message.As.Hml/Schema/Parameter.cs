@@ -3,12 +3,12 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
 {
     public class Parameter : With.Component.IParameter
     {
-        Component.IIdentity Component.IParameter.Identity
+        With.Component.IIdentity With.Component.IParameter.Identity
         {
             get { return Identity; }
         }
 
-        Component.IParameterDescription Component.IParameter.Description
+        With.Component.IParameterDescription With.Component.IParameter.Description
         {
             get { return Description; }
         }

@@ -68,6 +68,8 @@
     <Compile Include="AsyncHelper.cs" />
     <Compile Include="Base64.cs" />
     <Compile Include="Command\Command.cs" />
+    <Compile Include="Component\IComponentDescription.cs" />
+    <Compile Include="Component\IComponent.cs" />
     <Compile Include="Component\IEntityDescription.cs" />
     <Compile Include="Component\IAction.cs" />
     <Compile Include="Component\IActionable.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="IStart.cs" />
     <Compile Include="IStop.cs" />
     <Compile Include="Message\Action.cs" />
+    <Compile Include="Message\Add.cs" />
     <Compile Include="Message\Factory.cs" />
     <Compile Include="Message\IMessage.cs" />
     <Compile Include="Message\ISerializer.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Message\Observe.cs" />
     <Compile Include="Message\Register.cs" />
     <Compile Include="Message\Deregister.cs" />
+    <Compile Include="Message\Remove.cs" />
     <Compile Include="Message\Started.cs" />
     <Compile Include="Message\Starting.cs" />
     <Compile Include="Message\Stopped.cs" />
@@ -107,6 +111,7 @@
     <Compile Include="Messaging\Client\IEndpoint.cs" />
     <Compile Include="Messaging\Common\IEndpoint.cs" />
     <Compile Include="Messaging\Service\IEndpoint.cs" />
+    <Compile Include="Messaging\Component\IEndpoint.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="ObservableExtentions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

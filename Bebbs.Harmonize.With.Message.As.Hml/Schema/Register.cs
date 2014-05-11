@@ -3,12 +3,12 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
 {
     public class Register : Message, With.Message.IRegister
     {
-        Component.IIdentity IRegister.Registrar
+        With.Component.IIdentity IRegister.Registrar
         {
             get { return Registrar; }
         }
 
-        Component.IEntity IRegister.Entity
+        With.Component.IEntity IRegister.Entity
         {
             get { return Entity; }
         }

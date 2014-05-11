@@ -4,17 +4,17 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
 {
     public class Actionable : With.Component.IActionable
     {
-        Component.IIdentity Component.IActionable.Identity
+        With.Component.IIdentity With.Component.IActionable.Identity
         {
             get { return Identity; }
         }
 
-        Component.IDescription Component.IActionable.Description
+        With.Component.IDescription With.Component.IActionable.Description
         {
             get { return Description; }
         }
 
-        IEnumerable<Component.IParameter> Component.IActionable.Parameters
+        IEnumerable<With.Component.IParameter> With.Component.IActionable.Parameters
         {
             get { return Parameters; }
         }

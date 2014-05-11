@@ -3,12 +3,12 @@ namespace Bebbs.Harmonize.With.Message.As.Hml.Schema
 {
     public class Observable : With.Component.IObservable
     {
-        Component.IIdentity Component.IObservable.Identity
+        With.Component.IIdentity With.Component.IObservable.Identity
         {
             get { return Identity; }
         }
 
-        Component.IValueDescription Component.IObservable.Description
+        With.Component.IValueDescription With.Component.IObservable.Description
         {
             get { return Description; }
         }

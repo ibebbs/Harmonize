@@ -8,12 +8,16 @@ namespace Bebbs.Harmonize.With.Messaging.Service
 
         void Stop();
 
-        void Register(Component.IIdentity entity);
+        void Add(With.Component.IIdentity component);
 
-        void Deregister(Component.IIdentity entity);
+        void Remove(With.Component.IIdentity component);
 
-        void AddObserver(Component.IIdentity sourceEntity, Component.IIdentity observable, Component.IIdentity targetEntity);
+        void Register(With.Component.IIdentity entity);
 
-        void RemoveObserver(Component.IIdentity sourceEntity, Component.IIdentity observable, Component.IIdentity targetEntity);
+        void Deregister(With.Component.IIdentity entity);
+
+        void AddObserver(With.Component.IIdentity sourceEntity, With.Component.IIdentity observable, With.Component.IIdentity targetEntity);
+
+        void RemoveObserver(With.Component.IIdentity sourceEntity, With.Component.IIdentity observable, With.Component.IIdentity targetEntity);
     }
 }

@@ -16,6 +16,10 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq
             Bind<Common.Configuration.ISettings, Client.Configuration.ISettings>().ToMethod(ctx => ctx.Kernel.Get<Client.Configuration.IProvider>().GetSettings()).InSingletonScope();
             Bind<Messaging.Client.IEndpoint>().To<Client.Endpoint>();
 
+            Bind<Component.Configuration.IProvider>().To<Component.Configuration.Provider>().InSingletonScope();
+            Bind<Common.Configuration.ISettings, Component.Configuration.ISettings>().ToMethod(ctx => ctx.Kernel.Get<Component.Configuration.IProvider>().GetSettings()).InSingletonScope();
+            Bind<Messaging.Component.IEndpoint>().To<Component.Endpoint>();
+
             Bind<Service.Configuration.IProvider>().To<Service.Configuration.Provider>().InSingletonScope();
             Bind<Common.Configuration.ISettings, Service.Configuration.ISettings>().ToMethod(ctx => ctx.Kernel.Get<Service.Configuration.IProvider>().GetSettings()).InSingletonScope();
             Bind<Messaging.Service.IEndpoint>().To<Service.Endpoint>();
