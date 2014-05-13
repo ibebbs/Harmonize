@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Bebbs.Harmonize</id>
+    <title>Harmonize Exchange</title>
+    <version>1.0.0</version>
+    <authors>Ian Bebbington</authors>
+    <owners>Ian Bebbington</owners>
+    <licenseUrl>https://github.com/ibebbs/Harmonize/blob/master/License.txt</licenseUrl>
+    <projectUrl>https://github.com/ibebbs/Harmonize</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An open, composable, message-oriented system for S2S (silo-to-silo) communication for the Internet of Things</description>
+    <releaseNotes>First Package</releaseNotes>
+  </metadata>
+  <files>
+    <file src="..\Bebbs.Harmonize.With.Messaging.Over.RabbitMq\bin\debug\Bebbs.Harmonize.With.Messaging.Over.RabbitMq.*" target="Modules" />
+    <file src="..\Bebbs.Harmonize.With.Message.As.Hml\bin\debug" target="Modules" />
+  </files>
+</package>
