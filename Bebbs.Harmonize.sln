@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Harmony", "Bebbs.Harmonize.Harmony\Bebbs.Harmonize.With.Harmony.csproj", "{A158AB7B-7AD5-4A75-93DE-A7511DFB5A7E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D5FB700F-7CC9-4075-BEBA-9970D687C2D9} = {D5FB700F-7CC9-4075-BEBA-9970D687C2D9}
+		{F6A5907C-4EBB-459A-B76D-8926D714A3B0} = {F6A5907C-4EBB-459A-B76D-8926D714A3B0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize", "Bebbs.Harmonize\Bebbs.Harmonize.csproj", "{2F82D034-5EDB-432E-924C-B45DA875FAD2}"
 EndProject
@@ -25,6 +29,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Messaging.Over.RabbitMq", "Bebbs.Harmonize.With.Messaging.Over.RabbitMq\Bebbs.Harmonize.With.Messaging.Over.RabbitMq.csproj", "{F6A5907C-4EBB-459A-B76D-8926D714A3B0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Owl.Intuition", "Bebbs.Harmonize.With.Owl.Intuition\Bebbs.Harmonize.With.Owl.Intuition.csproj", "{65767969-5717-4EA9-8F8E-5E8F34BD3605}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D5FB700F-7CC9-4075-BEBA-9970D687C2D9} = {D5FB700F-7CC9-4075-BEBA-9970D687C2D9}
+		{F6A5907C-4EBB-459A-B76D-8926D714A3B0} = {F6A5907C-4EBB-459A-B76D-8926D714A3B0}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Owl.Intuition.Tests", "Bebbs.Harmonize.With.Owl.Intuition.Tests\Bebbs.Harmonize.With.Owl.Intuition.Tests.csproj", "{D0777346-1007-44DC-A8D5-BED9D264CC88}"
 EndProject
@@ -37,6 +45,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Message.As.Hml.Tests", "Bebbs.Harmonize.With.Message.As.Hml.Tests\Bebbs.Harmonize.With.Message.As.Hml.Tests.csproj", "{C5800B4D-E280-464E-978A-7136544E77DB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Store.Using.EventStore", "Bebbs.Harmonize.With.Store.Using.EventStore\Bebbs.Harmonize.With.Store.Using.EventStore.csproj", "{16F2E414-E6EE-4624-AA8E-F604CC08D46B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D5FB700F-7CC9-4075-BEBA-9970D687C2D9} = {D5FB700F-7CC9-4075-BEBA-9970D687C2D9}
+		{F6A5907C-4EBB-459A-B76D-8926D714A3B0} = {F6A5907C-4EBB-459A-B76D-8926D714A3B0}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{55B6CDBC-9B28-4E3B-AE06-E374D8A93386}"
 	ProjectSection(SolutionItems) = preProject
