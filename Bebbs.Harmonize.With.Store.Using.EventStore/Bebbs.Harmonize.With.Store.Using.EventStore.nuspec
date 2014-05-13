@@ -13,7 +13,6 @@
     <releaseNotes>First Package</releaseNotes>
   </metadata>
   <files>
-    <file src="Bebbs.Harmonize.With.Messaging.Over.RabbitMq\bin\debug\Bebbs.Harmonize.With.Messaging.Over.RabbitMq.*" target="Modules" />
-    <file src="Bebbs.Harmonize.With.Message.As.Hml\bin\debug" target="Modules" />
+    <file src="..\bin\Services\Bebbs.Harmonize.With.Store.Using.EventStore\*.*" target=""/>
   </files>
 </package>
