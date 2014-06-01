@@ -17,6 +17,8 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.State
         public void OnEnter()
         {
             _eventMediator.Publish(new Gateway.Event.Errored(_context.Exception));
+
+            Instrumentation.State.Machine.Faulted(_context.Exception);
         }
 
         public void OnExit()

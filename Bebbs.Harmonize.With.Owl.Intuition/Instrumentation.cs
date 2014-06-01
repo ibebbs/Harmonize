@@ -64,6 +64,9 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
 
         [Event(4, Message = "ExitedState", Level = EventLevel.Informational)]
         void ExitedState(Gateway.State.Name name);
+
+        [Event(5, Message = "Faulted", Level = EventLevel.Error)]
+        void Faulted(Exception exception);
     }
 
     public static class Instrumentation
