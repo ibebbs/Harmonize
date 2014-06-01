@@ -21,7 +21,11 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Command.Endpoint
         {
             Gateway.Settings.IValues settings = _settingsProvider.GetValues();
 
-            return new Instance(_responseParser, settings.LocalCommandEndpoint, settings.OwlCommandEndpoint, settings.OwlCommandResponseTimeout, settings.OwlCommandKey);
+            Instance endpoint = new Instance(_responseParser, settings.LocalCommandEndpoint, settings.OwlCommandEndpoint, settings.OwlCommandResponseTimeout, settings.OwlCommandKey);
+
+            Instrumentation.Command.Endpoint.CreatedAt(settings.LocalCommandEndpoint.Address.ToString(), settings.LocalCommandEndpoint.Port);
+
+            return endpoint;
         }
     }
 }

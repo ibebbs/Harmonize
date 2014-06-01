@@ -48,43 +48,7 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Connection
         public void Connect()
         {
             _connection = _connectionFactory.CreateConnection(_configurationSettings);
-            _connection.CallbackException += Connection_CallbackException;
-            _connection.ConnectionBlocked += Connection_ConnectionBlocked;
-            _connection.ConnectionShutdown += Connection_ConnectionShutdown;
-            _connection.ConnectionUnblocked += Connection_ConnectionUnblocked;
             _model = _connection.CreateModel();
-            _model.CallbackException += Model_CallbackException;
-            _model.ModelShutdown += Model_ModelShutdown;
-        }
-
-        void Model_ModelShutdown(RabbitMQ.Client.IModel model, RabbitMQ.Client.ShutdownEventArgs reason)
-        {
-            System.Diagnostics.Debugger.Break();
-        }
-
-        void Model_CallbackException(object sender, RabbitMQ.Client.Events.CallbackExceptionEventArgs e)
-        {
-            System.Diagnostics.Debugger.Break();
-        }
-
-        void Connection_ConnectionUnblocked(RabbitMQ.Client.IConnection sender)
-        {
-            System.Diagnostics.Debugger.Break();
-        }
-
-        void Connection_ConnectionShutdown(RabbitMQ.Client.IConnection connection, RabbitMQ.Client.ShutdownEventArgs reason)
-        {
-            System.Diagnostics.Debugger.Break();
-        }
-
-        void Connection_ConnectionBlocked(RabbitMQ.Client.IConnection sender, RabbitMQ.Client.Events.ConnectionBlockedEventArgs args)
-        {
-            System.Diagnostics.Debugger.Break();
-        }
-
-        void Connection_CallbackException(object sender, RabbitMQ.Client.Events.CallbackExceptionEventArgs e)
-        {
-            System.Diagnostics.Debugger.Break();
         }
 
         public void Dispose()
