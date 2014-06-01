@@ -1,4 +1,5 @@
 ﻿using EventSourceProxy;
+using System;
 using System.Diagnostics.Tracing;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition
@@ -67,23 +68,57 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
 
     public static class Instrumentation
     {
+        static Instrumentation()
+        {
+            TraceParameterProvider.Default
+                .ForAnything()
+                    .With<Exception>()
+                        .Trace(ex => ex.Message).As("Exception")
+                        .Trace(ex => ex.StackTrace).As("CallStack");
+        }
+
         public static class Command
         {
-            public static readonly ICommandEndpoint Endpoint = EventSourceImplementer.GetEventSourceAs<ICommandEndpoint>();
+            private static readonly Lazy<ICommandEndpoint> LazyEndpoint = new Lazy<ICommandEndpoint>(() => EventSourceImplementer.GetEventSourceAs<ICommandEndpoint>());
+            
+            public static ICommandEndpoint Endpoint
+            {
+                get { return LazyEndpoint.Value; }
+            }
         }
 
         public static class Packet
         {
-            public static readonly IPacketEndpoint Endpoint = EventSourceImplementer.GetEventSourceAs<IPacketEndpoint>();
+            private static readonly Lazy<IPacketEndpoint> LazyEndpoint = new Lazy<IPacketEndpoint>(() => EventSourceImplementer.GetEventSourceAs<IPacketEndpoint>());
 
-            public static readonly IPacketParser Parser = EventSourceImplementer.GetEventSourceAs<IPacketParser>();
+            private static readonly Lazy<IPacketParser> LazyParser = new Lazy<IPacketParser>(() => EventSourceImplementer.GetEventSourceAs<IPacketParser>());
+
+            public static IPacketEndpoint Endpoint
+            {
+                get { return LazyEndpoint.Value; }
+            }
+
+            public static IPacketParser Parser
+            {
+                get { return LazyParser.Value; }
+            }
         }
 
         public static class State
         {
-            public static readonly IMachine Machine = EventSourceImplementer.GetEventSourceAs<IMachine>();
+            private static readonly Lazy<IMachine> LazyMachine = new Lazy<IMachine>(() => EventSourceImplementer.GetEventSourceAs<IMachine>());
+
+            public static IMachine Machine
+            {
+                get { return LazyMachine.Value; }
+            }
         }
 
-        public static readonly IConfiguration Configuration = EventSourceImplementer.GetEventSourceAs<IConfiguration>();
+        private static readonly Lazy<IConfiguration> LazyConfiguration = new Lazy<IConfiguration>(() => EventSourceImplementer.GetEventSourceAs<IConfiguration>());
+
+        public static IConfiguration Configuration
+        {
+            get { return LazyConfiguration.Value;  }
+        }
     }
 }
