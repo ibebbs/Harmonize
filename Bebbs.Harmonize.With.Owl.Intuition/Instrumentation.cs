@@ -75,6 +75,8 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
         {
             TraceParameterProvider.Default
                 .ForAnything()
+                    .With<Gateway.State.Name>()
+                        .Trace(name => name.ToString()).As("Name")
                     .With<Exception>()
                         .Trace(ex => ex.Message).As("Exception")
                         .Trace(ex => ex.StackTrace).As("CallStack");
