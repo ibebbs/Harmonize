@@ -12,14 +12,5 @@
     <description>A Harmonize endpoint for bridging RabbitMq to SignalR to support platforms not natively supported by RabbitMq</description>
     <copyright>Copyright 2014</copyright>
     <releaseNotes>First Package</releaseNotes>
-    <references>
-      <reference file="Bebbs.Harmonize.With.dll" />
-      <reference file="Bebbs.Harmonize.With.Messaging.Via.SignalR.Common.dll" />
-      <reference file="Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.dll" />
-    </references>
   </metadata>
-  <files>
-    <file src="bin\$configuration$\Bebbs.Harmonize.With.*" target="lib\portable-net45+win+wp80\" />
-    <file src="bin\$configuration$\Bebbs.Harmonize.With.Messaging.Via.SignalR.*.*" target="lib\portable-net45+win+wp80\" />
-  </files>
 </package>
