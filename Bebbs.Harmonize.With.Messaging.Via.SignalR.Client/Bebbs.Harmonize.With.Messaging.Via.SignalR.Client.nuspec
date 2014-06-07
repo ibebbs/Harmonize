@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Bebbs.Harmonize.With.Messaging.Via.SignalR.Client</id>
-    <title>Harmonize Messaging Bridge between RabbitMq and SignalR</title>
+    <title>Harmonize Client providing a messaging bridge between RabbitMq and SignalR</title>
     <version>1.0.0</version>
     <authors>Ian Bebbington</authors>
     <owners>Ian Bebbington</owners>

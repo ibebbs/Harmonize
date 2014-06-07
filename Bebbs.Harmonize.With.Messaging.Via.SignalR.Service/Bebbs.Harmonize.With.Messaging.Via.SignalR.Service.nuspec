@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Bebbs.Harmonize.With.Messaging.Via.SignalR.Service</id>
-    <title>Harmonize Messaging Bridge between RabbitMq and SignalR</title>
+    <title>Harmonize Service providing a messaging bridge between RabbitMq and SignalR</title>
     <version>1.0.0</version>
     <authors>Ian Bebbington</authors>
     <owners>Ian Bebbington</owners>
