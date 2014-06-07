@@ -7,7 +7,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Registration
         IInstance For(With.Component.IIdentity registrar, With.Component.IEntity entity, IObserver<With.Message.IMessage> consumer);
     }
 
-    internal class Factory
+    internal class Factory : IFactory
     {
         public IInstance For(With.Component.IIdentity registrar, With.Component.IEntity entity, IObserver<With.Message.IMessage> consumer)
         {

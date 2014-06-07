@@ -39,6 +39,7 @@
     <Compile Include="Configuration\Provider.cs" />
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Endpoint.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
