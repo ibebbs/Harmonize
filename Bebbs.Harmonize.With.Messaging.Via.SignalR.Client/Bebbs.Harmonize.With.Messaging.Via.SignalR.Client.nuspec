@@ -3,7 +3,7 @@
   <metadata>
     <id>Bebbs.Harmonize.With.Messaging.Via.SignalR.Client</id>
     <title>Harmonize Client providing a messaging bridge between RabbitMq and SignalR</title>
-    <version>1.0.0</version>
+    <version>$version$</version>
     <authors>Ian Bebbington</authors>
     <owners>Ian Bebbington</owners>
     <licenseUrl>https://github.com/ibebbs/Harmonize/blob/master/License.txt</licenseUrl>
