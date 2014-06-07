@@ -1,20 +1,48 @@
 ﻿using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using System;
 using System.Collections.Generic;
 
 namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
 {
+    [HubName("HarmonizeHub")]
     public class HarmonizeHub : Hub
     {
+        private readonly Registration.IFactory _registrationFactory;
+        private readonly Client.IEndpoint _messagingEndpoint;
+
+        private readonly Registration.Collection _registrations;
+
+        public HarmonizeHub(Registration.IFactory registrationFactory, With.Messaging.Client.IEndpoint messagingEndpoint)
+        {
+            _registrationFactory = registrationFactory;
+            _messagingEndpoint = messagingEndpoint;
+
+            _registrations = new Registration.Collection();
+        }
+
+        private void Process(string connectionId, Common.Message message)
+        {
+            dynamic client = Clients.Client(connectionId);
+
+            if (client != null)
+            {
+                client.Process(message);
+            }
+        }
+
         /// <summary>
         /// Registers the specified <see cref="Component.IEntity"/> and ensures messages destined for the entity
         /// are routed to the specified consumer
         /// </summary>
         /// <param name="registrar">The host registering the entity</param>
         /// <param name="entity">The entity to register</param>
-        public void Register(With.Component.IIdentity registrar, With.Component.IEntity entity)
+        public void Register(Common.Entity entity)
         {
-            // TODO: Implement
+            Registration.IInstance registration = _registrationFactory.For(Context.ConnectionId, entity, Process);
+            _registrations.Add(registration);
+
+            _messagingEndpoint.Register(registration.Registrar, registration.Entity, registration.Consumer);
         }
 
         /// <summary>
@@ -23,27 +51,18 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
         /// </summary>
         /// <param name="registrar">The host deregistering the entity</param>
         /// <param name="entity"></param>
-        public void Deregister(With.Component.IIdentity registrar, With.Component.IEntity entity)
+        public void Deregister(Common.Identity entity)
         {
-            // TODO: Implement
-        }
+            string registrationKey = Registration.Key.For(Context.ConnectionId, entity);
 
-        /// <summary>
-        /// Publishes a message for the specified observation
-        /// </summary>
-        /// <param name="observation"></param>
-        public void Publish(With.Component.IIdentity entity, With.Component.IIdentity observable, DateTimeOffset date, With.Component.IMeasurement measurement)
-        {
-            // TODO: Implement
-        }
+            Registration.IInstance registration;
 
-        /// <summary>
-        /// Publishes a message to perform the specified action
-        /// </summary>
-        /// <param name="action"></param>
-        public void Perform(With.Component.IIdentity actor, With.Component.IIdentity entity, With.Component.IIdentity actionable, IEnumerable<With.Component.IParameterValue> parameterValues)
-        {
-            // TODO: Implement
+            if (_registrations.TryGetValue(registrationKey, out registration))
+            {
+                _messagingEndpoint.Deregister(registration.Registrar, registration.Entity);
+
+                _registrations.Remove(registration);
+            }
         }
     }
 }

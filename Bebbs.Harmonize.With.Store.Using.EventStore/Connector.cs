@@ -38,9 +38,9 @@ namespace Bebbs.Harmonize.With.Store.Using.EventStore
             }
         }
 
-        public void Initialize()
+        public async Task Initialize()
         {
-            _endpoint.Initialize();
+            await _endpoint.Initialize();
 
             _subscription = new CompositeDisposable(
                 _messages.OfType<With.Message.IRegister>().Do(Instrumentation.Store.Storing).Select(_eventProvider.ToEvent).Subscribe(Append),
@@ -85,7 +85,7 @@ namespace Bebbs.Harmonize.With.Store.Using.EventStore
             return Task.FromResult<object>(null);
         }
 
-        public void Cleanup()
+        public async Task Cleanup()
         {
             if (_subscription != null)
             {
@@ -93,7 +93,7 @@ namespace Bebbs.Harmonize.With.Store.Using.EventStore
                 _subscription = null;
             }
 
-            _endpoint.Cleanup();
+            await _endpoint.Cleanup();
         }
     }
 }

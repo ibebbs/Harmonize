@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bebbs.Harmonize.With.Messaging.Common
+namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Common
 {
-    public interface IEndpoint
+    public class Message
     {
-        Task Initialize();
-
-        Task Cleanup();
     }
 }

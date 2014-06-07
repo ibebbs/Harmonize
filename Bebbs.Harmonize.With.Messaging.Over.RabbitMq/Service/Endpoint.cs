@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Service
 {
@@ -19,18 +20,22 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Service
             _queueName = queueName;
         }
 
-        public void Initialize()
+        public Task Initialize()
         {
             _connectionInstance = _connectionFactory.Create(_configurationSettings);
+
+            return TaskEx.Done;
         }
 
-        public void Cleanup()
+        public Task Cleanup()
         {
             if (_connectionInstance != null)
             {
                 _connectionInstance.Dispose();
                 _connectionInstance = null;
             }
+
+            return TaskEx.Done;
         }
 
         public void Start(IObserver<Message.IMessage> consumer)

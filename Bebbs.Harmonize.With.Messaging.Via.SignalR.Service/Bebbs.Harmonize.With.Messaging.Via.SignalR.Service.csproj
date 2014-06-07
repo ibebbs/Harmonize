@@ -44,6 +44,9 @@
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.0.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Ninject">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Ninject.1.0.0\lib\net40\Microsoft.AspNet.SignalR.Ninject.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin">
       <HintPath>..\packages\Microsoft.Owin.3.0.0-beta1\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
@@ -81,6 +84,21 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=2.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rx-Core.2.2.4\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rx-Interfaces.2.2.4\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.4.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rx-Linq.2.2.4\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.4\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Cors, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Cors.5.1.2\lib\net45\System.Web.Cors.dll</HintPath>
@@ -97,20 +115,30 @@
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="HarmonizeHub.cs" />
+    <Compile Include="Mapper.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
+    <Compile Include="Registration\Collection.cs" />
+    <Compile Include="Registration\Factory.cs" />
+    <Compile Include="Registration\Instance.cs" />
+    <Compile Include="Registration\Key.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Bebbs.Harmonize.With.Messaging.Via.SignalR.Service.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bebbs.Harmonize.Host\Bebbs.Harmonize.Host.csproj">
       <Project>{21984f93-19aa-4d2b-bbdb-95e0092019a1}</Project>
       <Name>Bebbs.Harmonize.Host</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bebbs.Harmonize.With.Messaging.Via.SignalR.Common\Bebbs.Harmonize.With.Messaging.Via.SignalR.Common.csproj">
+      <Project>{42f08ac0-f559-43ab-848b-c4e35ecbf9be}</Project>
+      <Name>Bebbs.Harmonize.With.Messaging.Via.SignalR.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bebbs.Harmonize.With\Bebbs.Harmonize.With.csproj">
       <Project>{91848444-1506-4f50-bf6c-d0528cd6c74e}</Project>
@@ -130,6 +158,11 @@
     <Error Condition="!Exists('..\packages\OctoPack.3.0.27\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="You are trying to build with OctoPack, but the NuGet targets file that OctoPack depends on is not available on this computer. This is probably because the OctoPack package has not been committed to source control, or NuGet Package Restore is not enabled. Please enable NuGet Package Restore to download them. For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\OctoPack.3.0.27\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="OctoPack cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>xcopy $(TargetDir)*.* $(SolutionDir)bin\Services\$(ProjectName)\ /E /I /R /Y
+xcopy $(SolutionDir)Bebbs.Harmonize.With.Message.As.Hml\$(OutDir)*.* $(SolutionDir)bin\Services\$(ProjectName)\ /E /I /R /Y
+xcopy $(SolutionDir)Bebbs.Harmonize.With.Messaging.Over.RabbitMq\$(OutDir)*.* $(SolutionDir)bin\Services\$(ProjectName)\ /E /I /R /Y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

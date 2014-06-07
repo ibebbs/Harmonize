@@ -20,9 +20,9 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
             _connector = new Connector(_clientEndpoint, _configurationProvider.GetSettings(), _gatewayFactory);
         }
 
-        public void Initialize()
+        public async Task Initialize()
         {
-            _clientEndpoint.Initialize();
+            await _clientEndpoint.Initialize();
 
             _connector.Initialize();
         }
@@ -37,11 +37,11 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
             return _connector.Stop();
         }
 
-        public void Cleanup()
+        public async Task Cleanup()
         {
             _connector.Cleanup();
 
-            _clientEndpoint.Cleanup();
+            await _clientEndpoint.Cleanup();
         }
     }
 }

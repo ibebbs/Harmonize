@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bebbs.Harmonize.With;
+using System;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -27,9 +28,9 @@ namespace Bebbs.Harmonize
             _messageObservable = _messages.Publish();
         }
 
-        public void Initialize()
+        public async Task Initialize()
         {
-            _serviceEndpoint.Initialize();
+            await _serviceEndpoint.Initialize();
 
             _consumerSubscription = new CompositeDisposable(
                 _messageObservable.OfType<With.Message.IRegister>().Subscribe(message => _serviceEndpoint.Register(message.Entity.Identity)),
@@ -46,7 +47,7 @@ namespace Bebbs.Harmonize
             _messageSubscription = _messageObservable.Connect();
             _serviceEndpoint.Start(_messages);
 
-            return Task.FromResult<object>(null);
+            return TaskEx.Done;
         }
 
         public Task Stop()
@@ -59,10 +60,10 @@ namespace Bebbs.Harmonize
 
             _serviceEndpoint.Stop();
 
-            return Task.FromResult<object>(null);
+            return TaskEx.Done;
         }
 
-        public void Cleanup()
+        public async Task Cleanup()
         {
             if (_consumerSubscription != null)
             {
@@ -70,7 +71,7 @@ namespace Bebbs.Harmonize
                 _consumerSubscription = null;
             }
 
-            _serviceEndpoint.Cleanup();
+            await _serviceEndpoint.Cleanup();
         }
     }
 }

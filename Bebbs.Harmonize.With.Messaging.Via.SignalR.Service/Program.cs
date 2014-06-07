@@ -25,9 +25,9 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
                     configure.RunAsLocalSystem();
                     configure.StartAutomaticallyDelayed();
 
-                    configure.SetDescription("Owl Intuition integration with Harmonize");
-                    configure.SetDisplayName("HarmonizeWithOwlIntuition");
-                    configure.SetServiceName("HarmonizeWithOwlIntuition");
+                    configure.SetDescription("Harmonize Messaging Bridge between RabbitMq and SignalR");
+                    configure.SetDisplayName("HarmonizeWithMessagingViaSignalR");
+                    configure.SetServiceName("HarmonizeWithMessagingViaSignalR");
                 }
             );
         }

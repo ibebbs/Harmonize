@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Client
 {
@@ -24,18 +25,22 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Client
             _queueName = queueName;
         }
 
-        public void Initialize()
+        public Task Initialize()
         {
             _connectionInstance = _connectionFactory.Create(_configurationSettings);
+
+            return TaskEx.Done;
         }
 
-        public void Cleanup()
+        public Task Cleanup()
         {
             if (_connectionInstance != null)
             {
                 _connectionInstance.Dispose();
                 _connectionInstance = null;
             }
+
+            return TaskEx.Done;
         }
 
         public void Register(With.Component.IIdentity registrar, With.Component.IEntity entity, IObserver<With.Message.IMessage> consumer)

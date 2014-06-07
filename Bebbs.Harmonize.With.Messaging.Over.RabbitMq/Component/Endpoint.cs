@@ -25,18 +25,22 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Component
             _queueName = queueName;
         }
 
-        public void Initialize()
+        public Task Initialize()
         {
             _connectionInstance = _connectionFactory.Create(_configurationSettings);
+
+            return TaskEx.Done;
         }
 
-        public void Cleanup()
+        public Task Cleanup()
         {
             if (_connectionInstance != null)
             {
                 _connectionInstance.Dispose();
                 _connectionInstance = null;
             }
+
+            return TaskEx.Done;
         }
 
         public void Add(With.Component.IIdentity registrar, With.Component.IComponent component, IObserver<Message.IMessage> consumer)

@@ -4,9 +4,9 @@ namespace Bebbs.Harmonize.Host
 {
     public interface IService
     {
-        void Initialize();
+        Task Initialize();
         Task Start();
         Task Stop();
-        void Cleanup();
+        Task Cleanup();
     }
 }
