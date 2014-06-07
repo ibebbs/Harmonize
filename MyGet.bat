@@ -16,4 +16,4 @@ REM Build
 %WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild Bebbs.Harmonize.sln /p:RunOctoPack=true /p:OctoPackPublishPackageToFileShare=..\Services /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
 
 REM Package
-.nuget\nuget.exe pack Bebbs.Harmonize.With.Messaging.Via.SignalR.Client\Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.csproj -OutputDirectory .\Services
+.nuget\nuget.exe pack Bebbs.Harmonize.With.Messaging.Via.SignalR.Client\Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.csproj -OutputDirectory .\Services -Version %PackageVersion%
