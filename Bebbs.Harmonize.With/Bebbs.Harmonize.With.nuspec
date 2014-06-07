@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Bebbs.Harmonize.With</id>
+    <title>Harmonize With extensibility package for Harmonize</title>
+    <version>$version$</version>
+    <authors>Ian Bebbington</authors>
+    <owners>Ian Bebbington</owners>
+    <licenseUrl>https://github.com/ibebbs/Harmonize/blob/master/License.txt</licenseUrl>
+    <projectUrl>https://github.com/ibebbs/Harmonize</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A Harmonize package providing prototypes used for extensibility</description>
+    <copyright>Copyright 2014</copyright>
+    <releaseNotes>First Package</releaseNotes>
+  </metadata>
+</package>
