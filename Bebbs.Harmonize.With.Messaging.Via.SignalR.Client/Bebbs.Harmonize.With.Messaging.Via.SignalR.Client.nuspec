@@ -13,4 +13,8 @@
     <copyright>Copyright 2014</copyright>
     <releaseNotes>First Package</releaseNotes>
   </metadata>
+  <references>
+    <reference file="Bebbs.Harmonize.With.dll" />
+    <reference file="Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.dll" />
+  </references>
 </package>
