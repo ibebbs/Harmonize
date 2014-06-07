@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
 {
-    internal class Endpoint : With.Messaging.Client.IEndpoint
+    public class Endpoint : With.Messaging.Client.IEndpoint
     {
         private readonly Configuration.ISettings _settings;
         private readonly Registration.IFactory _registrationFactory;
