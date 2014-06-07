@@ -12,9 +12,9 @@
     <description>A Harmonize endpoint for bridging RabbitMq to SignalR to support platforms not natively supported by RabbitMq</description>
     <copyright>Copyright 2014</copyright>
     <releaseNotes>First Package</releaseNotes>
+    <references>
+      <reference file="Bebbs.Harmonize.With.dll" />
+      <reference file="Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.dll" />
+    </references>
   </metadata>
-  <references>
-    <reference file="Bebbs.Harmonize.With.dll" />
-    <reference file="Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.dll" />
-  </references>
 </package>
