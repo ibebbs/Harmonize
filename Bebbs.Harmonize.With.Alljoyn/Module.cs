@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Alljoyn
 {
-    public class Module : HarmonizedModule
+    public class Module : NinjectModule
     {
         public override void Load()
         {

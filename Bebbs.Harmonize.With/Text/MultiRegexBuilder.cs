@@ -39,7 +39,7 @@ namespace Bebbs.Harmonize.With.Text
                 pattern = string.Format("^{0}$", pattern);
             }
 
-            return new Regex(pattern, RegexOptions.Compiled);
+            return new Regex(pattern, RegexOptions.None);
         }
     }
 }

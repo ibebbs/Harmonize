@@ -1,9 +1,10 @@
 ﻿using Bebbs.Harmonize.With.Harmony.Services;
 using Ninject;
+using Ninject.Modules;
 
 namespace Bebbs.Harmonize.With.Harmony
 {
-    public class Module : HarmonizedModule
+    public class Module : NinjectModule
     {
         public override void Load()
         {

@@ -40,7 +40,7 @@
     </Reference>
     <Reference Include="EventSourceProxy, Version=3.0.0.0, Culture=neutral, PublicKeyToken=77171fed4dfe3d96, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EventSourceProxy.3.0.2\lib\EventSourceProxy.dll</HintPath>
+      <HintPath>..\packages\EventSourceProxy.3.0.3\lib\EventSourceProxy.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -101,6 +101,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

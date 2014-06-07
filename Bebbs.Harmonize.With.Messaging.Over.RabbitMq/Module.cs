@@ -1,8 +1,9 @@
 ﻿using Ninject;
+using Ninject.Modules;
 
 namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq
 {
-    public class Module : HarmonizedModule
+    public class Module : NinjectModule
     {
         public override void Load()
         {

@@ -79,7 +79,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition
                         .Trace(name => name.ToString()).As("Name")
                     .With<Exception>()
                         .Trace(ex => ex.Message).As("Exception")
-                        .Trace(ex => ex.StackTrace).As("CallStack");
+                        .Trace(ex => ex.StackTrace == null ? string.Empty : ex.StackTrace.ToString()).As("CallStack");
         }
 
         public static class Command

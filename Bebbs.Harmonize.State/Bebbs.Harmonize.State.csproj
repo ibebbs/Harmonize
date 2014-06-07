@@ -42,7 +42,7 @@
     </Reference>
     <Reference Include="EventSourceProxy, Version=3.0.0.0, Culture=neutral, PublicKeyToken=77171fed4dfe3d96, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EventSourceProxy.3.0.2\lib\EventSourceProxy.dll</HintPath>
+      <HintPath>..\packages\EventSourceProxy.3.0.3\lib\EventSourceProxy.dll</HintPath>
     </Reference>
     <Reference Include="EventStore.ClientAPI">
       <HintPath>..\packages\EventStore.Client.2.0.2\lib\net40\EventStore.ClientAPI.dll</HintPath>
@@ -58,9 +58,9 @@
     <Reference Include="Reactive.EventAggregator">
       <HintPath>..\packages\Reactive.EventAggregator.1.1.0\lib\Net45\Reactive.EventAggregator.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=4.0.19.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=4.0.21.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\ServiceStack.Text.4.0.19\lib\net40\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\packages\ServiceStack.Text.4.0.21\lib\net40\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -113,6 +113,7 @@
     <Compile Include="Store.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
