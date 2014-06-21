@@ -6,7 +6,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Registration
     {
         string Key { get; }
 
-        Common.Identity Registrar { get; }
+        Common.Identity Client { get; }
 
         Common.Entity Entity { get; }
 
@@ -15,18 +15,18 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Registration
 
     internal class Instance : IInstance
     {
-        public Instance(Common.Identity registrar, Common.Entity entity, IObserver<Message.IMessage> consumer)
+        public Instance(Common.Identity client, Common.Entity entity, IObserver<Message.IMessage> consumer)
         {
-            Registrar = registrar;
+            Client = client;
             Entity = entity;
             Consumer = consumer;
 
-            Key = Registration.Key.For(registrar, entity.Identity);
+            Key = Registration.Key.For(client, entity.Identity);
         }
 
         public string Key { get; private set; }
 
-        public Common.Identity Registrar { get; private set; }
+        public Common.Identity Client { get; private set; }
 
         public Common.Entity Entity { get; private set; }
 

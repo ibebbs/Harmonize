@@ -14,11 +14,13 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
         public IEndpoint Create(string connectionString, string hubName)
         {
             return new Endpoint(
-                new Configuration.Settings
-                {
-                    HarmonizeSignalRUrl = connectionString,
-                    HarmonizeHubName = hubName
-                },
+                new Hub.Factory(
+                    new Configuration.Settings
+                    {
+                        HarmonizeSignalRUrl = connectionString,
+                        HarmonizeHubName = hubName
+                    }
+                ),
                 new Registration.Factory(),
                 new Mapper()
             );

@@ -38,6 +38,17 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
         }
 
         /// <summary>
+        /// Observes the observable with the specified <see cref="Component.Identity"/> of the entity with the
+        /// specified <see cref="Component.Identity"/>
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <param name="observable"></param>
+        public void Observe(Common.Identity entity, Common.Identity observable)
+        {
+            _connector.Observe(Context.ConnectionId, entity, observable);
+        }
+
+        /// <summary>
         /// Deregisters the specified <see cref="Component.IEntity"/> and ensures that messages are no longer
         /// received for the entity
         /// </summary>

@@ -5,11 +5,11 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
     public interface IMapper
     {
         With.Component.IIdentity Map(string connectionId);
+        With.Component.IIdentity Map(Common.Identity entity);
+        With.Component.IEntity Map(Common.Entity entity);
+
         With.Message.IMessage Map(Common.Message message);
         Common.Message Map(With.Message.IMessage message);
-
-
-        With.Component.IEntity Map(Common.Entity entity);
     }
 
     internal class Mapper : IMapper
@@ -22,6 +22,11 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
         public With.Component.IEntity Map(Common.Entity entity)
         {
             return new With.Component.Entity(new With.Component.Identity(entity.Identity.Value), null, null, null);
+        }
+
+        public With.Component.IIdentity Map(Common.Identity entity)
+        {
+            return new With.Component.Identity(entity.Value);
         }
 
         public Message.IMessage Map(Common.Message message)

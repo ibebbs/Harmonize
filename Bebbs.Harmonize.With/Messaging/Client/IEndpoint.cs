@@ -26,6 +26,15 @@ namespace Bebbs.Harmonize.With.Messaging.Client
         void Deregister(With.Component.IIdentity registrar, With.Component.IEntity entity);
 
         /// <summary>
+        /// Observes the observable with the specified <see cref="With.Component.IIdentity"/> of entity with the
+        /// specified <see cref="With.Component.IIdentity"/>
+        /// </summary>
+        /// <param name="observer"></param>
+        /// <param name="entity"></param>
+        /// <param name="observable"></param>
+        void Observe(With.Component.IIdentity observer, With.Component.IIdentity entity, With.Component.IIdentity observable);
+
+        /// <summary>
         /// Publishes a message for the specified observation
         /// </summary>
         /// <param name="observation"></param>

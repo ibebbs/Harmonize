@@ -14,6 +14,8 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
 
         void Register(string connectionId, Common.Entity entity, Action<string, Common.Message> process);
 
+        void Observe(string connectionId, Common.Identity entity, Common.Identity observable);
+
         void Deregister(string connectionId, Common.Identity entity);
     }
 
@@ -21,13 +23,15 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
     {
         private readonly Registration.IFactory _registrationFactory;
         private readonly Client.IEndpoint _messagingEndpoint;
+        private readonly IMapper _mapper;
 
         private readonly Registration.Collection _registrations;
 
-        public HarmonizeConnector(Registration.IFactory registrationFactory, With.Messaging.Client.IEndpoint messagingEndpoint)
+        public HarmonizeConnector(Registration.IFactory registrationFactory, With.Messaging.Client.IEndpoint messagingEndpoint, IMapper mapper)
         {
             _registrationFactory = registrationFactory;
             _messagingEndpoint = messagingEndpoint;
+            _mapper = mapper;
 
             _registrations = new Registration.Collection();
         }
@@ -49,6 +53,18 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
             _registrations.Add(registration);
 
             _messagingEndpoint.Register(registration.Registrar, registration.Entity, registration.Consumer);
+        }
+
+        public void Observe(string connectionId, Common.Identity entity, Common.Identity observable)
+        {
+            string registrationKey = Registration.Key.For(connectionId, entity);
+
+            Registration.IInstance registration;
+
+            if (_registrations.TryGetValue(registrationKey, out registration))
+            {
+                _messagingEndpoint.Observe(registration.Registrar, _mapper.Map(entity), _mapper.Map(observable));
+            }
         }
 
         public void Deregister(string connectionId, Common.Identity entity)

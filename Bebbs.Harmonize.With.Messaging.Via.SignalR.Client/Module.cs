@@ -12,7 +12,8 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
 
             Bind<IMapper>().To<Mapper>().InSingletonScope();
 
-            Bind<With.Messaging.Client.IEndpoint>().To<Endpoint>().InSingletonScope();
+            Bind<Hub.IFactory>().To<Hub.Factory>().InSingletonScope();
+            Bind<IEndpoint>().To<Endpoint>();
         }
     }
 }

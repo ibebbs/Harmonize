@@ -54,6 +54,11 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Client
             _connectionInstance.RemoveQueue(_queueName.For(entity.Identity));
         }
 
+        public void Observe(With.Component.IIdentity observer, With.Component.IIdentity entity, With.Component.IIdentity observable)
+        {
+            _connectionInstance.Publish(_configurationSettings.ExchangeName, _routingKey.ForObservationOf(entity, observable), new Message.Observe(entity, observable, observer));
+        }
+
         public void Publish(With.Component.IIdentity entity, With.Component.IIdentity observable, DateTimeOffset date, With.Component.IMeasurement measurement)
         {
             _connectionInstance.Publish(_configurationSettings.ExchangeName, _routingKey.ForObservationBy(entity, observable), new Message.Observation(entity, observable, date, measurement));
