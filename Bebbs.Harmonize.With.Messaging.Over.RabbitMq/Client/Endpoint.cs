@@ -56,12 +56,12 @@ namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Client
 
         public void Observe(With.Component.IIdentity observer, With.Component.IIdentity entity, With.Component.IIdentity observable)
         {
-            _connectionInstance.Publish(_configurationSettings.ExchangeName, _routingKey.ForObservationOf(entity, observable), new Message.Observe(entity, observable, observer));
+            _connectionInstance.Publish(_configurationSettings.ExchangeName, _routingKey.ForObserving(entity, observable), new Message.Observe(entity, observable, observer));
         }
 
         public void Publish(With.Component.IIdentity entity, With.Component.IIdentity observable, DateTimeOffset date, With.Component.IMeasurement measurement)
         {
-            _connectionInstance.Publish(_configurationSettings.ExchangeName, _routingKey.ForObservationBy(entity, observable), new Message.Observation(entity, observable, date, measurement));
+            _connectionInstance.Publish(_configurationSettings.ExchangeName, _routingKey.ForObservation(entity, observable), new Message.Observation(entity, observable, date, measurement));
         }
 
         public void Perform(With.Component.IIdentity actor, With.Component.IIdentity entity, With.Component.IIdentity actionable, IEnumerable<With.Component.IParameterValue> parameterValues)

@@ -63,7 +63,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
 
             if (_registrations.TryGetValue(registrationKey, out registration))
             {
-                _messagingEndpoint.Observe(registration.Registrar, _mapper.Map(source), _mapper.Map(observable));
+                _messagingEndpoint.Observe(_mapper.Map(entity), _mapper.Map(source), _mapper.Map(observable));
             }
         }
 

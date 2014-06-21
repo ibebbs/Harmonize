@@ -110,9 +110,9 @@
     <Error Condition="Exists('..\packages\OctoPack.3.0.27\tools\OctoPack.targets') And ('$(RunOctoPack)' != '' And $(RunOctoPack))" Text="OctoPack cannot be run because NuGet packages were restored prior to the build running, and the targets file was unavailable when the build started. Please build the project again to include these packages in the build. You may also need to make sure that your build server does not delete packages prior to each build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>xcopy $(TargetDir)*.* $(SolutionDir)\bin\Services\Bebbs.Harmonize\ /E /I /R /Y
-xcopy $(SolutionDir)\Bebbs.Harmonize.With.Message.As.Hml\$(OutDir)*.* $(SolutionDir)\bin\Services\Bebbs.Harmonize\ /E /I /R /Y
-xcopy $(SolutionDir)\Bebbs.Harmonize.With.Messaging.Over.RabbitMq\$(OutDir)*.* $(SolutionDir)\bin\Services\Bebbs.Harmonize\ /E /I /R /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy $(TargetDir)*.* $(SolutionDir)bin\Services\$(ProjectName)\ /E /I /R /Y
+xcopy $(SolutionDir)Bebbs.Harmonize.With.Message.As.Hml\$(OutDir)*.* $(SolutionDir)\bin\Services\Bebbs.Harmonize\ /E /I /R /Y
+xcopy $(SolutionDir)Bebbs.Harmonize.With.Messaging.Over.RabbitMq\$(OutDir)*.* $(SolutionDir)\bin\Services\Bebbs.Harmonize\ /E /I /R /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
