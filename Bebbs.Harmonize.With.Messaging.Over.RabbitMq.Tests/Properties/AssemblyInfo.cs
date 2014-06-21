@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Bebbs.Harmonize.With.Messaging.Over.RabbitMq")]
+[assembly: AssemblyTitle("Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Bebbs.Harmonize.With.Messaging.Over.RabbitMq")]
+[assembly: AssemblyProduct("Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f28ac684-f015-4ce6-a792-4b48e0f8c597")]
+[assembly: Guid("6a3567bd-d8a8-4002-a4b7-9a1bfb2b499a")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -34,5 +34,3 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-
-[assembly: InternalsVisibleTo("Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Tests")]

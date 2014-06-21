@@ -64,6 +64,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Messag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Tests", "Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Tests\Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Tests.csproj", "{F8C6672D-630F-4536-804C-79E3DBAA08A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Tests", "Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Tests\Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Tests.csproj", "{B459F997-978F-4EF1-8776-C33F9DC34078}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -142,6 +144,10 @@ Global
 		{F8C6672D-630F-4536-804C-79E3DBAA08A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8C6672D-630F-4536-804C-79E3DBAA08A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8C6672D-630F-4536-804C-79E3DBAA08A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B459F997-978F-4EF1-8776-C33F9DC34078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B459F997-978F-4EF1-8776-C33F9DC34078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B459F997-978F-4EF1-8776-C33F9DC34078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B459F997-978F-4EF1-8776-C33F9DC34078}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

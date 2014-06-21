@@ -74,7 +74,11 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Hub
                 {
                     bool disposed = false;
 
-                    Action<T1, T2, T3> handler = (t1, t2, t3) => { if (!disposed) observer.OnNext(Tuple.Create(t1, t2, t3)); };
+                    Action<T1, T2, T3> handler = (t1, t2, t3) => 
+                    {
+                        if (!disposed) 
+                            observer.OnNext(Tuple.Create(t1, t2, t3)); 
+                    };
 
                     _hubProxy.On<T1, T2, T3>(name, handler);
 
