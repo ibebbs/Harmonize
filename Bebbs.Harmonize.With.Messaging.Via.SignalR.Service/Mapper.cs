@@ -36,7 +36,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
 
         public Common.Message Map(Message.IMessage message)
         {
-            throw new NotImplementedException();
+            return new Common.Message();
         }
     }
 }

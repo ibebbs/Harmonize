@@ -6,7 +6,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.Entity.Observable
 {
     public class CurrentElectricityConsumption : IGatewayObservable
     {
-        private const string ObservableIdentityPattern = "{0}-{1}";
+        private const string ObservableIdentity = "CurrentElectricityConsumption";
 
         private static readonly IValueDescription ValueDescription = new ValueDescription(
             "Current Electricity Consumption",
@@ -30,7 +30,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.Entity.Observable
             _clock = clock;
             _entity = entity;
 
-            _identity = new Identity(string.Format(ObservableIdentityPattern, _entity.Identity.ToString(), "CurrentElectricityConsumption"));
+            _identity = new Identity(ObservableIdentity);
         }
 
         private void Process(Packet.Electricity reading)

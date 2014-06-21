@@ -12,7 +12,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
 
         Task Cleanup();
 
-        void Register(string connectionId, Common.Entity entity, Action<string, Common.Message> process);
+        void Register(string connectionId, Common.Entity entity, Action<string, Common.Identity, Common.Message> process);
 
         void Observe(string connectionId, Common.Identity entity, Common.Identity source, Common.Identity observable);
 
@@ -46,7 +46,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
             return _messagingEndpoint.Cleanup();
         }
 
-        public void Register(string connectionId, Common.Entity entity, Action<string, Common.Message> process)
+        public void Register(string connectionId, Common.Entity entity, Action<string, Common.Identity, Common.Message> process)
         {
             Registration.IInstance registration = _registrationFactory.For(connectionId, entity, process);
 

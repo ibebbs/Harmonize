@@ -38,7 +38,7 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Gateway.State
             _endpoint = _commandEndpointFactory.CreateEndpoint();
             _endpoint.Open();
 
-            Observable.FromAsync(() => _endpoint.Send(new Command.Request.GetVersion())).Timeout(TimeSpan.FromMilliseconds(1)).Take(1)
+            Observable.FromAsync(() => _endpoint.Send(new Command.Request.GetVersion())).Timeout(TimeSpan.FromSeconds(30)).Take(1)
                       .Subscribe(Process, Fault);
         }
 

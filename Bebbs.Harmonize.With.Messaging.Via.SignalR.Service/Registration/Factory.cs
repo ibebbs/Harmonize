@@ -4,7 +4,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service.Registration
 {
     public interface IFactory
     {
-        IInstance For(string connectionId, Common.Entity entity, Action<string, Common.Message> processor);
+        IInstance For(string connectionId, Common.Entity entity, Action<string, Common.Identity, Common.Message> processor);
     }
 
     internal class Factory : IFactory
@@ -16,9 +16,9 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service.Registration
             _mapper = mapper;
         }
 
-        public IInstance For(string connectionId, Common.Entity entity, Action<string, Common.Message> processor)
+        public IInstance For(string connectionId, Common.Entity entity, Action<string, Common.Identity, Common.Message> processor)
         {
-            return new Instance(_mapper.Map(connectionId), _mapper.Map(entity), message => processor(connectionId, _mapper.Map(message)));
+            return new Instance(_mapper.Map(connectionId), _mapper.Map(entity), message => processor(connectionId, entity.Identity, _mapper.Map(message)));
         }
     }
 }

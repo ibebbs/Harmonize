@@ -16,13 +16,13 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
             _connector = connector;
         }
 
-        private void Process(string connectionId, Common.Message message)
+        private void Process(string connectionId, Common.Identity entity, Common.Message message)
         {
             dynamic client = Clients.Client(connectionId);
 
             if (client != null)
             {
-                client.Process(message);
+                client.Process(new Common.Identity { Value = connectionId }, entity, message);
             }
         }
 
