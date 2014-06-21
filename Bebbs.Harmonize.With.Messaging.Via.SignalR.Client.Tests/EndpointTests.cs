@@ -152,7 +152,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Tests
 
                     await subject.Observe(componentRegistrar, componentEntityIdentity, observableEntity, observable);
 
-                    A.CallTo(() => hub.Observe(A<Common.Identity>.Ignored, A<Common.Identity>.Ignored)).MustHaveHappened(Repeated.Exactly.Once);
+                    A.CallTo(() => hub.Observe(A<Common.Identity>.Ignored, A<Common.Identity>.Ignored, A<Common.Identity>.Ignored)).MustHaveHappened(Repeated.Exactly.Once);
                 }
             );
         }

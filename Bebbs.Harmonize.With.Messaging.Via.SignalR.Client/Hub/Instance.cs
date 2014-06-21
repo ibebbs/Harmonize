@@ -16,7 +16,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Hub
         Task Stop();
         Task Register(Common.Entity entity);
         Task Deregister(Common.Entity entity);
-        Task Observe(Common.Identity entity, Common.Identity observable);
+        Task Observe(Common.Identity entity, Common.Identity source, Common.Identity observable);
     }
 
     internal class Instance : IInstance
@@ -105,9 +105,9 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Hub
             return _hubProxy.Invoke("Deregister", new object[] { entity });
         }
 
-        public Task Observe(Common.Identity entity, Common.Identity observable)
+        public Task Observe(Common.Identity entity, Common.Identity source, Common.Identity observable)
         {
-            return _hubProxy.Invoke("Observe", new object[] { entity, observable });
+            return _hubProxy.Invoke("Observe", new object[] { entity, source, observable });
         }
     }
 }

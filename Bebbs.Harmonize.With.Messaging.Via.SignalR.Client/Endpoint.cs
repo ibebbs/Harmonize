@@ -92,15 +92,15 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
             }
         }
 
-        public async Task Observe(With.Component.IIdentity client, With.Component.IIdentity observer, With.Component.IIdentity entity, With.Component.IIdentity observable)
+        public async Task Observe(With.Component.IIdentity client, With.Component.IIdentity entity, With.Component.IIdentity source, With.Component.IIdentity observable)
         {
-            string registrationKey = Registration.Key.For(client, observer);
+            string registrationKey = Registration.Key.For(client, entity);
 
             Registration.IInstance registration;
 
             if (_registrations.TryGetValue(registrationKey, out registration))
             {
-                await _hub.Observe(_mapper.Map(entity), _mapper.Map(observable));
+                await _hub.Observe(_mapper.Map(entity), _mapper.Map(source), _mapper.Map(observable));
             }
         }
 
