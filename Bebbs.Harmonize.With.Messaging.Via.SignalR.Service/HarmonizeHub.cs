@@ -41,11 +41,12 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
         /// Observes the observable with the specified <see cref="Component.Identity"/> of the entity with the
         /// specified <see cref="Component.Identity"/>
         /// </summary>
-        /// <param name="entity"></param>
-        /// <param name="observable"></param>
-        public void Observe(Common.Identity entity, Common.Identity observable)
+        /// <param name="entity">The observer entity</param>
+        /// <param name="source">The observed entity</param>
+        /// <param name="observable">The observable</param>
+        public void Observe(Common.Identity entity, Common.Identity source, Common.Identity observable)
         {
-            _connector.Observe(Context.ConnectionId, entity, observable);
+            _connector.Observe(Context.ConnectionId, entity, source, observable);
         }
 
         /// <summary>

@@ -14,7 +14,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
 
         void Register(string connectionId, Common.Entity entity, Action<string, Common.Message> process);
 
-        void Observe(string connectionId, Common.Identity entity, Common.Identity observable);
+        void Observe(string connectionId, Common.Identity entity, Common.Identity source, Common.Identity observable);
 
         void Deregister(string connectionId, Common.Identity entity);
     }
@@ -55,7 +55,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
             _messagingEndpoint.Register(registration.Registrar, registration.Entity, registration.Consumer);
         }
 
-        public void Observe(string connectionId, Common.Identity entity, Common.Identity observable)
+        public void Observe(string connectionId, Common.Identity entity, Common.Identity source, Common.Identity observable)
         {
             string registrationKey = Registration.Key.For(connectionId, entity);
 
@@ -63,7 +63,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
 
             if (_registrations.TryGetValue(registrationKey, out registration))
             {
-                _messagingEndpoint.Observe(registration.Registrar, _mapper.Map(entity), _mapper.Map(observable));
+                _messagingEndpoint.Observe(registration.Registrar, _mapper.Map(source), _mapper.Map(observable));
             }
         }
 
