@@ -78,7 +78,8 @@ namespace Bebbs.Harmonize.Host
             CreateKernel();
 
             _service = _kernel.Get<TService>();
-            _service.Initialize();
+
+            await _service.Initialize();
 
             await _service.Start();
         }
@@ -91,7 +92,8 @@ namespace Bebbs.Harmonize.Host
             {
                 await _service.Stop();
 
-                _service.Cleanup();
+                await _service.Cleanup();
+
                 _service = default(TService);
             }
 

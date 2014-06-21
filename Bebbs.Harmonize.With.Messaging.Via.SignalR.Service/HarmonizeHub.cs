@@ -2,23 +2,18 @@
 using Microsoft.AspNet.SignalR.Hubs;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
 {
     [HubName("HarmonizeHub")]
     public class HarmonizeHub : Hub
     {
-        private readonly Registration.IFactory _registrationFactory;
-        private readonly Client.IEndpoint _messagingEndpoint;
+        private readonly IHarmonizeConnector _connector;
 
-        private readonly Registration.Collection _registrations;
-
-        public HarmonizeHub(Registration.IFactory registrationFactory, With.Messaging.Client.IEndpoint messagingEndpoint)
+        public HarmonizeHub(IHarmonizeConnector connector)
         {
-            _registrationFactory = registrationFactory;
-            _messagingEndpoint = messagingEndpoint;
-
-            _registrations = new Registration.Collection();
+            _connector = connector;
         }
 
         private void Process(string connectionId, Common.Message message)
@@ -39,10 +34,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
         /// <param name="entity">The entity to register</param>
         public void Register(Common.Entity entity)
         {
-            Registration.IInstance registration = _registrationFactory.For(Context.ConnectionId, entity, Process);
-            _registrations.Add(registration);
-
-            _messagingEndpoint.Register(registration.Registrar, registration.Entity, registration.Consumer);
+            _connector.Register(Context.ConnectionId, entity, Process);
         }
 
         /// <summary>
@@ -53,16 +45,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
         /// <param name="entity"></param>
         public void Deregister(Common.Identity entity)
         {
-            string registrationKey = Registration.Key.For(Context.ConnectionId, entity);
-
-            Registration.IInstance registration;
-
-            if (_registrations.TryGetValue(registrationKey, out registration))
-            {
-                _messagingEndpoint.Deregister(registration.Registrar, registration.Entity);
-
-                _registrations.Remove(registration);
-            }
+            _connector.Deregister(Context.ConnectionId, entity);
         }
     }
 }

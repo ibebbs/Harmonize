@@ -66,7 +66,6 @@
     <Compile Include="Message\Action.cs" />
     <Compile Include="Message\Add.cs" />
     <Compile Include="Message\Deregister.cs" />
-    <Compile Include="Message\Factory.cs" />
     <Compile Include="Message\Ignore.cs" />
     <Compile Include="Message\IMessage.cs" />
     <Compile Include="Message\ISerializer.cs" />

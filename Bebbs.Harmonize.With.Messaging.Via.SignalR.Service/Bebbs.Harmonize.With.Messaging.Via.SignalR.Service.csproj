@@ -114,7 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="HarmonizeConnector.cs" />
     <Compile Include="HarmonizeHub.cs" />
+    <Compile Include="HubActivator.cs" />
     <Compile Include="Mapper.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Program.cs" />

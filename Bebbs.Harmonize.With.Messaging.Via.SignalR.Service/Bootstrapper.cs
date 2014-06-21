@@ -14,6 +14,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
         private readonly IKernel _kernel;
 
         private NinjectDependencyResolver _dependencyResolver;
+        private IHarmonizeConnector _connector;
         private IDisposable _webApp;
 
         public Bootstrapper(IKernel kernel)
@@ -35,9 +36,13 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
         public Task Initialize()
         {
             _kernel.Load(new Module());
+
             _dependencyResolver = new NinjectDependencyResolver(_kernel);
 
-            return TaskEx.Done;
+            GlobalHost.DependencyResolver = _dependencyResolver;
+
+            _connector = _kernel.Get<IHarmonizeConnector>();
+            return _connector.Initialize();
         }
 
         public Task Start()
@@ -66,8 +71,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
 
         public Task Cleanup()
         {
-            // Do nothing
-            return TaskEx.Done;
+            return _connector.Cleanup();
         }
     }
 }
