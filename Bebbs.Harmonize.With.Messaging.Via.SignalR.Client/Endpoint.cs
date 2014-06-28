@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNet.SignalR.Client;
+﻿using Cogenity.IO;
+using Microsoft.AspNet.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +24,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
 
     public class Endpoint : IEndpoint
     {
+        private readonly ObservableStreamWriter _debug;
         private readonly Hub.IFactory _hubFactory;
         private readonly Registration.IFactory _registrationFactory;
         private readonly IMapper _mapper;
@@ -32,6 +35,8 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
 
         public Endpoint(Hub.IFactory hubFactory, Registration.IFactory registrationFactory, IMapper mapper)
         {
+            _debug = new ObservableStreamWriter();
+
             _hubFactory = hubFactory;
             _registrationFactory = registrationFactory;
 
@@ -54,7 +59,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
 
         public async Task Initialize()
         {
-            _hub = _hubFactory.Create();
+            _hub = _hubFactory.Create(_debug);
 
             _hub.GetEvent<Common.Identity, Common.Identity, Common.Message>("Process").Subscribe(tuple => Process(tuple.Item1, tuple.Item2, tuple.Item3));
             
@@ -112,6 +117,11 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
         public Task Perform(With.Component.IIdentity actor, With.Component.IIdentity entity, With.Component.IIdentity actionable, IEnumerable<With.Component.IParameterValue> parameterValues)
         {
             throw new NotImplementedException();
+        }
+
+        public IObservable<string> Debug
+        {
+            get { return _debug.Output; }
         }
     }
 }
