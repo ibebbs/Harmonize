@@ -51,6 +51,9 @@
     <Compile Include="Registration\Key.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Cogenity.IO">
+      <HintPath>..\packages\Cogenity.IO.1.0.0.1\lib\portable-net45+win+wp80\Cogenity.IO.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Client">
       <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.0.3\lib\portable-net45+sl5+netcore45+wp8\Microsoft.AspNet.SignalR.Client.dll</HintPath>
     </Reference>
