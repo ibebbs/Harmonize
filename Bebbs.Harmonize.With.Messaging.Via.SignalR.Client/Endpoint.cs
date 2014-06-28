@@ -20,6 +20,8 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
         Task Observe(With.Component.IIdentity client, With.Component.IIdentity observer, With.Component.IIdentity entity, With.Component.IIdentity observable);
         Task Perform(With.Component.IIdentity actor, With.Component.IIdentity entity, With.Component.IIdentity actionable, System.Collections.Generic.IEnumerable<With.Component.IParameterValue> parameterValues);
         Task Publish(With.Component.IIdentity entity, With.Component.IIdentity observable, DateTimeOffset date, With.Component.IMeasurement measurement);
+
+        IObservable<string> Debug { get; }
     }
 
     public class Endpoint : IEndpoint
