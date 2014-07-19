@@ -14,9 +14,9 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Hub
 
         Task Start();
         Task Stop();
-        Task Register(Common.Entity entity);
-        Task Deregister(Common.Entity entity);
-        Task Observe(Common.Identity entity, Common.Identity source, Common.Identity observable);
+        Task Register(Common.Dto.Identity registrar, Common.Dto.Entity entity);
+        Task Deregister(Common.Dto.Identity registrar, Common.Dto.Entity entity);
+        Task Observe(Common.Dto.Identity registrar, Common.Dto.Identity entity, Common.Dto.Identity source, Common.Dto.Identity observable);
     }
 
     internal class Instance : IInstance
@@ -99,19 +99,19 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Hub
             return TaskEx.Done;
         }
 
-        public Task Register(Common.Entity entity)
+        public Task Register(Common.Dto.Identity registrar, Common.Dto.Entity entity)
         {
-            return _hubProxy.Invoke("Register", new object[] { entity });
+            return _hubProxy.Invoke("Register", new object[] { registrar, entity });
         }
 
-        public Task Deregister(Common.Entity entity)
+        public Task Deregister(Common.Dto.Identity registrar, Common.Dto.Entity entity)
         {
-            return _hubProxy.Invoke("Deregister", new object[] { entity });
+            return _hubProxy.Invoke("Deregister", new object[] { registrar, entity });
         }
 
-        public Task Observe(Common.Identity entity, Common.Identity source, Common.Identity observable)
+        public Task Observe(Common.Dto.Identity registrar, Common.Dto.Identity entity, Common.Dto.Identity source, Common.Dto.Identity observable)
         {
-            return _hubProxy.Invoke("Observe", new object[] { entity, source, observable });
+            return _hubProxy.Invoke("Observe", new object[] { registrar, entity, source, observable });
         }
     }
 }

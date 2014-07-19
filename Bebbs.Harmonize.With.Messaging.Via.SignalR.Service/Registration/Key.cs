@@ -3,19 +3,19 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service.Registration
 {
     public static class Key
     {
-        private static string For(string registrar, string entity)
+        private static string For(string connectionId, string registrar, string entity)
         {
-            return string.Concat(registrar, "-", entity);
+            return string.Concat(connectionId, "-", registrar, "-", entity);
         }
 
-        public static string For(With.Component.IIdentity registrar, With.Component.IIdentity entity)
+        public static string For(string connectionId, Common.Dto.Identity registrar, Common.Dto.Identity entity)
         {
-            return For(registrar.Value, entity.Value);
+            return For(connectionId, registrar.Value, entity.Value);
         }
 
-        public static string For(string contextId, Common.Identity entity)
+        internal static string For(string connectionId, With.Component.IIdentity registrar, With.Component.IIdentity entity)
         {
-            return For(contextId, entity.Value);
+            return For(connectionId, registrar.Value, entity.Value);
         }
     }
 }

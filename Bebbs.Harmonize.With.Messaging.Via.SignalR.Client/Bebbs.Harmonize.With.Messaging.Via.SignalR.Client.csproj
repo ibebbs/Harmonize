@@ -42,7 +42,6 @@
     <Compile Include="Factory.cs" />
     <Compile Include="Hub\Factory.cs" />
     <Compile Include="Hub\Instance.cs" />
-    <Compile Include="Mapper.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registration\Collection.cs" />

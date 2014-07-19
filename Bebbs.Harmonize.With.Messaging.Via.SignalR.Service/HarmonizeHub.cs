@@ -16,13 +16,13 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
             _connector = connector;
         }
 
-        private void Process(string connectionId, Common.Identity entity, Common.Message message)
+        private void Process(string connectionId, Common.Dto.Identity registrar, Common.Dto.Identity entity, Common.Dto.Message message)
         {
             dynamic client = Clients.Client(connectionId);
 
             if (client != null)
             {
-                client.Process(new Common.Identity { Value = connectionId }, entity, message);
+                HarmonizeDispatcher.Dispatch(client, registrar, entity, message);
             }
         }
 
@@ -32,9 +32,9 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
         /// </summary>
         /// <param name="registrar">The host registering the entity</param>
         /// <param name="entity">The entity to register</param>
-        public void Register(Common.Entity entity)
+        public void Register(Common.Dto.Identity registrar, Common.Dto.Entity entity)
         {
-            _connector.Register(Context.ConnectionId, entity, Process);
+            _connector.Register(Context.ConnectionId, registrar, entity, Process);
         }
 
         /// <summary>
@@ -44,9 +44,9 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
         /// <param name="entity">The observer entity</param>
         /// <param name="source">The observed entity</param>
         /// <param name="observable">The observable</param>
-        public void Observe(Common.Identity entity, Common.Identity source, Common.Identity observable)
+        public void Observe(Common.Dto.Identity registrar, Common.Dto.Identity entity, Common.Dto.Identity source, Common.Dto.Identity observable)
         {
-            _connector.Observe(Context.ConnectionId, entity, source, observable);
+            _connector.Observe(Context.ConnectionId, registrar, entity, source, observable);
         }
 
         /// <summary>
@@ -55,9 +55,9 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service
         /// </summary>
         /// <param name="registrar">The host deregistering the entity</param>
         /// <param name="entity"></param>
-        public void Deregister(Common.Identity entity)
+        public void Deregister(Common.Dto.Identity registrar, Common.Dto.Entity entity)
         {
-            _connector.Deregister(Context.ConnectionId, entity);
+            _connector.Deregister(Context.ConnectionId, registrar, entity);
         }
     }
 }

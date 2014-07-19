@@ -13,7 +13,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Registration
             return For(registrar.Value, entity.Value);
         }
 
-        public static string For(Common.Identity registrar, Common.Identity entity)
+        public static string For(Common.Dto.Identity registrar, Common.Dto.Identity entity)
         {
             return For(registrar.Value, entity.Value);
         }

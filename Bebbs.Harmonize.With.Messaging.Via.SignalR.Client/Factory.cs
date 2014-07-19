@@ -21,8 +21,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
                         HarmonizeHubName = hubName
                     }
                 ),
-                new Registration.Factory(),
-                new Mapper()
+                new Registration.Factory()
             );
         }
     }

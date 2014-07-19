@@ -6,16 +6,16 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Registration
     {
         string Key { get; }
 
-        Common.Identity Client { get; }
+        Common.Dto.Identity Client { get; }
 
-        Common.Entity Entity { get; }
+        Common.Dto.Entity Entity { get; }
 
         IObserver<Message.IMessage> Consumer { get; }
     }
 
     internal class Instance : IInstance
     {
-        public Instance(Common.Identity client, Common.Entity entity, IObserver<Message.IMessage> consumer)
+        public Instance(Common.Dto.Identity client, Common.Dto.Entity entity, IObserver<Message.IMessage> consumer)
         {
             Client = client;
             Entity = entity;
@@ -26,9 +26,9 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Registration
 
         public string Key { get; private set; }
 
-        public Common.Identity Client { get; private set; }
+        public Common.Dto.Identity Client { get; private set; }
 
-        public Common.Entity Entity { get; private set; }
+        public Common.Dto.Entity Entity { get; private set; }
 
         public IObserver<Message.IMessage> Consumer { get; private set; }
     }

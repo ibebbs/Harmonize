@@ -1,24 +1,18 @@
 ﻿using System;
+using Bebbs.Harmonize.With.Messaging.Via.SignalR.Common;
 
 namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Service.Registration
 {
     public interface IFactory
     {
-        IInstance For(string connectionId, Common.Entity entity, Action<string, Common.Identity, Common.Message> processor);
+        IInstance For(string connectionId, Common.Dto.Identity registrar, Common.Dto.Entity entity, Action<string, Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Message> processor);
     }
 
     internal class Factory : IFactory
     {
-        private readonly IMapper _mapper;
-
-        public Factory(IMapper mapper)
+        public IInstance For(string connectionId, Common.Dto.Identity registrar, Common.Dto.Entity entity, Action<string, Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Message> processor)
         {
-            _mapper = mapper;
-        }
-
-        public IInstance For(string connectionId, Common.Entity entity, Action<string, Common.Identity, Common.Message> processor)
-        {
-            return new Instance(_mapper.Map(connectionId), _mapper.Map(entity), message => processor(connectionId, entity.Identity, _mapper.Map(message)));
+            return new Instance(connectionId, registrar.AsComponent(), entity.AsComponent(), message => processor(connectionId, registrar, entity.Identity, message.AsDynamicDto()));
         }
     }
 }

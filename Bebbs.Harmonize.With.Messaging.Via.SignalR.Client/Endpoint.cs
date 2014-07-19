@@ -7,6 +7,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
 using System.Threading.Tasks;
+using Bebbs.Harmonize.With.Messaging.Via.SignalR.Common;
 
 namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
 {
@@ -29,33 +30,32 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
         private readonly ObservableStreamWriter _debug;
         private readonly Hub.IFactory _hubFactory;
         private readonly Registration.IFactory _registrationFactory;
-        private readonly IMapper _mapper;
 
         private readonly Registration.Collection _registrations;
 
         private Hub.IInstance _hub;
 
-        public Endpoint(Hub.IFactory hubFactory, Registration.IFactory registrationFactory, IMapper mapper)
+        public Endpoint(Hub.IFactory hubFactory, Registration.IFactory registrationFactory)
         {
             _debug = new ObservableStreamWriter();
 
             _hubFactory = hubFactory;
             _registrationFactory = registrationFactory;
 
-            _mapper = mapper;
-
             _registrations = new Registration.Collection();
         }
 
-        private void Process(Common.Identity client, Common.Identity entity, Common.Message message)
+        private void Observation(Common.Dto.Identity registrar, Common.Dto.Identity entity, Common.Dto.Observation message)
         {
-            string registrationKey = Registration.Key.For(client, entity);
+            string registrationKey = Registration.Key.For(registrar, entity);
+
+            System.Diagnostics.Debug.WriteLine(string.Format("Client Received Message For: '{0}'", registrationKey));
 
             Registration.IInstance registration;
 
             if (_registrations.TryGetValue(registrationKey, out registration))
             {
-                registration.Consumer.OnNext(_mapper.Map(message));
+                registration.Consumer.OnNext(message.AsMessage());
             }
         }
 
@@ -63,7 +63,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
         {
             _hub = _hubFactory.Create(_debug);
 
-            _hub.GetEvent<Common.Identity, Common.Identity, Common.Message>("Process").Subscribe(tuple => Process(tuple.Item1, tuple.Item2, tuple.Item3));
+            _hub.GetEvent<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Observation>("Observation").Subscribe(tuple => Observation(tuple.Item1, tuple.Item2, tuple.Item3));
             
             await _hub.Start();
         }
@@ -84,7 +84,9 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
 
             _registrations.Add(registration);
 
-            await _hub.Register(registration.Entity);
+            await _hub.Register(registration.Client, registration.Entity);
+
+            System.Diagnostics.Debug.WriteLine(string.Format("Client Registered '{0}'", registration.Key));
         }
 
         public async Task Deregister(With.Component.IIdentity client, With.Component.IEntity entity)
@@ -95,7 +97,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
 
             if (_registrations.TryGetValue(registrationKey, out registration))
             {
-                await _hub.Deregister(registration.Entity);
+                await _hub.Deregister(registration.Client, registration.Entity);
             }
         }
 
@@ -107,7 +109,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
 
             if (_registrations.TryGetValue(registrationKey, out registration))
             {
-                await _hub.Observe(_mapper.Map(entity), _mapper.Map(source), _mapper.Map(observable));
+                await _hub.Observe(client.AsDto(), entity.AsDto(), source.AsDto(), observable.AsDto());
             }
         }
 

@@ -1,5 +1,5 @@
 ﻿
-namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Common
+namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Common.Dto
 {
     public class Identity
     {

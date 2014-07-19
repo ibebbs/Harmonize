@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Common
+namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Common.Dto
 {
     public class Message
     {
