@@ -14,7 +14,7 @@ if not "%PackageVersion%" == "" (
 )
 
 REM Package restore
-.nuget\nuget.exe restore Bebbs.Harmonize.sln
+.nuget\nuget.exe restore Bebbs.Harmonize.sln -source "https://www.nuget.org/api/v2;https://www.myget.org/F/cogenity/;https://www.myget.org/F/bebbs/"
 
 REM Build
 %WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild Bebbs.Harmonize.sln /p:RunOctoPack=true /p:OctoPackPublishPackageToFileShare=..\Services /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
