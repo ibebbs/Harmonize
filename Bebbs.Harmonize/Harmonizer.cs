@@ -1,4 +1,5 @@
 ﻿using Bebbs.Harmonize.With;
+using EventSourceProxy;
 using System;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize
 {
+    [EventSourceImplementation(Name = "Bebbs-Harmonize")]
     public interface IHarmonizer : Host.IService
     {
     }
@@ -33,12 +35,12 @@ namespace Bebbs.Harmonize
             await _serviceEndpoint.Initialize();
 
             _consumerSubscription = new CompositeDisposable(
-                _messageObservable.OfType<With.Message.IRegister>().Subscribe(message => _serviceEndpoint.Register(message.Entity.Identity)),
-                _messageObservable.OfType<With.Message.IDeregister>().Subscribe(message => _serviceEndpoint.Deregister(message.Entity)),
-                _messageObservable.OfType<With.Message.IAdd>().Subscribe(message => _serviceEndpoint.Add(message.Component.Identity)),
-                _messageObservable.OfType<With.Message.IRemove>().Subscribe(message => _serviceEndpoint.Remove(message.Component)),
-                _messageObservable.OfType<With.Message.IObserve>().Subscribe(message => _serviceEndpoint.AddObserver(message.Entity, message.Observable, message.Observer)),
-                _messageObservable.OfType<With.Message.IIgnore>().Subscribe(message => _serviceEndpoint.RemoveObserver(message.Entity, message.Observable, message.Observer))
+                _messageObservable.OfType<With.Message.IRegister>().Do(Instrument.Harmonize.Action.Register).Subscribe(message => _serviceEndpoint.Register(message.Entity.Identity)),
+                _messageObservable.OfType<With.Message.IDeregister>().Do(Instrument.Harmonize.Action.Deregister).Subscribe(message => _serviceEndpoint.Deregister(message.Entity)),
+                _messageObservable.OfType<With.Message.IAdd>().Do(Instrument.Harmonize.Action.Add).Subscribe(message => _serviceEndpoint.Add(message.Component.Identity)),
+                _messageObservable.OfType<With.Message.IRemove>().Do(Instrument.Harmonize.Action.Remove).Subscribe(message => _serviceEndpoint.Remove(message.Component)),
+                _messageObservable.OfType<With.Message.IObserve>().Do(Instrument.Harmonize.Action.Observe).Subscribe(message => _serviceEndpoint.AddObserver(message.Entity, message.Observable, message.Observer)),
+                _messageObservable.OfType<With.Message.IIgnore>().Do(Instrument.Harmonize.Action.Ignore).Subscribe(message => _serviceEndpoint.RemoveObserver(message.Entity, message.Observable, message.Observer))
             );
         }
 

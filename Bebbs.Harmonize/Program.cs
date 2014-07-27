@@ -9,10 +9,10 @@ namespace Bebbs.Harmonize
             HostFactory.Run(
                 configure =>
                 {
-                    configure.Service<Host.Container<Harmonizer>>(
+                    configure.Service<Host.Container<IHarmonizer>>(
                         service =>
                         {
-                            service.ConstructUsing(name => new Host.Container<Harmonizer>());
+                            service.ConstructUsing(name => new Host.Container<IHarmonizer>(new Module()));
                             service.WhenStarted(async harmonizer => await harmonizer.Start());
                             service.WhenStopped(async harmonizer => await harmonizer.Stop());
                         }
