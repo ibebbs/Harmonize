@@ -1,9 +1,16 @@
-﻿using Ninject;
+﻿using EventSourceProxy;
+using Ninject;
 using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition
 {
-    public class Bootstrapper : Host.IService
+    [EventSourceImplementation(Name = "Bebbs-Harmonize-With-Owl-Intuition")]
+    public interface IBootstrapper : Host.IService
+    {
+
+    }
+
+    public class Bootstrapper : IBootstrapper
     {
         private readonly Messaging.Client.IEndpoint _clientEndpoint;
         private readonly Configuration.Provider _configurationProvider;

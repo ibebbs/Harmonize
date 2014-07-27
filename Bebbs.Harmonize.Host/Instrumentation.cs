@@ -42,7 +42,7 @@ namespace Bebbs.Harmonize.Host
                     .With<Exception>()
                         .Trace(exception => exception.GetType().Name).As("ExceptionName")
                         .Trace(exception => exception.Message).As("ExceptionMessage")
-                        .Trace(exception => exception.StackTrace.ToString()).As("ExceptionStack")
+                        .Trace(exception => exception.StackTrace == null ? string.Empty : exception.StackTrace.ToString()).As("ExceptionStack")
                         .Trace(exception => exception.InnerException).As("ExceptionInner");
         }
 
