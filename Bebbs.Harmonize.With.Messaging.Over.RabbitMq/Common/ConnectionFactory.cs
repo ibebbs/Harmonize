@@ -1,7 +1,9 @@
-﻿using RabbitMQ.Client;
+﻿using EventSourceProxy;
+using RabbitMQ.Client;
 
 namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common
 {
+    [EventSourceImplementation(Name = "Bebbs-Harmonize-With-Messaging-Over-RabbitMq-Common-ConnectionFactory")]
     public interface IConnectionFactory
     {
         IConnection CreateConnection(Configuration.ISettings configurationSettings);

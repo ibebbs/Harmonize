@@ -1,6 +1,8 @@
-﻿
+﻿using EventSourceProxy;
+
 namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Common.Connection
 {
+    [EventSourceImplementation(Name = "Bebbs-Harmonize-With-Messaging-Over-RabbitMq-Common-Connection-Factory")]
     public interface IFactory
     {
         IInstance Create(Configuration.ISettings configurationSettings);

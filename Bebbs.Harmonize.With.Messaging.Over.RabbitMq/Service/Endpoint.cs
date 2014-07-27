@@ -1,9 +1,16 @@
-﻿using System;
+﻿using EventSourceProxy;
+using System;
 using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Messaging.Over.RabbitMq.Service
 {
-    internal class Endpoint : Messaging.Service.IEndpoint
+    [EventSourceImplementation(Name = "Bebbs-Harmonize-With-Messaging-Over-RabbitMq-Service-Endpoint")]
+    public interface IEndpoint : Messaging.Service.IEndpoint
+    {
+
+    }
+
+    internal class Endpoint : IEndpoint
     {
         private readonly Configuration.ISettings _configurationSettings;
         private readonly Common.Connection.IFactory _connectionFactory;
