@@ -1,11 +1,9 @@
-﻿extern alias portable;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using portable::Ninject;
+using Ninject;
 using FakeItEasy;
 using Bebbs.Harmonize.With.Component;
 using Bebbs.Harmonize.With.Message;
@@ -31,12 +29,12 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Tests.Integration
                 }
             );
 
-            Kernel = new portable::Ninject.StandardKernel();
+            Kernel = new Ninject.StandardKernel();
             Kernel.Load(new[] { new SignalR.Client.Module() });
             Kernel.Bind<SignalR.Client.Registration.IFactory>().ToConstant(RegistrationFactory).InSingletonScope();
         }
 
-        public portable::Ninject.IKernel Kernel { get; private set; }
+        public Ninject.IKernel Kernel { get; private set; }
 
         public SignalR.Client.Registration.IFactory RegistrationFactory { get; private set; }
 
