@@ -1,7 +1,4 @@
-﻿using Bebbs.Harmonize.With.Serialization;
-using System.IO;
-using System.Reflection;
-using Config = SimpleConfig.Configuration;
+﻿using Config = SimpleConfig.Configuration;
 
 namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
 {
@@ -12,8 +9,6 @@ namespace Bebbs.Harmonize.With.Owl.Intuition.Configuration
 
     internal class Provider : IProvider
     {
-        private static readonly XmlSerializer<Settings> Serializer = new XmlSerializer<Settings>();
-
         public ISettings GetSettings()
         {
             return Config.Load<Settings>(sectionName: "owlIntuition");

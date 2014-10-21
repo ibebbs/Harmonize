@@ -31,8 +31,8 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Tests.Integration
         public static void FeatureSetup(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext)
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Messaging", "In order to allow clients to communicate with me over SignalR\nAs Harmonize\nI need" +
-                    " messages to be exchanged reliably between client and server", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Messaging", "In order to allow clients to communicate with me over SignalR\r\nAs Harmonize\r\nI ne" +
+                    "ed messages to be exchanged reliably between client and server", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

@@ -68,6 +68,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Messag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.Messaging.Via.SignalR.Tests", "Bebbs.Harmonize.With.Messaging.Via.SignalR.Tests\Bebbs.Harmonize.With.Messaging.Via.SignalR.Tests.csproj", "{A783B1AE-964C-497E-A9A1-1FFB6E2919B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bebbs.Harmonize.With.LightwaveRf", "Bebbs.Harmonize.With.LightwaveRf\Bebbs.Harmonize.With.LightwaveRf.csproj", "{586AB394-8648-414D-862B-B3D057405A55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -154,6 +156,10 @@ Global
 		{A783B1AE-964C-497E-A9A1-1FFB6E2919B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A783B1AE-964C-497E-A9A1-1FFB6E2919B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A783B1AE-964C-497E-A9A1-1FFB6E2919B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{586AB394-8648-414D-862B-B3D057405A55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{586AB394-8648-414D-862B-B3D057405A55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{586AB394-8648-414D-862B-B3D057405A55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{586AB394-8648-414D-862B-B3D057405A55}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
