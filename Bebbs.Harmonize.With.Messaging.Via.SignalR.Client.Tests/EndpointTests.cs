@@ -47,11 +47,11 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Tests
             await RunTest(
                 async (hubFactory, hub, registrationFactory, subject) =>
                 {
-                    IObservable<Tuple<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Message>> observable = A.Fake<IObservable<Tuple<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Message>>>();
-                    A.CallTo(() => hub.GetEvent<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Message>("Process")).Returns(observable);
+                    IObservable<Tuple<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Observation>> observable = A.Fake<IObservable<Tuple<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Observation>>>();
+                    A.CallTo(() => hub.GetEvent<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Observation>("Observation")).Returns(observable);
                     await subject.Initialize();
 
-                    A.CallTo(() => observable.Subscribe(A<IObserver<Tuple<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Message>>>.Ignored))
+                    A.CallTo(() => observable.Subscribe(A<IObserver<Tuple<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Observation>>>.Ignored))
                      .MustHaveHappened(Repeated.Exactly.Once);
                 }
             );
@@ -162,8 +162,8 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Tests
             await RunTest(
                 async (hubFactory, hub, registrationFactory, subject) =>
                 {
-                    Subject<Tuple<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Message>> observable = new Subject<Tuple<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Message>>();
-                    A.CallTo(() => hub.GetEvent<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Message>("Process")).Returns(observable);
+                    Subject<Tuple<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Observation>> observable = new Subject<Tuple<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Observation>>();
+                    A.CallTo(() => hub.GetEvent<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Observation>("Observation")).ReturnsLazily(() => observable);
                                         
                     With.Component.IIdentity componentRegistrar = new With.Component.Identity("registrar");
                     With.Component.IEntity componentEntity = new With.Component.Entity(new With.Component.Identity("entity"), null, null, null);
@@ -180,7 +180,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client.Tests
 
                     await subject.Register(componentRegistrar, componentEntity, observer);
 
-                    observable.OnNext(Tuple.Create<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Message>(commonRegistrar, commonEntityIdentity, new Common.Dto.Message()));
+                    observable.OnNext(Tuple.Create<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Observation>(commonRegistrar, commonEntityIdentity, new Common.Dto.Observation()));
 
                     Assert.AreEqual<int>(1, messages.Count);
                 }

@@ -61,7 +61,7 @@ namespace Bebbs.Harmonize.With.Messaging.Via.SignalR.Client
 
         public async Task Initialize()
         {
-            _hub = _hubFactory.Create(_debug);
+            _hub = _hubFactory.Create();
 
             _hub.GetEvent<Common.Dto.Identity, Common.Dto.Identity, Common.Dto.Observation>("Observation").Subscribe(tuple => Observation(tuple.Item1, tuple.Item2, tuple.Item3));
             

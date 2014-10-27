@@ -53,11 +53,11 @@ namespace Bebbs.Harmonize.With.Store.Using.EventStore
         public async Task Start()
         {
             ConnectionSettings connectionSettings = ConnectionSettings.Create();
-            connectionSettings.Connected = (c, e) => Instrumentation.Store.ConnectedToEventStore(e.Address, e.Port);
-            connectionSettings.Disconnected = (c, e) => Instrumentation.Store.DisconnectedFromEventStore(e.Address, e.Port);
-            connectionSettings.ErrorOccurred = (c, e) => Instrumentation.Store.EventStoreErrorOccured(e);
-            connectionSettings.Reconnecting = (c) => Instrumentation.Store.ReconnectingToEventStore();
-            connectionSettings.AuthenticationFailed = (c, s) => Instrumentation.Store.EventStoreAuthenticationFailed(s);
+            //connectionSettings.Connected = (c, e) => Instrumentation.Store.ConnectedToEventStore(e.Address, e.Port);
+            //connectionSettings.Disconnected = (c, e) => Instrumentation.Store.DisconnectedFromEventStore(e.Address, e.Port);
+            //connectionSettings.ErrorOccurred = (c, e) => Instrumentation.Store.EventStoreErrorOccured(e);
+            //connectionSettings.Reconnecting = (c) => Instrumentation.Store.ReconnectingToEventStore();
+            //connectionSettings.AuthenticationFailed = (c, s) => Instrumentation.Store.EventStoreAuthenticationFailed(s);
 
             IEventStoreConnection connection = EventStoreConnection.Create(connectionSettings, new IPEndPoint(_configurationSettings.Host, _configurationSettings.Port), "Harmonize");
 
