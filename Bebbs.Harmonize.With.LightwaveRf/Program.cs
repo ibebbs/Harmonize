@@ -15,10 +15,10 @@ namespace Bebbs.Harmonize.With.LightwaveRf
             HostFactory.Run(
                 configure =>
                 {
-                    configure.Service<Host.Container<Bootstrapper>>(
+                    configure.Service<Host.Container<Service>>(
                         service =>
                         {
-                            service.ConstructUsing(name => new Host.Container<Bootstrapper>());
+                            service.ConstructUsing(name => new Host.Container<Service>(new Module()));
                             service.WhenStarted(async connector => await connector.Start());
                             service.WhenStopped(async connector => await connector.Stop());
                         }
@@ -32,13 +32,5 @@ namespace Bebbs.Harmonize.With.LightwaveRf
                 }
             );
         }
-        /*
-        static void Main(string[] args)
-        {
-            var config = SimpleConfig.Configuration.Load<Configuration.WifiLink>(sectionName: "wifiLink");
-
-            Debug.Assert(config != null);
-        }
-        */
     }
 }

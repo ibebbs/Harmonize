@@ -45,6 +45,7 @@
     <Compile Include="Component\IActionable.cs" />
     <Compile Include="Component\IComponent.cs" />
     <Compile Include="Component\IComponentDescription.cs" />
+    <Compile Include="Component\IdentityComparer.cs" />
     <Compile Include="Component\IDescription.cs" />
     <Compile Include="Component\IEntity.cs" />
     <Compile Include="Component\IEntityDescription.cs" />

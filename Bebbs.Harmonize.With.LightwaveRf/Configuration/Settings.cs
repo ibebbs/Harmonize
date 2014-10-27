@@ -3,19 +3,23 @@ namespace Bebbs.Harmonize.With.LightwaveRf.Configuration
 {
     public interface ISettings
     {
-        string IpAddress { get; }
-        
-        uint CommandPort { get; }
+        string LocalIpAddress { get; }
 
-        uint QueryPort { get; }
+        string WifiLinkIpAddress { get; }
+        
+        int CommandPort { get; }
+
+        int QueryPort { get; }
     }
 
     public class Settings : ISettings
     {
-        public string IpAddress { get; set; }
+        public string LocalIpAddress { get; set; }
 
-        public uint CommandPort { get; set; }
+        public string WifiLinkIpAddress { get; set; }
 
-        public uint QueryPort { get; set; }
+        public int CommandPort { get; set; }
+
+        public int QueryPort { get; set; }
     }
 }

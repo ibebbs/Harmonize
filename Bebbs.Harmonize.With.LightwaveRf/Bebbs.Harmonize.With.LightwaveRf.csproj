@@ -55,6 +55,21 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -65,15 +80,35 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Configuration\Devices.cs" />
+    <Compile Include="Service.cs" />
+    <Compile Include="WifiLink\Bridge.cs" />
     <Compile Include="Configuration\Device.cs" />
     <Compile Include="Configuration\DeviceType.cs" />
-    <Compile Include="Configuration\Extensions.cs" />
+    <Compile Include="Configuration\Dimmer.cs" />
+    <Compile Include="Configuration\DimmerType.cs" />
     <Compile Include="Configuration\Provider.cs" />
     <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Configuration\WifiLink.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Dimmer\Builder.cs" />
+    <Compile Include="Dimmer\Constants.cs" />
+    <Compile Include="Dimmer\Level.cs" />
+    <Compile Include="Dimmer\Extensions.cs" />
+    <Compile Include="Dimmer\Off.cs" />
+    <Compile Include="Dimmer\On.cs" />
+    <Compile Include="Dimmer\Percent.cs" />
+    <Compile Include="Entity\Factory.cs" />
+    <Compile Include="Dimmer\Entity.cs" />
+    <Compile Include="Entity\IBuilder.cs" />
+    <Compile Include="ILightwaveEntity.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WifiLink\CommandBuilder.cs" />
+    <Compile Include="WifiLink\QueryEndpoint.cs" />
+    <Compile Include="WifiLink\CommandEndpoint.cs" />
+    <Compile Include="WifiLink\InstructionNumber.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

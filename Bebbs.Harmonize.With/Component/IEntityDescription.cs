@@ -7,4 +7,13 @@ namespace Bebbs.Harmonize.With.Component
         string Manufacturer { get; }
         string Model { get; }
     }
+
+    public class EntityDescription : Description, IEntityDescription
+    {
+        public string Type { get; set; }
+
+        public string Manufacturer { get; set; }
+
+        public string Model { get; set; }
+    }
 }

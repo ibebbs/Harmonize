@@ -1,4 +1,5 @@
 ﻿
+using System.Xml.Serialization;
 namespace Bebbs.Harmonize.With.LightwaveRf.Configuration
 {
     public interface IDevice
@@ -11,11 +12,12 @@ namespace Bebbs.Harmonize.With.LightwaveRf.Configuration
 
         DeviceType Type { get; }
 
-        uint RoomNumber { get; }
+        byte RoomNumber { get; }
 
-        uint DeviceNumber { get; }
+        byte DeviceNumber { get; }
     }
 
+    [XmlInclude(typeof(Dimmer))]
     public class Device : IDevice
     {
         public string Name { get; set; }
@@ -26,8 +28,8 @@ namespace Bebbs.Harmonize.With.LightwaveRf.Configuration
 
         public DeviceType Type { get; set; }
 
-        public uint RoomNumber { get; set; }
+        public byte RoomNumber { get; set; }
 
-        public uint DeviceNumber { get; set; }
+        public byte DeviceNumber { get; set; }
     }
 }

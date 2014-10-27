@@ -6,6 +6,6 @@ namespace Bebbs.Harmonize.With.LightwaveRf.Configuration
     {
         public Settings Settings { get; set; }
 
-        public IEnumerable<Device> Devices { get; set; }
+        public Devices Devices { get; set; }
     }
 }
