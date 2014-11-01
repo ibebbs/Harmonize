@@ -76,27 +76,29 @@ namespace Bebbs.Harmonize.Host
 
             CreateKernel();
 
-            _service = _kernel.Get<TService>();
+            Service = _kernel.Get<TService>();
 
-            await _service.Initialize();
+            await Service.Initialize();
 
-            await _service.Start();
+            await Service.Start();
         }
 
         public async Task Stop()
         {
             Instrumentation.Container.Stopping();
 
-            if (_service != null)
+            if (Service != null)
             {
-                await _service.Stop();
+                await Service.Stop();
 
-                await _service.Cleanup();
+                await Service.Cleanup();
 
-                _service = default(TService);
+                Service = default(TService);
             }
 
             DisposeKernel();
         }
+
+        public TService Service { get; private set; }
     }
 }

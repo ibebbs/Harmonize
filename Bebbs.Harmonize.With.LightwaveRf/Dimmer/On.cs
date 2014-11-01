@@ -21,7 +21,7 @@ namespace Bebbs.Harmonize.With.LightwaveRf.Dimmer
 
         public void Execute(Message.IAction action)
         {
-
+            _bridge.TurnDeviceOn(_dimmer.RoomNumber, _dimmer.DeviceNumber, "Turning on", _dimmer.Name);
         }
 
         public IIdentity Identity { get; private set; }
