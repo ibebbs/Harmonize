@@ -6,6 +6,7 @@ using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Bebbs.Harmonize.With.Harmony.Hub.Endpoint
@@ -79,7 +80,7 @@ namespace Bebbs.Harmonize.With.Harmony.Hub.Endpoint
             _connection.ConnectServer = _connectServer; // values.HarmonyHubAddress;
             _connection.AutoAgents = false;
             _connection.AutoPresence = false;
-            _connection.AutoRoster = false;            
+            _connection.AutoRoster = false;
             _connection.OnSaslStart += OnSaslStart;
             _connection.OnSaslEnd += OnSaslEnd;
             _connection.OnXmppConnectionStateChanged += (s, e) => Instrumentation.Xmpp.ConnectionStateChanged(e);
@@ -131,16 +132,27 @@ namespace Bebbs.Harmonize.With.Harmony.Hub.Endpoint
             return Task.FromResult<object>(null);
         }
 
+        void PreventHarmonyConnectionTimeoutByRequestingConfigurationFasterThanOncePerMinute()
+        {
+            while (true)
+            {
+                Thread.Sleep(50 * 1000);
+                _connection.Send(Builder.ConstructConfigurationRequest());
+            }
+        }
+
         public Task<Configuration.IValues> GetHarmonyConfigurationAsync()
         {
             Task<Configuration.IValues> configuration = _iq.HarmonyConfiguration(_sessionInfo).Timeout(TimeSpan.FromSeconds(10)).Take(1).ToTask();
 
             _connection.Send(Builder.ConstructConfigurationRequest());
 
+            new Task(() => PreventHarmonyConnectionTimeoutByRequestingConfigurationFasterThanOncePerMinute()).Start();
+
             return configuration;
         }
 
-        public IObservable<agsXMPP.protocol.client.Message> Messages 
+        public IObservable<agsXMPP.protocol.client.Message> Messages
         {
             get { return _messages; }
         }
